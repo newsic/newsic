@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block header %}{% endblock %}
+{% block body %}
+	<div class="logo_big shadow">
+		<div>
+			<img src="{{ url_for('static', filename='img/logo_full.svg') | replace(fcgiPath, "") }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!"  />
+		</div>
+	</div>
+
+	{% if error %}
+	<p class="error">{{ error }}</p>
+	{% endif %}
+
+	<div class="box">
+		<form method="post" class="shadow" action="./">
+			<div class="input-url">
+				<input type="text" name="url" autofocus placeholder="Put in a YouTube playlist URL right here.">
+			</div>
+
+			<div class="input-submit">
+				<button type="submit">start</button>
+			</div>
+
+		</form>
+	</div>
+
+	<div class="featured">
+		<div class="main">
+			<h2>Featured playlists</h2>
+			Discover something new with our hand-selected playlists.
+			<p><a href="https://www.youtube.com/channel/UCdBsONwgMEaRqqJ_KTE1HqQ/playlists" target="_blank">Find more sample playlists on newsic's YouTube channel.</a></p>
+		</div><a href="/play/youtube/PL63F0C78739B09958"><div>
+				<img src="https://i.ytimg.com/vi/nyMkLwSyOVQ/mqdefault.jpg" /> <p><strong>Music playlist</strong> <span>27 videos</span></p>
+		</div></a><a href="/play/youtube/PLdduFHK2eLvfTLaHCxPsIOjEsb8sfDIkl"><div>
+				<img src="https://i.ytimg.com/vi/oeum-aqof9Y/mqdefault.jpg" /> <p><strong>RDGLDGRN</strong> <span>4 videos</span></p>
+		</div></a><a href="/play/youtube/PLdduFHK2eLveqKaTuB4603lF_cJZ6xXPj"><div>
+				<img src="https://i.ytimg.com/vi/WCAHviO8J1I/mqdefault.jpg" /> <p><strong>OK KID</strong> <span>6 videos</span></p>
+		</div></a>
+	</div>
+
+{% endblock %}

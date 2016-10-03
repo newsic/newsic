@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block css %}<link href="/static/css/video-js-cdn.min.css" rel="stylesheet" type="text/css">{% endblock %}
+
+{% block body %}
+
+	<div class="message">Hey there, this is an early version of newsic. Handle with care and <a href="https://github.com/newsic/newsic/issues" target="_blank">feel free to report bugs</a> :)</div>
+
+
+	<div id="info">
+
+	</div>
+
+	<!-- video border, wrapper (16:9 format) and the actual player -->
+	<div class="videoBorder">
+		<div class="videoWrapper">
+  		<video id="video" class="video-js">
+		    <p class="vjs-no-js">
+		      Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript. We kindly ask you to make a decision: Activate JavaScript (or whitelist newsic on your favorite NoScript-like content blocker) or install/use Firefox, Chrome/Chromium, Safari, Opera or Vivaldi instead. PSA: Using Edge isn't cutting-edge, just saying.
+		  	</p>
+  		</video>
+		</div>
+	</div>
+
+	<!-- info box (contains current snippet title, playlist name and our precious countdown) -->
+	<div class="snippetinfo">
+		<h1 id="title">Loading...</h1>
+
+		<div class="lines">
+			<div>
+				<div id="colorcountdown"></div>
+				<span id="seconds">∞</span>
+			</div>
+		</div>
+		<div class="fl">
+			<span title="The name of the playlist newsic currently uses.">{{ playlistTitle }}</span>
+			<span title="Thanks to this cool user you can listen to this playlist. High five-worthy, ain't it? Or wi-five-worthy. Anyway, kudos to {{ playlistCreator }}!">Playlist by {{ playlistCreator }}</span>
+		</div>
+		<div class="fr">
+			<span title="You can figure that out by yourself, we guess ;)">{{ playlistVideoAmount }} snippets</span>
+			<span title="Entire amount of time you need if you would like to listen to all {{ playlistVideoAmount }} snippets.">{{ playlistLength }} min</span>
+		</div>
+
+	</div>
+
+	<div class="controlbar shadow">
+		<div id="playprevious" title="Previous snippet"><button class="fa fa-backward"></button></div>
+		<div id="playpause" title="Play/pause"><button class="fa fa-play"></button></div>
+		<div id="playnext" title="Next snippet"><button class="fa fa-forward"></button></div>
+
+		<div id="playcomplete" title="Play whole song"><button>full song</button></div>
+	</div>
+
+	<!-- thumbnail overview -->
+	<div id="snippets">
+		{% for key in videolist %}<div class="{{ loop.index0 }}" title="Go directly to {{ key[3] }}">
+			<img src="https://i.ytimg.com/vi/{{ key[0] }}/mqdefault.jpg" alt="{{ key[3] }}" title="{{ key[3] }}">
+			<br/>{{ key[3] }}
+
+			{% for country in key[4] %}{% if loop.first %}<p class="error" title="blocked in {% endif %}{{ country }}{% if loop.last %}"><span class="fa fa-exclamation-triangle"></span> blocked in some countries</p>{% else %}, {% endif %}{% endfor %}
+
+			{% for country in key[5] %}{% if loop.first %}<p class="error" title="only allowed in {% endif %}{{ country }}{% if loop.last %}"><span class="fa fa-exclamation-triangle"></span> only allowed in some countries</p>{% else %}, {% endif %}{% endfor %}
+		</div>{% endfor %}
+
+	</div>
+
+	<!-- JavaScript files -->
+	<script src="{{ url_for('static', filename='js/video.novtt.min.js') | replace(fcgiPath, "") }}"></script>
+	<script src="{{ url_for('static', filename='js/youtube.min.js') | replace(fcgiPath, "") }}"></script>
+	<script src="{{ url_for('static', filename='js/newsic.js') | replace(fcgiPath, "") }}"></script>
+
+	<script>
+		// array which contains every single video (with id, title, start + end time) provided by our Python script
+		var snippets = [
+			{% for key in videolist %}
+			{
+				type: "youtube",
+				id: "{{key[0]}}",
+				title: "{{key[3]}}",
+				length: {{key[6]}},
+				start: {{key[1]}},
+				end: {{key[2]}},
+				blocked: [{% for country in key[4] %}"{{ country }}"{% if loop.last %}{% else %}, {% endif %}{% endfor %}],
+				allowed: [{% for country in key[5] %}"{{ country }}"{% if loop.last %}{% else %}, {% endif %}{% endfor %}]
+			},
+			{% endfor %}
+		];
+	</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+
+	                         _
+	                        (_)
+	 _ __   _____      _____ _  ___
+	| '_ \ / _ \ \ /\ / / __| |/ __|
+	| | | |  __/\ V  V /\__ \ | (__
+	|_| |_|\___| \_/\_/ |___/_|\___|
+
+	=================================
+
+    Howdy, dear source code reader!
+
+    * Project page: https://newsic.tocsin.de
+    * Demo: https://trynewsic.tocsin.de
+    * newsic on GitHub: https://github.com/newsic/newsic
+
+    * Author: Stephan Fischer (https://stephan-fischer.de)
+
+
+-->
+<html lang="en">
+<head>
+  <title>{{ title }} - newsic</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <link href="{{ url_for('static', filename='css/style.css') | replace(fcgiPath, "") }}" rel="stylesheet" type="text/css" />
+  <link href="{{ url_for('static', filename='img/favicon.png') | replace(fcgiPath, "") }}" rel="shortcut icon" />
+
+  {% block css %}{% endblock %}
+  <link href="https://fonts.googleapis.com/css?family=Raleway:600,400,200" rel="stylesheet" type="text/css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+
+	{% block header %}<header>
+		<a href="/" class="logo_short shadow">
+			<div>
+			<img src="{{ url_for('static', filename='img/logo_simplified.svg') | replace(fcgiPath, "") }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" />
+			</div>
+		</a>
+
+		<form class="shadow" method="post" action="/">
+			<div class="input-url"><input type="text" name="url" placeholder="Put in a YouTube playlist URL right here." /></div>
+			<div class="input-submit"><button type="submit">start</button></div>
+		</form>
+	</header>{% endblock %}
+
+	{% block body %}{% endblock %}
+
+	<footer>
+			<div><a href="https://tocsin.de" target="_blank">Made with <span class="fa fa-heart"></span> by tocsin</a></div>
+	</footer>
+</body>
+</html>

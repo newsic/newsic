@@ -23,7 +23,8 @@ Flask (and Jinja2 and Werkzeug) can either be installed with your favorite packa
 ## Usage
 
 1. Clone this repository.
-2. Open the config.py and add your YouTube API key (which you can request [here](https://console.developers.google.com/apis/api/youtube/)).
+2. Rename config_sample.py to config.py
+2. Add your YouTube API key (which you can request [here](https://console.developers.google.com/apis/api/youtube/)) to config.py.
 3. Navigate to the folder where you cloned the code and start newsic with `python newsic.py`
 4. newsic is now available at 127.0.0.1:5000
 

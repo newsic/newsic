@@ -18,7 +18,7 @@ Got YouTube playlists with 100+ songs and a thirst for exploring something new? 
 
 newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets/flask) framework, while the frontend uses [Video.js](https://github.com/videojs/video.js) (which comes bundled with this repository).
 
-Flask (and Jinja2 and Werkzeug) can either be installed with your favorite package manager or with `pip install -r requirements.txt`
+Flask (and Jinja2 and Werkzeug) can either be installed with your favorite package manager or with `pip install -r requirements.txt`.
 
 ## Usage
 
@@ -26,7 +26,7 @@ Flask (and Jinja2 and Werkzeug) can either be installed with your favorite packa
 2. Rename config.py.example to config.py.
 2. Add your YouTube API key (which you can request
    [here](https://console.developers.google.com/apis/api/youtube/)) to config.py.
-3. Navigate to the folder where you cloned the code and start newsic with `python newsic.py`.
+3. Navigate to the folder where you cloned the code and start newsic with `python3 newsic.py` (or only `python newsic.py` when you use Arch Linux).
 4. newsic is now available at 127.0.0.1:5000.
 
 ### Deployment

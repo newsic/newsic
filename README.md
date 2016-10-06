@@ -22,12 +22,12 @@ Flask (and Jinja2 and Werkzeug) can either be installed with your favorite packa
 
 ## Usage
 
-1. Clone this repository.
-2. Rename config.py.example to config.py.
+1. Clone this repository
+2. Create a config.py from config.py.example
 2. Add your YouTube API key (which you can request
-   [here](https://console.developers.google.com/apis/api/youtube/)) to config.py.
-3. Navigate to the folder where you cloned the code and start newsic with `python3 newsic.py` (or only `python newsic.py` when you use Arch Linux).
-4. newsic is now available at 127.0.0.1:5000.
+   [here](https://console.developers.google.com/apis/api/youtube/)) to config.py
+3. Navigate to the folder where you cloned the code and start newsic with `python3 newsic.py` (or only `python newsic.py` when you use Arch Linux)
+4. newsic is now available at 127.0.0.1:5000
 
 ### Deployment
 

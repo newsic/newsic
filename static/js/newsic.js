@@ -194,7 +194,7 @@ var jumpTo = function(index, prevOrNext) {
 			src = "https://www.youtube.com/watch?v=" + snippets[index]["id"];
 		}
 
-		else if(snippets[index]["type"] == "vimeo") {
+		if(snippets[index]["type"] == "vimeo") {
 			src = "https://vimeo.com/" + snippets[index]["id"];
 		}
 

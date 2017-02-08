@@ -49,6 +49,6 @@ Shortcut | What will happen (hopefully)
 
 ## License
 
-MIT License, Copyright (c) 2015-2016 Stephan Fischer ([tocsin.de](https://tocsin.de), [stephan-fischer.de](https://stephan-fischer.de))
+MIT License, Copyright (c) 2015-2017 Stephan Fischer ([tocsin.de](https://tocsin.de), [stephan-fischer.de](https://stephan-fischer.de))
 
 For more details see [LICENSE.md](/LICENSE.md).

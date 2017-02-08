@@ -10,7 +10,7 @@
 
 	Howdy, dear source code reader!
 
-  * Project page: https://newsic.tocsin.de
+  	* Project page: https://newsic.tocsin.de
 	* Demo: https://trynewsic.tocsin.de
 	* newsic on GitHub: https://github.com/newsic/newsic
 

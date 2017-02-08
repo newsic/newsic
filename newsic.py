@@ -148,7 +148,7 @@ def play_youtube(youtubePlaylist):
 
 		# iterate through videolist and use every video id to fetch more details
 
-		# todo: we need to iterate again right here#
+		# todo: we need to iterate again right here
 		for video in videoIds[:50]:
 			if data["items"]:
 				debug(i)

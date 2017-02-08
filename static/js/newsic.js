@@ -18,8 +18,20 @@
 
 */
 
-// set index to first array element
-var i = 0;
+// set index to first array element or - if hash in url is set - to requested item
+if (window.location.hash) {
+	var i = window.location.hash.replace("#","");
+} else {
+	var i = 0;
+}
+
+var mindTheHash = function() {
+	i = window.location.hash.replace("#","");
+	jumpTo(i);
+	setTitle(snippets[i]["title"]);1
+}
+
+window.onhashchange = mindTheHash;
 var src;
 var complete;
 

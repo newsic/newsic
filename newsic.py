@@ -13,26 +13,31 @@ app.config.from_object("config.general")
 app.config.from_object("config.local")
 #app.config.from_object("config.server")
 
+'''
 def fcgiPath():
 	if app.config["FCGI_PATH"]:
 		return app.config["FCGI_PATH"]
 	else:
 		return ""
+'''
 
 def debug(text):
 	if app.config["NEWSICDEBUG"]:
 		print(text)
 
+
 # fix redirect urls (for deployment via fcgi-bin script)
+'''
 def strip_url(orig):
 	return orig.replace(fcgiPath(), "")
+'''
 
 # index page
 @app.route("/")
 def index():
     return render_template(
     	"index.html",
-    	fcgiPath = fcgiPath(),
+    	#fcgiPath = fcgiPath(),
     	bodyClass = "home",
     	title = "Home"
     )
@@ -54,6 +59,7 @@ def index_POST():
 	if(yt_playlist):
 		debug(("Found a YouTube playlist: {0}").format(yt_playlist.group(1)))
 
+		'''
 		if(fcgiPath()):
 			return redirect(strip_url(url_for(
 				"play_youtube",
@@ -64,10 +70,16 @@ def index_POST():
 				"play_youtube",
 				youtubePlaylist = yt_playlist.group(1)
 			))
+		'''
+		return redirect(url_for(
+				"play_youtube",
+				youtubePlaylist = yt_playlist.group(1)
+			))
 
 	if(vim_playlist):
 		debug(("Found a Vimeo playlist: {0}").format(vim_playlist.group(1)))
 
+		'''
 		if(fcgiPath()):
 			return redirect(strip_url(url_for(
 				"play_vimeo",
@@ -75,6 +87,11 @@ def index_POST():
 			)))
 		else:
 			return redirect(url_for(
+				"play_vimeo",
+				vimeoPlaylist = vim_playlist.group(1)
+			))
+		'''
+		return redirect(url_for(
 				"play_vimeo",
 				vimeoPlaylist = vim_playlist.group(1)
 			))
@@ -85,7 +102,7 @@ def index_POST():
 		return render_template(
 			"index.html",
 			error = "No music found.",
-			fcgiPath = fcgiPath(),
+			#fcgiPath = fcgiPath(),
 			bodyClass = "home",
 			title = "No music found"
 		)
@@ -218,7 +235,7 @@ def play_youtube(youtubePlaylist):
 		playlistCreator = playlistCreator,
 		playlistVideoAmount = len(videolist),
 		playlistLength = int(float((len(videolist) * app.config["SNIPPETLENGTH"]) / 60)),
-		fcgiPath = fcgiPath(),
+		#fcgiPath = fcgiPath(),
 		title = "Loading..."
 	)
 
@@ -264,11 +281,26 @@ def play_vimeo(vimeoPlaylist):
 				length_in_sec
 			])
 
-	return render_template("vimeo.html", videolist = videolist, playlistTitle = playlistTitle, playlistCreator = playlistCreator, playlistVideoAmount = len(videolist), playlistLength = int(float((len(videolist) * app.config["SNIPPETLENGTH"]) / 60)), fcgiPath = fcgiPath(), title = "Loading...")
+	return render_template(
+		"vimeo.html",
+		videolist = videolist,
+		playlistTitle = playlistTitle,
+		playlistCreator = playlistCreator,
+		playlistVideoAmount = len(videolist),
+		playlistLength = int(float((len(videolist) * app.config["SNIPPETLENGTH"]) / 60)),
+		#fcgiPath = fcgiPath(),
+		title = "Loading..."
+	)
 
 @app.errorhandler(404)
 def four0four(error):
-    return render_template("index.html", error = "Page not found.", fcgiPath = fcgiPath(), bodyClass = "home", title = "Page not found"), 404
+    return render_template(
+    	"index.html",
+    	error = "Page not found.",
+    	#fcgiPath = fcgiPath(),
+    	bodyClass = "home",
+    	title = "Page not found"
+    ), 404
 
 if __name__ == "__main__":
     app.run(debug = app.config["DEBUG"])

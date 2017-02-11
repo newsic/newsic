@@ -112,13 +112,15 @@ def play_youtube(youtubePlaylist):
 		if modulo > 0 and iterations > 1:
 			iterations = iterations + 1
 
-		#debug(iterations * maxResults)
-		#debug(iterations)
+		debug(iterations * maxResults)
+		debug(iterations)
 
 		rangeStart = 0
 		rangeEnd = maxResults
 
-		while iterations > 0:
+
+
+		while iterations >= 0:
 
 			videoIds_part = ','.join(videoIds[rangeStart:rangeEnd])
 

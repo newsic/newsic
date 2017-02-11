@@ -217,6 +217,7 @@ var jumpTo = function(index, prevOrNext) {
 
 		// needed to set the start time
 		video.play();
+		window.location.hash = i;
 		video.currentTime(snippets[index]["start"]);
 
 		console.log("Jumped to start time.");
@@ -242,13 +243,13 @@ var video = videojs("video", {
 	this.on("error", function() {
    		//console.log(this.error().message);
    		console.log("newsic player stopped. Message of blame sent.");
-			this.pause();
+		this.pause();
    	});
 
 
 	// start with the first video and insert the first title
 	console.log("This is the beginning of a newsic session, the player is ready. Whoop whoop, fasten your seatbelts, etc.");
-  jumpTo(i);
+  	jumpTo(i);
 	setTitle(snippets[i]["title"]);
 
 	// runs multiple times in a second when VideoJS plays video

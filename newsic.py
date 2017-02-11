@@ -107,7 +107,6 @@ def play_youtube(youtubePlaylist):
 				videoIds.append(items["contentDetails"]["videoId"])
 
 		iterations = round(len(videoIds) / maxResults, 0)
-
 		modulo = fmod(len(videoIds), maxResults)
 
 		if modulo > 0 and iterations > 1:
@@ -116,77 +115,80 @@ def play_youtube(youtubePlaylist):
 		#debug(iterations * maxResults)
 		#debug(iterations)
 
-		# todo: while clause here
-		videoIds_part = ','.join(videoIds[:50])
+		rangeStart = 0
+		rangeEnd = maxResults
 
-		url = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,status&id={0}&fields=items(contentDetails,snippet,status)&key={1}").format(videoIds_part, app.config["YOUTUBE_API_KEY"])
-		response = urlrequest.urlopen(url)#.decode("utf-8")
-		data = loads(response.read().decode())
+		while iterations > 0:
 
-		# iterate through videolist and use every video id to fetch more details
+			videoIds_part = ','.join(videoIds[rangeStart:rangeEnd])
 
-		# todo: we need to iterate again right here
-		for video in videoIds[:50]:
-			if data["items"]:
-				debug(i)
-				debug(len(videoIds))
-				embedStatus = data["items"][i]["status"]["embeddable"]
-				privacyStatus = data["items"][i]["status"]["privacyStatus"]
-				uploadStatus = data["items"][i]["status"]["uploadStatus"]
+			url = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,status&id={0}&fields=items(contentDetails,snippet,status)&key={1}").format(videoIds_part, app.config["YOUTUBE_API_KEY"])
+			response = urlrequest.urlopen(url)#.decode("utf-8")
+			data = loads(response.read().decode())
 
-				if(embedStatus and (privacyStatus == "public" or privacyStatus == "unlisted") and uploadStatus == "processed"):
+			# iterate through videolist and use every video id to fetch more details
+			for video in videoIds[rangeStart:rangeEnd]:
+				if data["items"]:
+					embedStatus = data["items"][i]["status"]["embeddable"]
+					privacyStatus = data["items"][i]["status"]["privacyStatus"]
+					uploadStatus = data["items"][i]["status"]["uploadStatus"]
 
-					blocked = []
-					allowed = []
+					debug(("\niterations left #{0} , video #{1}/{2}: {3} (ID: {4}) \nprivacy: {5} | upload status: {6}").format(iterations, i, len(videoIds), data["items"][i]["snippet"]["title"], video, privacyStatus, uploadStatus))
 
-					debug(("\nCurrent video: {0} (ID: {1}) \nPrivacy: {2} | Upload status: {3}").format(data["items"][i]["snippet"]["title"], video, privacyStatus, uploadStatus))
+					if(embedStatus and (privacyStatus == "public" or privacyStatus == "unlisted") and uploadStatus == "processed"):
 
+						blocked = []
+						allowed = []
 
-					# make sure we know where videos are not available (important for later use in template "play")
-					if "regionRestriction" in data["items"][i]["contentDetails"]:
+						# make sure we know where videos are not available (important for later use in template "play")
+						if "regionRestriction" in data["items"][i]["contentDetails"]:
 
-						if "blocked" in data["items"][i]["contentDetails"]["regionRestriction"]:
-							for country in data["items"][i]["contentDetails"]["regionRestriction"]["blocked"]:
-								blocked.append(country)
-							debug(("Blocked in these countries: {0}").format(str(blocked)))
+							if "blocked" in data["items"][i]["contentDetails"]["regionRestriction"]:
+								for country in data["items"][i]["contentDetails"]["regionRestriction"]["blocked"]:
+									blocked.append(country)
+								debug(("Blocked in these countries: {0}").format(str(blocked)))
 
-						if "allowed" in data["items"][i]["contentDetails"]["regionRestriction"]:
-							for country in data["items"][i]["contentDetails"]["regionRestriction"]["allowed"]:
-								allowed.append(country)
-							debug(("Only allowed in these countries: {0}").format(str(allowed)))
+							if "allowed" in data["items"][i]["contentDetails"]["regionRestriction"]:
+								for country in data["items"][i]["contentDetails"]["regionRestriction"]["allowed"]:
+									allowed.append(country)
+								debug(("Only allowed in these countries: {0}").format(str(allowed)))
 
-					# convert YouTube's time format to hours, minutes and seconds
-					hours = minutes = seconds = 0
+						# convert YouTube's time format to hours, minutes and seconds
+						hours = minutes = seconds = 0
 
-					# todo: improve regex
-					length_raw = compile(r"PT(?P<h>\d*H)*(?P<m>\d*M)*(?P<s>\d*S)*")
-					length = length_raw.match(data["items"][i]["contentDetails"]["duration"])
+						# todo: improve regex
+						length_raw = compile(r"PT(?P<h>\d*H)*(?P<m>\d*M)*(?P<s>\d*S)*")
+						length = length_raw.match(data["items"][i]["contentDetails"]["duration"])
 
-					if length.group("h") is not None:
-						hours = length.group("h").replace("H", "")
+						if length.group("h") is not None:
+							hours = length.group("h").replace("H", "")
 
-					if length.group("m") is not None:
-						minutes = length.group("m").replace("M", "")
+						if length.group("m") is not None:
+							minutes = length.group("m").replace("M", "")
 
-					if length.group("s") is not None:
-						seconds = length.group("s").replace("S", "")
+						if length.group("s") is not None:
+							seconds = length.group("s").replace("S", "")
 
-					length_in_sec = int(hours) * 60 * 60 + int(minutes) * 60 + int(seconds)
-					timeMiddle = length_in_sec / 2
+						length_in_sec = int(hours) * 60 * 60 + int(minutes) * 60 + int(seconds)
+						timeMiddle = length_in_sec / 2
 
-					videolist.append([
-						video,
-						timeMiddle,
-						timeMiddle + app.config["SNIPPETLENGTH"],
-						data["items"][i]["snippet"]["title"],
-						blocked,
-						allowed,
-						length_in_sec
-					])
-				else:
-					debug("Embedding is not allowed, so this video was skipped.")
+						videolist.append([
+							video,
+							timeMiddle,
+							timeMiddle + app.config["SNIPPETLENGTH"],
+							data["items"][i]["snippet"]["title"],
+							blocked,
+							allowed,
+							length_in_sec
+						])
+					else:
+						debug("Embedding is not allowed, so this video was skipped.")
+					i = i + 1
 
-			i = i + 1
+			iterations = iterations - 1
+			i = 0
+			rangeStart = rangeStart + maxResults
+			rangeEnd = rangeEnd + maxResults
 
 	return render_template(
 		"youtube.html",

@@ -67,15 +67,16 @@ def index_POST():
 			title = "No music found"
 		)
 
-# play some music from YouTube (currently only works with playlists <= 50 videos)
+# play some music from YouTube
 @app.route("/play/youtube/<youtubePlaylist>")
 def play_youtube(youtubePlaylist):
 
 	if youtubePlaylist:
-		maxResults = 50
+		maxResults = 50 #YouTube API has a limit per request, which is currently 50
 		videoIds = []
 		videolist = []
 		i = 0
+		requestIteration = 1
 
 		# fetch general information about the playlist
 		api_playlist = ("https://www.googleapis.com/youtube/v3/playlists?part=snippet&id={0}&fields=items&key={1}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"])
@@ -98,6 +99,8 @@ def play_youtube(youtubePlaylist):
 
 		while "nextPageToken" in jsonVideoIds:
 
+			requestIteration = requestIteration + 1
+
 			requestVideoIds = ("https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={0}&fields=items%2FcontentDetails%2CnextPageToken%2CpageInfo&key={1}&maxResults={2}&pageToken={3}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"], maxResults, jsonVideoIds["nextPageToken"])
 
 			receiveVideoIds = urlrequest.urlopen(requestVideoIds)#.decode("utf-8")
@@ -106,36 +109,26 @@ def play_youtube(youtubePlaylist):
 			for items in jsonVideoIds["items"]:
 				videoIds.append(items["contentDetails"]["videoId"])
 
-		iterations = round(len(videoIds) / maxResults, 0)
-		modulo = fmod(len(videoIds), maxResults)
-
-		if modulo > 0 and iterations > 1:
-			iterations = iterations + 1
-
-		debug(iterations * maxResults)
-		debug(iterations)
-
 		rangeStart = 0
 		rangeEnd = maxResults
 
-
-
-		while iterations >= 0:
+		while requestIteration >= 0:
 
 			videoIds_part = ','.join(videoIds[rangeStart:rangeEnd])
 
-			url = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,status&id={0}&fields=items(contentDetails,snippet,status)&key={1}").format(videoIds_part, app.config["YOUTUBE_API_KEY"])
+			url = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,status&id={0}&key={1}").format(videoIds_part, app.config["YOUTUBE_API_KEY"])
 			response = urlrequest.urlopen(url)#.decode("utf-8")
 			data = loads(response.read().decode())
 
-			# iterate through videolist and use every video id to fetch more details
-			for video in videoIds[rangeStart:rangeEnd]:
-				if data["items"]:
-					embedStatus = data["items"][i]["status"]["embeddable"]
-					privacyStatus = data["items"][i]["status"]["privacyStatus"]
-					uploadStatus = data["items"][i]["status"]["uploadStatus"]
+			# fetch more details for every video
+			for video in data["items"]:
 
-					debug(("\niterations left #{0} , video #{1}/{2}: {3} (ID: {4}) \nprivacy: {5} | upload status: {6}").format(iterations, i, len(videoIds), data["items"][i]["snippet"]["title"], video, privacyStatus, uploadStatus))
+				if data["items"] and i < len(data["items"]):
+					embedStatus = video["status"]["embeddable"]
+					privacyStatus = video["status"]["privacyStatus"]
+					uploadStatus = video["status"]["uploadStatus"]
+
+					debug(("\n{0} (ID: {1}) \nprivacy: {2} | upload status: {3} | embed status: {4} ").format(video["snippet"]["title"], video["id"], privacyStatus, uploadStatus, embedStatus))
 
 					if(embedStatus and (privacyStatus == "public" or privacyStatus == "unlisted") and uploadStatus == "processed"):
 
@@ -143,15 +136,15 @@ def play_youtube(youtubePlaylist):
 						allowed = []
 
 						# make sure we know where videos are not available (important for later use in template "play")
-						if "regionRestriction" in data["items"][i]["contentDetails"]:
+						if "regionRestriction" in video["contentDetails"]:
 
-							if "blocked" in data["items"][i]["contentDetails"]["regionRestriction"]:
-								for country in data["items"][i]["contentDetails"]["regionRestriction"]["blocked"]:
+							if "blocked" in video["contentDetails"]["regionRestriction"]:
+								for country in video["contentDetails"]["regionRestriction"]["blocked"]:
 									blocked.append(country)
 								debug(("Blocked in these countries: {0}").format(str(blocked)))
 
-							if "allowed" in data["items"][i]["contentDetails"]["regionRestriction"]:
-								for country in data["items"][i]["contentDetails"]["regionRestriction"]["allowed"]:
+							if "allowed" in video["contentDetails"]["regionRestriction"]:
+								for country in video["contentDetails"]["regionRestriction"]["allowed"]:
 									allowed.append(country)
 								debug(("Only allowed in these countries: {0}").format(str(allowed)))
 
@@ -160,7 +153,7 @@ def play_youtube(youtubePlaylist):
 
 						# todo: improve regex
 						length_raw = compile(r"PT(?P<h>\d*H)*(?P<m>\d*M)*(?P<s>\d*S)*")
-						length = length_raw.match(data["items"][i]["contentDetails"]["duration"])
+						length = length_raw.match(video["contentDetails"]["duration"])
 
 						if length.group("h") is not None:
 							hours = length.group("h").replace("H", "")
@@ -175,10 +168,10 @@ def play_youtube(youtubePlaylist):
 						timeMiddle = length_in_sec / 2
 
 						videolist.append([
-							video,
+							video["id"],
 							timeMiddle,
 							timeMiddle + app.config["SNIPPETLENGTH"],
-							data["items"][i]["snippet"]["title"],
+							video["snippet"]["title"],
 							blocked,
 							allowed,
 							length_in_sec
@@ -187,7 +180,7 @@ def play_youtube(youtubePlaylist):
 						debug("Embedding is not allowed, so this video was skipped.")
 					i = i + 1
 
-			iterations = iterations - 1
+			requestIteration = requestIteration - 1
 			i = 0
 			rangeStart = rangeStart + maxResults
 			rangeEnd = rangeEnd + maxResults

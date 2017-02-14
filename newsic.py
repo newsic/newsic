@@ -121,7 +121,7 @@ def play_youtube(youtubePlaylist):
 			# fetch more details for every video
 			for video in data["items"]:
 
-				if data["items"] and i < len(data["items"]):
+				if data["items"]:
 					embedStatus = video["status"]["embeddable"]
 					privacyStatus = video["status"]["privacyStatus"]
 					uploadStatus = video["status"]["uploadStatus"]

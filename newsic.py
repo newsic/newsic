@@ -75,8 +75,9 @@ def play_youtube(youtubePlaylist):
 		maxResults = 50 #YouTube API has a limit per request, which is currently 50
 		videoIds = []
 		videolist = []
-		i = 0
 		requestIteration = 1
+		rangeStart = 0
+		rangeEnd = maxResults
 
 		# fetch general information about the playlist
 		api_playlist = ("https://www.googleapis.com/youtube/v3/playlists?part=snippet&id={0}&fields=items&key={1}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"])
@@ -108,9 +109,6 @@ def play_youtube(youtubePlaylist):
 
 			for items in jsonVideoIds["items"]:
 				videoIds.append(items["contentDetails"]["videoId"])
-
-		rangeStart = 0
-		rangeEnd = maxResults
 
 		while requestIteration >= 0:
 
@@ -178,10 +176,8 @@ def play_youtube(youtubePlaylist):
 						])
 					else:
 						debug("Embedding is not allowed, so this video was skipped.")
-					i = i + 1
 
 			requestIteration = requestIteration - 1
-			i = 0
 			rangeStart = rangeStart + maxResults
 			rangeEnd = rangeEnd + maxResults
 

@@ -2,17 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for
 from re import compile
 from urllib import request as urlrequest
 from json import loads
-from math import fmod
 
 from vimeo import VimeoClient
 
 app = Flask(__name__)
 
-# config imports
+# import config
 app.config.from_object("config.general")
 app.config.from_object("config.local")
 #app.config.from_object("config.server")
-
 
 def debug(text):
 	if app.config["NEWSICDEBUG"]:
@@ -27,7 +25,7 @@ def index():
     	title = "Home"
     )
 
-# check of input url (redirects to index page )
+# check of input url (redirects to index page)
 @app.route("/play", methods = ["POST"])
 @app.route("/", methods = ["POST"])
 def index_POST():
@@ -72,7 +70,7 @@ def index_POST():
 def play_youtube(youtubePlaylist):
 
 	if youtubePlaylist:
-		maxResults = 50 #YouTube API has a limit per request, which is currently 50
+		maxResults = 50 # YouTube API has a limit per request, which is currently 50
 		videoIds = []
 		videolist = []
 		requestIteration = 1
@@ -80,11 +78,18 @@ def play_youtube(youtubePlaylist):
 		rangeEnd = maxResults
 
 		# fetch general information about the playlist
-		api_playlist = ("https://www.googleapis.com/youtube/v3/playlists?part=snippet&id={0}&fields=items&key={1}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"])
-		response_playlist = urlrequest.urlopen(api_playlist)#.decode("utf-8")
+		api_playlist = ("https://www.googleapis.com/youtube/v3/playlists?part=snippet,status&id={0}&fields=items&key={1}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"])
+		response_playlist = urlrequest.urlopen(api_playlist)
 		data_playlist = loads(response_playlist.read().decode())
 
-		#TODO: check if playlist is private/not listed etc..
+		# check if playlist is private or empty
+		if not data_playlist["items"]:
+			return render_template(
+				"index.html",
+				error = "This playlist is empty or private.",
+				bodyClass = "home",
+				title = "Can't handle playlist"
+			)
 
 		playlistTitle = data_playlist["items"][0]["snippet"]["title"]
 		playlistCreator = data_playlist["items"][0]["snippet"]["channelTitle"]
@@ -92,7 +97,7 @@ def play_youtube(youtubePlaylist):
 		# fetch video ids from playlist
 		requestVideoIds = ("https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={0}&fields=items%2FcontentDetails%2CnextPageToken%2CpageInfo&key={1}&maxResults={2}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"], maxResults)
 
-		receiveVideoIds = urlrequest.urlopen(requestVideoIds)#.decode("utf-8")
+		receiveVideoIds = urlrequest.urlopen(requestVideoIds)
 		jsonVideoIds = loads(receiveVideoIds.read().decode())
 
 		for items in jsonVideoIds["items"]:
@@ -104,7 +109,7 @@ def play_youtube(youtubePlaylist):
 
 			requestVideoIds = ("https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={0}&fields=items%2FcontentDetails%2CnextPageToken%2CpageInfo&key={1}&maxResults={2}&pageToken={3}").format(youtubePlaylist, app.config["YOUTUBE_API_KEY"], maxResults, jsonVideoIds["nextPageToken"])
 
-			receiveVideoIds = urlrequest.urlopen(requestVideoIds)#.decode("utf-8")
+			receiveVideoIds = urlrequest.urlopen(requestVideoIds)
 			jsonVideoIds = loads(receiveVideoIds.read().decode())
 
 			for items in jsonVideoIds["items"]:
@@ -115,7 +120,7 @@ def play_youtube(youtubePlaylist):
 			videoIds_part = ','.join(videoIds[rangeStart:rangeEnd])
 
 			url = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,status&id={0}&key={1}").format(videoIds_part, app.config["YOUTUBE_API_KEY"])
-			response = urlrequest.urlopen(url)#.decode("utf-8")
+			response = urlrequest.urlopen(url)
 			data = loads(response.read().decode())
 
 			# fetch more details for every video
@@ -163,12 +168,11 @@ def play_youtube(youtubePlaylist):
 							seconds = length.group("s").replace("S", "")
 
 						length_in_sec = int(hours) * 60 * 60 + int(minutes) * 60 + int(seconds)
-						timeMiddle = length_in_sec / 2
 
 						videolist.append([
 							video["id"],
-							timeMiddle,
-							timeMiddle + app.config["SNIPPETLENGTH"],
+							length_in_sec / 2,
+							(length_in_sec / 2) + app.config["SNIPPETLENGTH"],
 							video["snippet"]["title"],
 							blocked,
 							allowed,
@@ -218,19 +222,13 @@ def play_vimeo(vimeoPlaylist):
 		ids = regex_ids.match(data["pictures"]["uri"])
 
 		if(ids):
-			title = data["name"]
-			length_in_sec = data["duration"]
-			timeMiddle = length_in_sec / 2
-			videoId = ids.group(1)
-			thumbnailId = ids.group(2)
-
 			videolist.append([
-				videoId,
-				thumbnailId,
-				timeMiddle,
-				timeMiddle + app.config["SNIPPETLENGTH"],
-				title,
-				length_in_sec
+				ids.group(1),
+				ids.group(2),
+				data["duration"] / 2,
+				(data["duration"] / 2) + app.config["SNIPPETLENGTH"],
+				data["name"],
+				data["duration"]
 			])
 
 	return render_template(

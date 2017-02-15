@@ -52,3 +52,8 @@ Shortcut | What will happen (hopefully)
 MIT License, Copyright (c) 2015-2017 Stephan Fischer ([tocsin.de](https://tocsin.de), [stephan-fischer.de](https://stephan-fischer.de))
 
 For more details see [LICENSE.md](/LICENSE.md).
+
+## Donate
+
+If you think newsic might be worth a small donation: [Sure, go ahead :)](https://www.paypal.me/tocsin/5eur) 
+Let me be clear that earning money wasn't the motivation behind all this. I appreciate your code contributions, pull requests or bug reports just equally :)

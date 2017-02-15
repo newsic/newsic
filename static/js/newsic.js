@@ -253,10 +253,10 @@ var video = videojs("video", {
 	setTitle(snippets[i]["title"]);
 
 	// runs multiple times in a second when VideoJS plays video
-  this.on("timeupdate", function() {
+  	this.on("timeupdate", function() {
 
 		// checks if this is the last video of the list
-  	if(i < snippets.length) {
+  		if(i < snippets.length) {
 			if(complete) {
 				var end = snippets[i]["length"] - 2;
 				var start = 0;
@@ -276,12 +276,11 @@ var video = videojs("video", {
     		console.log("End of snippet, let's go to the next one.");
 				playnext();
     	}
-    } else {
-    	this.pause();
-    	console.log("This party is over, now get out of here. Seriously.")
-    }
+    	} else {
+    		this.pause();
+    		console.log("This party is over, now get out of here. Seriously.")
+    	}
 	});
-
 });
 
 	document.getElementById("playprevious").onclick = playprevious;

@@ -16,18 +16,16 @@ Got YouTube playlists with 100+ songs and a thirst for exploring something new? 
 
 ## System requirements
 
-newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets/flask) framework, while the frontend uses [Video.js](https://github.com/videojs/video.js) (which comes bundled with this repository).
-
-Flask (and Jinja2 and Werkzeug) can either be installed with your favorite package manager or with `pip install -r requirements.txt`.
+newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets/flask) framework, while the frontend uses [Video.js](https://github.com/videojs/video.js) (which comes bundled with this repository). Required Python packages are listed in the [requirements.txt](/requirements.txt).
 
 ## Usage
 
-1. Clone this repository
+1. Clone this repository and navigate to the folder where you cloned it to
 2. Create a config.py from config.py.example
-2. Add your YouTube API key (which you can request
+3. Add your YouTube API key (which you can request
    [here](https://console.developers.google.com/apis/api/youtube/)) to config.py
-3. Navigate to the folder where you cloned the code and start newsic with `python3 newsic.py` (or only `python newsic.py` when you use Arch Linux)
-4. newsic is now available at 127.0.0.1:5000
+4. Install the requirements with either `pip install -r requirements.txt` or your favorite package manager
+5. Start newsic with `python3 newsic.py` (or only `python newsic.py` when you use Arch Linux), which is now available at 127.0.0.1:5000
 
 ### Deployment
 
@@ -51,7 +49,14 @@ Shortcut | What will happen (hopefully)
 
 MIT License, Copyright (c) 2015-2017 Stephan Fischer ([tocsin.de](https://tocsin.de), [stephan-fischer.de](https://stephan-fischer.de))
 
-For more details see [LICENSE.md](/LICENSE.md).
+For more details see [LICENSE](/LICENSE).
+
+## Used scripts
+
+* [Flask](https://github.com/pallets/flask) (Armin Ronacher and contributors, BSD License)
+* [Video.js](https://github.com/videojs/video.js) (Brightcove Inc, Apache License 2.0)
+* [videojs-youtube](https://github.com/videojs/videojs-youtube) (Benoit Tremblay, MIT License)
+* [videojs-vimeo](https://github.com/videojs/videojs-vimeo) (Benoit Tremblay, MIT License)
 
 ## Donate
 

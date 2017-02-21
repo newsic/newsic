@@ -37,7 +37,7 @@
 			<span title="Thanks to this cool user you can listen to this playlist. High five-worthy, ain't it? Or wi-five-worthy. Anyway, kudos to {{ playlistCreator }}!">Playlist by {{ playlistCreator }}</span>
 		</div>
 		<div class="fr">
-			<span title="You can figure that out by yourself, we guess ;)">{{ playlistVideoAmount }} snippets</span>
+			<span title="You can figure that out by yourself, we guess ;)">{{ playlistVideoAmount }} snippet{% if playlistVideoAmount > 1 %}s{% endif %}</span>
 			<span title="Entire amount of time you need if you would like to listen to all {{ playlistVideoAmount }} snippets.">{{ playlistLength }} min</span>
 		</div>
 

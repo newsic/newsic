@@ -130,7 +130,6 @@ def play_youtube(youtubePlaylist):
 					embedStatus = video["status"]["embeddable"]
 					privacyStatus = video["status"]["privacyStatus"]
 					uploadStatus = video["status"]["uploadStatus"]
-
 					debug(("\n{0} (ID: {1}) \nprivacy: {2} | upload status: {3} | embed status: {4} ").format(video["snippet"]["title"], video["id"], privacyStatus, uploadStatus, embedStatus))
 
 					if(embedStatus and (privacyStatus == "public" or privacyStatus == "unlisted") and uploadStatus == "processed"):
@@ -152,11 +151,14 @@ def play_youtube(youtubePlaylist):
 								debug(("Only allowed in these countries: {0}").format(str(allowed)))
 
 						# convert YouTube's time format to hours, minutes and seconds
-						hours = minutes = seconds = 0
+						days = hours = minutes = seconds = 0
 
 						# todo: improve regex
-						length_raw = compile(r"PT(?P<h>\d*H)*(?P<m>\d*M)*(?P<s>\d*S)*")
+						length_raw = compile(r"P(?P<d>\d*D)*T(?P<h>\d*H)*(?P<m>\d*M)*(?P<s>\d*S)*")
 						length = length_raw.match(video["contentDetails"]["duration"])
+
+						if length.group("d") is not None:
+							days = length.group("d").replace("D", "")
 
 						if length.group("h") is not None:
 							hours = length.group("h").replace("H", "")
@@ -167,7 +169,8 @@ def play_youtube(youtubePlaylist):
 						if length.group("s") is not None:
 							seconds = length.group("s").replace("S", "")
 
-						length_in_sec = int(hours) * 60 * 60 + int(minutes) * 60 + int(seconds)
+						length_in_sec = int(days) * 86400 + int(hours) * 60 * 60 + int(minutes) * 60 + int(seconds)
+						debug(length_in_sec)
 
 						videolist.append([
 							video["id"],

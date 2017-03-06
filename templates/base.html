@@ -44,7 +44,7 @@
 			</div>
 		</a>
 
-		<form class="shadow" method="post" action="/">
+		<form class="shadow" method="post" action="{{ url_for('index') }}">
 			<div class="input-url"><input type="text" name="url" placeholder="YouTube playlist or Vimeo album/channel" /></div>
 			<div class="input-submit"><button type="submit">start</button></div>
 		</form>

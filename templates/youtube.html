@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block css %}<link href="/static/css/plyr-2.0.11.css" rel="stylesheet" type="text/css" />{% endblock %}
+{% block css %}<link href="{{ url_for('static', filename='css/plyr-2.0.11.css') }}" rel="stylesheet" type="text/css" />{% endblock %}
 
 {% block body %}
 

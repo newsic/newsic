@@ -14,9 +14,9 @@
 
     * Project page: https://newsic.tocsin.de
     * Demo: https://trynewsic.tocsin.de
-    * newsic on GitHub: https://github.com/newsic/newsic
+    * newsic on GitHub: https://github.com/newsic
 
-    * Author: Stephan Fischer (https://stephan-fischer.de)
+    * Author: Stephan Fischer (https://stephan-fischer.de, https://tocsin.de)
 
 
 -->
@@ -30,7 +30,7 @@
 
   {% block css %}{% endblock %}
   <link href="https://fonts.googleapis.com/css?family=Raleway:600,400,200" rel="stylesheet" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -45,7 +45,7 @@
 		</a>
 
 		<form class="shadow" method="post" action="/">
-			<div class="input-url"><input type="text" name="url" placeholder="Put in a YouTube playlist URL right here." /></div>
+			<div class="input-url"><input type="text" name="url" placeholder="YouTube playlist or Vimeo album/channel" /></div>
 			<div class="input-submit"><button type="submit">start</button></div>
 		</form>
 	</header>{% endblock %}
@@ -53,7 +53,7 @@
 	{% block body %}{% endblock %}
 
 	<footer>
-			<div><a href="https://tocsin.de" target="_blank">Made with <span class="fa fa-heart"></span> by tocsin</a></div>
+			<div><span><a href="https://tocsin.de" target="_blank">Made with <i class="fa fa-heart"></i> by tocsin</a></span> <span><a href="https://github.com/newsic/newsic" target="_blank">Code on GitHub</a></span></div>
 	</footer>
 </body>
 </html>

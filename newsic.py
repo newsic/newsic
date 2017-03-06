@@ -30,29 +30,28 @@ def index():
 @app.route("/", methods = ["POST"])
 def index_POST():
 
-	url = request.form["url"]
-
 	# check for youtube urls (playlists)
-	youtube = compile(r"(?:https?:\/\/)*(?:w{0,3}|m).?youtube.com\/.*list=(.+)")
-	vimeo = compile(r"(?:https?:\/\/)*(?:w{0,3}).?vimeo.com\/.*album\/(\d+)")
+	youtubeRegex = compile(r"(?:https?:\/\/)*(?:w{0,3}|m).?youtube.com\/.*list=(.+)")
+	vimeoRegex = compile(r"(?:https?:\/\/)*(?:w{0,3}).?vimeo.com\/.*(album|channels)\/(.+)")
 
-	yt_playlist = youtube.match(url)
-	vim_playlist = vimeo.match(url)
+	youtube = youtubeRegex.match(request.form["url"])
+	vimeo = vimeoRegex.match(request.form["url"])
 
-	if(yt_playlist):
-		debug(("Found a YouTube playlist: {0}").format(yt_playlist.group(1)))
+	if(youtube):
+		debug(("Received a YouTube playlist: {0}").format(youtube.group(1)))
 
 		return redirect(url_for(
 				"play_youtube",
-				youtubePlaylist = yt_playlist.group(1)
+				youtubePlaylist = youtube.group(1)
 			))
 
-	if(vim_playlist):
-		debug(("Found a Vimeo playlist: {0}").format(vim_playlist.group(1)))
+	if(vimeo):
+		debug(("Received a Vimeo {0}: {1}").format(vimeo.group(1), vimeo.group(2)))
 
 		return redirect(url_for(
 				"play_vimeo",
-				vimeoPlaylist = vim_playlist.group(1)
+				vimeoType = vimeo.group(1),
+				vimeoID = vimeo.group(2)
 			))
 
 	# redirect to index page in case there's no valuable user input
@@ -70,7 +69,7 @@ def index_POST():
 def play_youtube(youtubePlaylist):
 
 	if youtubePlaylist:
-		maxResults = 50 # YouTube API has a limit per request, which is currently 50
+		maxResults = 50 # YouTube API has a limit per request (50 videos in one batch is maximum)
 		videoIds = []
 		videolist = []
 		requestIteration = 1
@@ -86,7 +85,7 @@ def play_youtube(youtubePlaylist):
 		if not data_playlist["items"]:
 			return render_template(
 				"index.html",
-				error = "This playlist is empty or private.",
+				error = "This playlist is either empty, private or non-existing.",
 				bodyClass = "home",
 				title = "Can't handle playlist"
 			)
@@ -198,10 +197,8 @@ def play_youtube(youtubePlaylist):
 		title = "Loading..."
 	)
 
-
-# heavy in development!
-@app.route("/play/vimeo/<vimeoPlaylist>")
-def play_vimeo(vimeoPlaylist):
+@app.route("/play/vimeo/<vimeoType>/<vimeoID>")
+def play_vimeo(vimeoType, vimeoID):
 
 	videolist = []
 
@@ -210,8 +207,18 @@ def play_vimeo(vimeoPlaylist):
 	    key = app.config["VIMEO_KEY"],
 	    secret = app.config["VIMEO_SECRET"])
 
-	rawResponse_vids = v.get(('/albums/{0}/videos').format(vimeoPlaylist))
-	rawResponse_general = v.get(('/albums/{0}').format(vimeoPlaylist))
+	if(vimeoType == "album"): vimeoType = "albums"
+
+	rawResponse_vids = v.get(('/{0}/{1}/videos?filter=embeddable&filter_embeddable=true').format(vimeoType, vimeoID))
+	rawResponse_general = v.get(('/{0}/{1}').format(vimeoType, vimeoID))
+
+	if(not rawResponse_vids):
+		return render_template(
+				"index.html",
+				error = "This album/channel is either empty, private or non-existing.",
+				bodyClass = "home",
+				title = "Can't handle album/channel"
+			)
 
 	regex_ids = compile(r"\/videos\/(\d+)\/pictures\/(\d+)")
 

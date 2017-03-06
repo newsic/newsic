@@ -1,23 +1,18 @@
 {% extends "base.html" %}
 
-{% block css %}<link href="/static/css/video-js-cdn.min.css" rel="stylesheet" type="text/css">{% endblock %}
+{% block css %}<link href="/static/css/plyr-2.0.11.css" rel="stylesheet" type="text/css" />{% endblock %}
 
 {% block body %}
 
-	<div class="message">Hey there, this is an early version of newsic. Handle with care and <a href="https://github.com/newsic/newsic/issues" target="_blank">feel free to report bugs</a> :)</div>
-
-
-	<div id="info">
-
-	</div>
+	<div id="info"></div>
 
 	<!-- video border, wrapper (16:9 format) and the actual player -->
 	<div class="videoBorder">
 		<div class="videoWrapper">
-  		<video id="video" class="video-js">
-		    <p class="vjs-no-js">
+  		<video class="plyr" crossorigin>
+		    <noscript>
 		      Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript. We kindly ask you to make a decision: Activate JavaScript (or whitelist newsic on your favorite NoScript-like content blocker) or install/use Firefox, Chrome/Chromium, Safari, Opera or Vivaldi instead. PSA: Using Edge isn't cutting-edge, just saying.
-		  	</p>
+		  	</noscript>
   		</video>
 		</div>
 	</div>
@@ -28,7 +23,7 @@
 
 		<div class="lines">
 			<div>
-				<div id="colorcountdown"></div>
+				<div id="countdown"></div>
 				<span id="seconds">∞</span>
 			</div>
 		</div>
@@ -44,29 +39,25 @@
 	</div>
 
 	<div class="controlbar shadow">
-		<div id="playprevious" title="Previous snippet (shortcut: a)"><button class="fa fa-backward"></button></div>
-		<div id="playpause" title="Play/pause (shortcut: k or space bar)"><button class="fa fa-play"></button></div>
-		<div id="playnext" title="Next snippet (shortcut: d)"><button class="fa fa-forward"></button></div>
-		<div id="playcomplete" title="Play whole song (shortcut: c)"><button>full song</button></div>
+		<div id="playPrevious" title="Previous snippet (shortcut: a)"><button class="fa fa-backward"></button></div>
+		<div id="playPause" title="Play/pause (shortcut: k or space bar)"><button class="fa fa-play"></button></div>
+		<div id="playNext" title="Next snippet (shortcut: d)"><button class="fa fa-forward"></button></div>
+		<div id="playComplete" title="Play whole song (shortcut: c)"><button>full song</button></div>
 	</div>
 
 	<!-- thumbnail overview -->
 	<div id="snippets">
-		{% for key in videolist %}<div class="{{ loop.index0 }}" title="Go directly to {{ key[3] }}">
+		{% for key in videolist %}
+		<a href="#{{ loop.index0 }}" title="Go directly to {{ key[3] }}">
 			<img src="https://i.ytimg.com/vi/{{ key[0] }}/mqdefault.jpg" alt="{{ key[3] }}" title="{{ key[3] }}">
 			<br/>{{ key[3] }}
 
-			{% for country in key[4] %}{% if loop.first %}<p class="error" title="blocked in {% endif %}{{ country }}{% if loop.last %}"><span class="fa fa-exclamation-triangle"></span> blocked in some countries</p>{% else %}, {% endif %}{% endfor %}
+			{% for country in key[4] %}{% if loop.first %}<i class="warning fa fa-exclamation-circle" title="blocked in {% endif %}{{ country }}{% if loop.last %}"></i>{% else %}, {% endif %}{% endfor %}
 
-			{% for country in key[5] %}{% if loop.first %}<p class="error" title="only allowed in {% endif %}{{ country }}{% if loop.last %}"><span class="fa fa-exclamation-triangle"></span> only allowed in some countries</p>{% else %}, {% endif %}{% endfor %}
-		</div>{% endfor %}
+			{% for country in key[5] %}{% if loop.first %}<i class="warning fa fa-exclamation-circle" title="only allowed in {% endif %}{{ country }}{% if loop.last %}"></i>{% else %}, {% endif %}{% endfor %}
+		</a>{% endfor %}
 
 	</div>
-
-	<!-- JavaScript files -->
-	<script src="{{ url_for('static', filename='js/video.novtt.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/youtube.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/newsic.js') }}"></script>
 
 	<script>
 		// array which contains every single video (with id, title, start + end time) provided by our Python script
@@ -79,10 +70,16 @@
 				length: {{key[6]}},
 				start: {{key[1]}},
 				end: {{key[2]}},
-				blocked: [{% for country in key[4] %}"{{ country }}"{% if loop.last %}{% else %}, {% endif %}{% endfor %}],
-				allowed: [{% for country in key[5] %}"{{ country }}"{% if loop.last %}{% else %}, {% endif %}{% endfor %}]
+				{% for country in key[4] %}{% if loop.first %}blocked: [{% endif %}"{{ country }}"{% if loop.last %}],{% else %}, {% endif %}{% endfor %}
+
+				{% for country in key[5] %}{% if loop.first %}allowed: [{% endif %}"{{ country }}"{% if loop.last %}]{% else %}, {% endif %}{% endfor %}
 			},
 			{% endfor %}
 		];
 	</script>
+
+	<!-- JavaScript files -->
+	<script src="{{ url_for('static', filename='js/plyr-2.0.11.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/newsic.js') }}"></script>
+
 {% endblock %}

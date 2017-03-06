@@ -1,24 +1,20 @@
 {% extends "base.html" %}
 
-{% block css %}<link href="/static/css/video-js-cdn.min.css" rel="stylesheet" type="text/css">{% endblock %}
+{% block css %}<link href="/static/css/plyr-2.0.11.css" rel="stylesheet" type="text/css" />{% endblock %}
 
 {% block body %}
 
-	<div class="message">Hey there, this is an early version of newsic. Handle with care and <a href="https://github.com/newsic/newsic/issues" target="_blank">feel free to report bugs</a> :)
-	<br /><br />The Vimeo support is heavily under development.</div>
+	<div class="message">The Vimeo support is still in alpha status, so please <a href="https://github.com/newsic/newsic/issues" target="_blank">feel free to report bugs</a> :)</div>
 
-
-	<div id="info">
-
-	</div>
+	<div id="info"></div>
 
 	<!-- video border, wrapper (16:9 format) and the actual player -->
 	<div class="videoBorder">
 		<div class="videoWrapper">
-  		<video id="video" class="video-js">
-		    <p class="vjs-no-js">
+  		<video class="plyr" crossorigin>
+		    <noscript>
 		      Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript. We kindly ask you to make a decision: Activate JavaScript (or whitelist newsic on your favorite NoScript-like content blocker) or install/use Firefox, Chrome/Chromium, Safari, Opera or Vivaldi instead. PSA: Using Edge isn't cutting-edge, just saying.
-		  	</p>
+		  	</noscript>
   		</video>
 		</div>
 	</div>
@@ -29,14 +25,14 @@
 
 		<div class="lines">
 			<div>
-				<div id="colorcountdown"></div>
+				<div id="countdown"></div>
 				<span id="seconds">∞</span>
 			</div>
 		</div>
 
 		<div class="fl">
-			<span title="The name of the playlist newsic currently uses.">{{ playlistTitle }}</span>
-			<span title="Thanks to this cool user you can listen to this playlist. High five-worthy, ain't it? Or wi-five-worthy. Anyway, kudos to {{ playlistCreator }}!">Playlist by {{ playlistCreator }}</span>
+			<span title="The name of the album/channel newsic currently uses.">{{ playlistTitle }}</span>
+			<span title="Thanks to this cool user you can listen to this album/channel. High five-worthy, ain't it? Or wi-five-worthy. Anyway, kudos to {{ playlistCreator }}!">Album/channel by {{ playlistCreator }}</span>
 		</div>
 		<div class="fr">
 			<span title="You can figure that out by yourself, we guess ;)">{{ playlistVideoAmount }} snippets</span>
@@ -46,25 +42,19 @@
 	</div>
 
 	<div class="controlbar shadow">
-		<div id="playprevious" title="Previous snippet (shortcut: a)"><button class="fa fa-backward"></button></div>
-		<div id="playpause" title="Play/pause (shortcut: k or space bar)"><button class="fa fa-play"></button></div>
-		<div id="playnext" title="Next snippet (shortcut: d)"><button class="fa fa-forward"></button></div>
-		<div id="playcomplete" title="Play whole song (shortcut: c)"><button>full song</button></div>
+		<div id="playPrevious" title="Previous snippet (shortcut: a)"><button class="fa fa-backward"></button></div>
+		<div id="playPause" title="Play/pause (shortcut: k or space bar)"><button class="fa fa-play"></button></div>
+		<div id="playNext" title="Next snippet (shortcut: d)"><button class="fa fa-forward"></button></div>
+		<div id="playComplete" title="Play whole song (shortcut: c)"><button>full song</button></div>
 	</div>
 
 	<!-- thumbnail overview -->
 	<div id="snippets">
-	{% for key in videolist %}<div class="{{ loop.index0 }}" title="Go directly to {{ key[4] }}">
-			<img src="https://i.vimeocdn.com/video/{{ key[1] }}_295x166.jpg" alt="{{ key[4] }}" title="{{ key[4] }}">
-			<br/>{{ key[4] }}
-		</div>{% endfor %}
+	{% for key in videolist %}
+		<a href="#{{ loop.index0 }}" title="Go directly to {{ key[4] }}"><img src="https://i.vimeocdn.com/video/{{ key[1] }}_295x166.jpg" alt="{{ key[4] }}" title="{{ key[4] }}"><br/>{{ key[4] }}</a>
+	{% endfor %}
 
 	</div>
-
-	<!-- JavaScript files -->
-	<script src="{{ url_for('static', filename='js/video.novtt.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/vimeo.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/newsic.js') }}"></script>
 
 	<script>
 		// array which contains every single video (with id, title, start + end time) provided by our Python script
@@ -81,4 +71,9 @@
 			{% endfor %}
 		];
 	</script>
+
+	<!-- JavaScript files -->
+	<script src="{{ url_for('static', filename='js/plyr-2.0.11.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/newsic.js') }}"></script>
+
 {% endblock %}

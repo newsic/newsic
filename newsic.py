@@ -31,8 +31,8 @@ def index():
 def index_POST():
 
 	# check for youtube urls (playlists)
-	youtubeRegex = compile(r"(?:https?:\/\/)*(?:w{0,3}|m).?youtube.com\/.*list=(.+)")
-	vimeoRegex = compile(r"(?:https?:\/\/)*(?:w{0,3}).?vimeo.com\/.*(album|channels)\/(.+)")
+	youtubeRegex = compile(r"(?:https?:\/\/)*(?:[a-z].*).?youtube.com\/.*list=([a-zA-Z0-9-_]*)(?:.*index=(\d*))?")
+	vimeoRegex = compile(r"(?:https?:\/\/)*(?:[a-z].*).?vimeo.com\/.*(album|channels)\/(.+)")
 
 	youtube = youtubeRegex.match(request.form["url"])
 	vimeo = vimeoRegex.match(request.form["url"])

@@ -38,7 +38,7 @@
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
 
 	{% block header %}<header>
-		<a href="/" class="logo_short shadow">
+		<a href="{{ url_for('index') }}" class="logo_short shadow" title="Go to start page">
 			<div>
 			<img src="{{ url_for('static', filename='img/logo_simplified.svg') }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" />
 			</div>

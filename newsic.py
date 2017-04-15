@@ -3,7 +3,10 @@ from re import compile
 from urllib import request as urlrequest
 from json import loads
 
-from vimeo import VimeoClient
+try:
+	from vimeo import VimeoClient
+except ImportError:
+	print("Error: Vimeo libary is missing!")
 
 app = Flask(__name__)
 
@@ -194,7 +197,7 @@ def play_youtube(youtubePlaylist):
 		playlistCreator = playlistCreator,
 		playlistVideoAmount = len(videolist),
 		playlistLength = int(float((len(videolist) * app.config["SNIPPETLENGTH"]) / 60)),
-		title = "Loading..."
+		title = videolist[0][3] + " | " + playlistTitle
 	)
 
 @app.route("/play/vimeo/<vimeoType>/<vimeoID>")
@@ -248,7 +251,7 @@ def play_vimeo(vimeoType, vimeoID):
 		playlistCreator = playlistCreator,
 		playlistVideoAmount = len(videolist),
 		playlistLength = int(float((len(videolist) * app.config["SNIPPETLENGTH"]) / 60)),
-		title = "Loading..."
+		title = videolist[0][4] + " | " + playlistTitle
 	)
 
 @app.errorhandler(404)

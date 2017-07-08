@@ -16,7 +16,7 @@ Got YouTube or Vimeo playlists with 100+ songs and a thirst for exploring someth
 
 ## System requirements
 
-newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets/flask) framework, while the frontend uses [Plyr](https://github.com/selz/plyr) (which comes bundled with this repository). Required Python packages are listed in the [requirements.txt](/requirements.txt).
+newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets/flask) framework, while the frontend uses [Plyr](https://github.com/sampotts/plyr) (which comes bundled with this repository). Required Python packages are listed in the [requirements.txt](/requirements.txt).
 
 ## Usage
 
@@ -54,7 +54,7 @@ For more details see [LICENSE](/LICENSE).
 ## Used scripts
 
 * [Flask](https://github.com/pallets/flask) (Armin Ronacher and contributors, BSD License)
-* [Plyr](https://github.com/selz/plyr) (Selz.com, MIT License)
+* [Plyr](https://github.com/sampotts/plyr) (Sam Potts, MIT License)
 
 ## Donate
 

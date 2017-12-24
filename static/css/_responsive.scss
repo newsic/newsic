@@ -1,0 +1,223 @@
+/* responsive */
+
+@media screen and (max-width: 1500px) {
+
+    .home {
+        .featured a, .featured .main {
+            flex-basis: 30%;
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    
+    $font-size: $font-size*1.3;
+    
+    body, input, button {
+        font-size: $font-size;
+    }
+}
+
+
+@media screen and (max-width: 1200px) {
+
+    $font-size: $font-size*1.5;
+    
+    body, input, button {
+        font-size: $font-size;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    $font-size: $font-size*1.7;
+
+    body, input, button {
+        font-size: $font-size;
+    }
+
+    .snippetinfo {
+        padding: 0;
+    
+        .border {
+            border: 0;
+            padding: 3% 5% 3% 5%;
+        }
+    }
+
+    .plyr, .snippetinfo {
+        width: 100%;
+    }
+
+    #snippets {
+        width: 90%;
+    }
+    
+    header {
+        padding: 4vw 5% 2vw 5%;
+    }
+    
+    footer {
+        width: 90%;
+    }
+    
+    .home {
+        width: 80%;
+
+        .featured a, .featured .main {
+            flex-basis: 45%;
+        }
+
+        .featured .main {
+            padding: 1.5vw;
+        }
+    }
+}
+    
+@media screen and (max-width: 800px) {
+
+    $font-size: $font-size*2.1;
+    
+    body, input, button {
+        font-size: $font-size;
+    }
+
+    #snippets a {
+        flex-basis: 30%;
+    }
+
+    .home {
+        .featured .main {
+            padding: 2vw;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    $font-size: $font-size*2.5;
+    
+    body, input, button {
+        font-size: $font-size;
+    }
+
+    .home {
+        position: relative;
+        width: 90%;
+        margin-top: 10%;
+
+        #autocomplete-result {
+            margin-top:0 !important;
+        }
+
+        .box {
+            form {
+                padding: 7% 14% 7% 14%;
+                display: block;
+
+                button {
+                    width: 100%;
+                    margin-left: 0;
+                    margin-top: 5%;
+                }
+            }
+        }
+
+        .featured a, .featured .main {
+            flex-basis: 100%;
+            margin-bottom: 5vw;
+        }
+
+        .featured .main {
+            padding: 3vw;
+        }
+    }
+
+    .logo_big {
+        width: 60%;
+        margin-bottom: 10%;
+    }
+
+    .countdown-shadow {
+        margin-bottom: 4vw;
+    }
+
+    #snippets a {
+        flex-basis: 45%;
+    }
+
+    header {
+        align-items: flex-start;
+
+        .logo_short {
+            margin-bottom: 1vw;
+        }
+
+        #autocomplete {
+            flex-grow:1;
+        }
+
+        form {
+            flex-basis: 85%;
+            button {
+                display: none;
+            }
+        }
+    }
+
+    .controlbar {
+        button {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .right {
+            width: 100%;
+
+            button {
+                margin: 3vw 0 0 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    $font-size: $font-size*3;
+    
+    body, input, button {
+        font-size: $font-size;
+    }
+
+    footer {
+        background: none;
+        box-shadow: unset;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    $font-size: $font-size*4;
+    
+    body, input, button {
+        font-size: $font-size;
+    }
+
+    header {
+        padding: 4vw 5% 2vw 5%;
+    }
+
+    #snippets a {
+        flex-basis: 100%;
+        flex-direction: column;
+        margin-bottom: 5vw;
+    }
+
+    footer {
+        a {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}

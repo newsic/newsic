@@ -1,4 +1,2 @@
 Flask
-Jinja2
-Werkzeug
 PyVimeo

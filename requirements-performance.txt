@@ -1,0 +1,3 @@
+Flask-Caching
+Flask-Compress
+Flask-HTMLmin >= 1.3.1

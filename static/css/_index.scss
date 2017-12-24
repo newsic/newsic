@@ -1,0 +1,91 @@
+/* index.html */
+
+.home {
+    margin: 10% auto 0 auto;
+    width: 60%;
+
+    .message {
+        margin-bottom: 2%;
+    }
+
+    .box {
+        background: #3d3d3d;
+
+        // TODO: replacing px possible?
+        padding: 8px;
+
+        form {
+            padding: 3% 14% 3% 14%;
+            overflow: auto;
+            border: 1px solid #616161;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            input {
+                flex-grow: 0.85;
+
+                // TODO: replacing px possible?
+                padding: 5px 0 5px 0;
+                text-indent: 1vw;
+            }
+
+            button {
+                box-shadow: $shadow_input;
+                flex-grow: 0.1;
+                
+                // TODO: replacing px possible?
+                padding: 5px 10px 5px 10px;
+            }
+        }
+    }
+
+    .featured {
+        margin: 5% auto 5% auto;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-content: stretch;
+        
+        a {
+            border: 0;
+            transition: all 0.5s ease;
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            flex-basis: 24%;
+            margin-bottom: 3vw;
+            opacity: 0.7;
+        
+            &:hover {
+                opacity: 1;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            p {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0;
+            }
+        }
+
+        .main {
+            margin-bottom: 3vw;
+            background: #3d3d3d;
+            flex-basis: 24%;
+            padding: 1vw;
+            text-align: justify;
+        }
+    }
+
+    footer {
+        width: 100%;
+    }
+}

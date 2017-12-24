@@ -1,25 +1,115 @@
-class general():
+"""
+General config
+Both "Local" and "Server" classes are based upon this
 
-	# YouTube API configuration (you can request a token at https://console.developers.google.com/apis/api/youtube/)
-	YOUTUBE_API_KEY = ""
+TODO: add link to deployment repo and a short explanation on how to use env variables instead of this file
+"""
 
-	# Vimeo API configuration (get your tokens at https://developer.vimeo.com/apps)
-	VIMEO_TOKEN = ""
-	VIMEO_KEY = ""
-	VIMEO_SECRET = ""
+class General(object):
 
-	# snippet length in seconds (default: 30)
-	SNIPPETLENGTH = 30
+    '''
+    YouTube API configuration
+    Request a token at https://console.developers.google.com/apis/api/youtube/
+    (newsic is using the YouTube Data API v3)
+    '''
 
-class local():
+    YOUTUBE_API_KEY = ""
 
-	# Flask debug
-	DEBUG = True
+    '''
+    Vimeo API configuration
+    Get your tokens at https://developer.vimeo.com/apps
+    '''
 
-	# for more detailed, pure newsic-related, debug messages
-	NEWSICDEBUG = True
+    VIMEO_TOKEN = ""
+    VIMEO_KEY = ""
+    VIMEO_SECRET = ""
 
-class server():
+    # snippet length (default: 30)
+    SNIPPETLENGTH = 30 #seconds
 
-	DEBUG = False
-	NEWSICDEBUG = False
+    '''
+    Performance/caching (with Flask Caching, Flask Compress and Flask-HTMLmin)
+
+    Installable with pip install -r requirements-performance.txt
+    '''
+
+
+    '''
+    Cache max age in seconds
+
+    Documentation:
+    http://werkzeug.pocoo.org/docs/datastructures/#werkzeug.datastructures.ResponseCacheControl
+
+    Default: 43200
+    '''
+    CACHE_MAX_AGE = ""
+
+
+    '''
+    Flask Caching
+
+    Documentation:
+    https://flask-caching.readthedocs.io/en/latest/
+    '''
+
+    CACHE = False
+    CACHE_TIMEOUT = 600 #seconds
+    CACHE_TYPE = "filesystem"
+    CACHE_DIR = ""
+
+    '''
+    Flask Compress
+
+    Documentation:
+    https://github.com/libwilliam/flask-compress
+    '''
+
+    COMPRESS = False
+
+    COMPRESS_LEVEL = 6
+    COMPRESS_MIMETYPES = [
+        'text/html',
+        'text/css',
+       	'text/javascript',
+        'image/svg+xml'
+    ]
+
+    '''
+    Flask-HTMLmin
+
+    Documentation:
+    https://github.com/hamidfzm/Flask-HTMLmin
+    '''
+
+    MINIFY_PAGE = False
+
+    REMOVE_COMMENTS = True
+    REDUCE_EMPTY_ATTRIBUTES = True
+    REMOVE_OPTIONAL_ATTRIBUTE_QUOTES = False
+
+
+class Local(General):
+
+    """
+    Local config
+    """
+
+    # standard Flask debug
+    DEBUG = True
+
+    # for more detailed, pure newsic-related debug messages
+    NEWSICDEBUG = True
+
+    CACHE = False
+
+
+class Server(General):
+
+    """
+    Server config
+    """
+
+    DEBUG = False
+    NEWSICDEBUG = False
+
+    CACHE = False

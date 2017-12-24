@@ -21,39 +21,67 @@
 
 -->
 <html lang="en">
+
 <head>
   <title>{{ title }} - newsic</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
   <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="shortcut icon" />
+  {%- block css %}{%- endblock %}
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+  <!-- former font weights: 400 and 600 -->
+  <!-- new font weights: 600 and 800 -->
+  <!-- TODO: try 900 -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:600,800" rel="stylesheet" type="text/css" />
 
-  {% block css %}{% endblock %}
-  <link href="https://fonts.googleapis.com/css?family=Raleway:600,400,200" rel="stylesheet" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="newsic" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TODO: optimize description text -->
+  <meta property="description" content="Explore music from YouTube and Vimeo snippet by snippet" />
+  <meta property="og:description" content="Explore music from YouTube and Vimeo snippet by snippet" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <link rel="canonical" href="{{ request.url }}" />
+  {%- block metatags %}{%- endblock %}
 </head>
 
-<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+<body{% if bodyClass %} class="{{ bodyClass }}" {% endif %}>
 
-	{% block header %}<header>
-		<a href="{{ url_for('index') }}" class="logo_short shadow" title="Go to start page">
-			<div>
-			<img src="{{ url_for('static', filename='img/logo_simplified.svg') }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" />
-			</div>
-		</a>
+  {%- block header %}
+  <header>
+    <a href="{{ url_for('index') }}" class="logo_short" title="Go to start page">
+      <img src="{{ url_for('static', filename='img/logo_short.svg') }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!"
+        title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" />
+    </a>
 
-		<form class="shadow" method="post" action="{{ url_for('index') }}">
-			<div class="input-url"><input type="text" name="url" placeholder="YouTube playlist or Vimeo album/channel" /></div>
-			<div class="input-submit"><button type="submit">start</button></div>
-		</form>
-	</header>{% endblock %}
+    <form method="post" action="{{ url_for('index') }}">
+      <div id="autocomplete">
+        <input type="text" name="url" autocomplete="off" placeholder="Start typing or paste a playlist URL" />
+        <i class="flash fa fa-refresh"></i>
+      </div>
 
-	{% block body %}{% endblock %}
+      <ul id="autocomplete-result"></ul>
 
-	<footer>
-			<div><span><a href="https://tocsin.de" target="_blank">Made with <i class="fa fa-heart"></i> by tocsin</a></span> <span><a href="https://github.com/newsic/newsic" target="_blank">Code on GitHub</a></span></div>
-	</footer>
-</body>
+      <button type="submit">start</button>
+    </form>
+  </header>
+  {%- endblock %}
+
+  {%- block body %}{%- endblock %}
+
+  {%- block footer %}
+  <footer>
+    <a href="https://tocsin.de" target="_blank" title="Visit tocsin.de, the portfolio of the newsic maker">
+      <span>Made with <i class="fa fa-heart"></i> by tocsin</span>
+    </a>
+    <a href="https://github.com/newsic" target="_blank" title="Feel free to fork or review the Code on GitHub">
+      <span>Source code on GitHub</span>
+    </a>
+  </footer>
+  {%- endblock %}
+  {% if runtime %}<!-- runtime: {{ runtime }} -->{%- endif %}
+  </body>
+
 </html>

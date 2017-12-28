@@ -35,7 +35,7 @@
 * Increased font weight and font sizes (especially for smaller device widths) with consequent usage of "vw"
 
 ### Et cetera:
-* Plyr 2.0.17 (while preparing support for upcoming Plyr 3)
+* Plyr 2.0.18 (while preparing support for upcoming Plyr 3)
 * Improved subfolder deployment
 * Added playlist title to page title
 * New calculation of snippet start time (currently testing, not in use yet)

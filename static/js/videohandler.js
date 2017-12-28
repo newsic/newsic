@@ -20,6 +20,18 @@
 
 */
 
+
+/* Plyr version
+Warning: Plyr 3 support in very early stage
+
+Please remember to change file requests in play.html template
+
+Default: 2
+
+*/
+var plyrVersion = 2;
+
+
 var ready = false;
 var complete = false;
 var prevOrNext = "next";
@@ -132,38 +144,33 @@ var options_plyr2 = {
 var options_plyr3 = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
-    debug: false,
+    debug: true,
     iconUrl: '/static/img/plyr/3/plyr.svg',
-    keyboard: {
-    global: false,
-    focused: false,
-},
-tooltips: {
-    controls: true,
-},
-captions: {
-    active: false,
-},
-controls: [
-    'play-large',
-    'play',
-    'progress',
-    'current-time',
-    'mute',
-    'volume',
-    'settings',
-    'fullscreen'
-]
+    keyboard: { global: false, focused: false },
+    tooltips: { controls: true },
+    captions: { active: false },
+    controls: [
+        'play-large',
+        'play',
+        'progress',
+        'current-time',
+        'mute',
+        'volume',
+        'settings',
+        'fullscreen'
+    ]
 };
 
-
 // Plyr 2
-var video = plyr.setup('.plyr', options_plyr2);
+if(plyrVersion == 2) {
+    var video = plyr.setup('.plyr', options_plyr2);
+}
 
 // Plyr 3
-//var video = new Plyr('.plyr', options_plyr3);
-//video[0] = video;
-// end Plyr 3
+if(plyrVersion == 3) {
+    var video = new Plyr('.plyr', options_plyr3);
+    video[0] = video;
+}
 
 var elementMessage = document.getElementsByClassName("message")[0];
 var elementPlayPause = document.getElementsByClassName("playPause fa fa-play")[0];
@@ -195,27 +202,36 @@ var playPause = function() {
     video[0].togglePlay();
 
     // Plyr 2
-    if(video[0].isPaused()) elementPlayPause.className = "playPause fa fa-play";
+    if(plyrVersion == 2) {
+        var videoPaused = video[0].isPaused();
+    }
 
     // Plyr 3
-    //if(video[0].paused) elementPlayPause.className = "playPause fa fa-play";
+    if(plyrVersion == 3) {
+        var videoPaused = video[0].paused;
+    }
 
+    if(videoPaused) elementPlayPause.className = "playPause fa fa-play";
     else elementPlayPause.className = "playPause fa fa-pause";
 }
 
 var playComplete = function() {
     
     // Plyr 2
-    video[0].seek(0);
+    if(plyrVersion == 2) {
+        video[0].seek(0);
+    }
 
     // Plyr 3
-    //video[0].currentTime = 0;
+    if(plyrVersion == 3) {
+        video[0].currentTime = 0;
+    }
 
     complete = true;
 }
 
 var playPrevious = function() {
-    if(i>0) {
+    if(i > 0) {
         prevOrNext = "prev";
         i--;
         jumpTo(i);
@@ -255,43 +271,55 @@ var updateElements = function() {
     document.getElementsByTagName("title")[0].innerHTML = title + " - " + document.getElementById("snippets").dataset.playlisttitle + " - newsic";
 
     // Plyr 2
-    document.getElementsByClassName("searchLyrics")[1].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
+    if(plyrVersion == 2) {
+        document.getElementsByClassName("searchLyrics")[1].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
+    }
 
     // Plyr 3
-    //document.getElementsByClassName("searchLyrics")[0].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
+    if(plyrVersion == 3) {
+        document.getElementsByClassName("searchLyrics")[0].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
+    }
 
 
     // TODO: simplify (URL is built the same way, just switch between provider)
+
     // Plyr 2
-    if(snippets[i].dataset.type == "youtube") document.getElementsByClassName("playMix")[1].href = "/youtube/mix/" + snippets[i].dataset.id;
-    if(snippets[i].dataset.type == "vimeo") document.getElementsByClassName("playMix")[1].href = "/vimeo/mix/" + snippets[i].dataset.id;
+    if(plyrVersion == 2) {
+        if(snippets[i].dataset.type == "youtube") document.getElementsByClassName("playMix")[1].href = "/youtube/mix/" + snippets[i].dataset.id;
+        if(snippets[i].dataset.type == "vimeo") document.getElementsByClassName("playMix")[1].href = "/vimeo/mix/" + snippets[i].dataset.id;
+    }
 
     // Plyr 3
-    //if(snippets[i].dataset.type == "youtube") document.getElementsByClassName("playMix")[0].href = "/youtube/mix/" + snippets[i].dataset.id;
-    //if(snippets[i].dataset.type == "vimeo") document.getElementsByClassName("playMix")[0].href = "/vimeo/mix/" + snippets[i].dataset.id;
+    if(plyrVersion == 3) {
+        if(snippets[i].dataset.type == "youtube") document.getElementsByClassName("playMix")[0].href = "/youtube/mix/" + snippets[i].dataset.id;
+        if(snippets[i].dataset.type == "vimeo") document.getElementsByClassName("playMix")[0].href = "/vimeo/mix/" + snippets[i].dataset.id;
+    }
 }
 
 // switching source
 var jumpTo = function(index) {
 
     // Plyr 2
-    video[0].source({
-        type: "video",
-        sources: [{
-            src: snippets[index].dataset.id,
-            type: snippets[index].dataset.type
-        }]
-    });
-
+    if(plyrVersion == 2) {
+        video[0].source({
+            type: "video",
+            sources: [{
+                src: snippets[index].dataset.id,
+                type: snippets[index].dataset.type
+            }]
+        });
+    }
 
     // Plyr 3
-    /* video[0].source = {
-        type: "video",
-        sources: [{
-            src: snippets[index].dataset.id,
-            provider: snippets[index].dataset.type
-        }]
-    }; */
+    if(plyrVersion == 3) {
+        video[0].source = {
+            type: "video",
+            sources: [{
+                src: snippets[index].dataset.id,
+                provider: snippets[index].dataset.type
+            }]
+        };
+    }
 }
 
 
@@ -309,7 +337,6 @@ var mindTheHash = function() {
     updateElements();
 };
 
-
 video[0].on("ready", function() {
     complete = false;
 
@@ -325,12 +352,17 @@ video[0].on("ready", function() {
     if(snippets[i].dataset.type === "youtube") {
 
         // Plyr 2
-        video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
+        if(plyrVersion == 2) {
+            video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
+        }
 
         // Plyr 3
-        // TODO: fix
-        //video[0].currentTime = parseFloat(snippets[i].getAttribute("data-start")).toFixed(2);
-        //video[0].currentTime = snippets[i].getAttribute("data-start").toFixed;
+        if(plyrVersion == 3) {
+
+            // TODO: fix
+            video[0].currentTime = parseFloat(snippets[i].getAttribute("data-start")).toFixed(2);
+            //video[0].currentTime = snippets[i].getAttribute("data-start").toFixed;
+        }
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
     }
@@ -344,10 +376,15 @@ video[0].on("playing", function() {
     if(snippets[i].dataset.type === "vimeo" && ready) {
 
         // Plyr 2
-        video[0].seek(parseFloat(snippets[i].dataset.start));
+        if(plyrVersion == 2) {
+            video[0].seek(parseFloat(snippets[i].dataset.start));
+        }
 
         // Plyr 3
-        //video[0].currentTime = parseFloat(snippets[i].dataset.start);
+        if(plyrVersion == 3) {
+            video[0].currentTime = parseFloat(snippets[i].dataset.start).toFixed(2);
+            video[0].play();
+        }
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
         ready = false;
@@ -394,20 +431,21 @@ video[0].on("timeupdate", function() {
         // TODO: make it go to zero
 
         // Plyr 2
-        var countdownWidth = Math.floor(end - video[0].getCurrentTime()) / (end - start) * 100 +  "%";
+        if(plyrVersion == 2) {
+            var videoCurrentTime = video[0].getCurrentTime();
+        }
 
         // Plyr 3
-        //var countdownWidth = Math.floor(end - video[0].currentTime) / (end - start) * 100 +  "%";
+        if(plyrVersion == 3) {
+            var videoCurrentTime = video[0].currentTime;
+        }
+
+        var countdownWidth = Math.floor(end - videoCurrentTime) / (end - start) * 100 +  "%";
         
         countdowns[0].style.width = countdowns[1].style.width = countdownWidth;
 
         // check if player reached end of snippet
-        
-        // Plyr 2
-        if (Math.ceil(video[0].getCurrentTime()) >= end) {
-
-        // Plyr 3
-        //if (Math.ceil(video[0].currentTime) >= end) {
+        if (Math.ceil(videoCurrentTime) >= end) {
 
             //video[0].pause();
 
@@ -454,12 +492,12 @@ for (var temp = 0; temp < playCompleteElements.length; temp++) {
 }
 
 // Plyr 2
-// only for first mix button (Plyr)
-playMixElements[0].onclick = playMix;
-
-// Plyr 2
-// only for first lyric search button (Plyr)
-searchLyricsElements[0].onclick = searchLyrics;
+if(plyrVersion == 2) {
+    // only for first mix button (Plyr)
+    playMixElements[0].onclick = playMix;
+    // only for first lyric search button (Plyr)
+    searchLyricsElements[0].onclick = searchLyrics;
+}
 
 // whole bunch of handy keyboard shortcuts (inspired by several popular video content provider *cough*)
 document.addEventListener("keydown", function(e) {

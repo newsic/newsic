@@ -189,6 +189,7 @@ def yt_general_playlist_info(playlist_id):
     return False
 
 # TODO: rename yt_grab
+# TODO: remove "dangerous default value [] for video_ids as argument"
 # TODO: split in two functions:
 # first fetches video ids of a playlist -> store in list
 # second takes the list of first one and requests more information
@@ -396,7 +397,7 @@ def index_post():
     youtube_playlist_regex = re.compile(
         r"(?:https?:\/\/)*(?:[a-z].*).?youtube.com\/.*list=([a-zA-Z0-9-_]*)(?:.*index=(\d*))?")    
     vimeo_regex = re.compile(
-        r"(?:https?:\/\/)*(?:[a-z].*).?vimeo.com\/.*(album|channels)\/([0-9]*)")
+        r"(?:https?:\/\/)*(?:[a-z].*).?vimeo.com\/.*(album|channels)\/(\d*)")
 
     youtube_video = youtube_video_regex.match(request.form["url"])
     youtube_playlist = youtube_playlist_regex.match(request.form["url"])

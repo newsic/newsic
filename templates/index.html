@@ -13,7 +13,7 @@
 
 	{% if error %}
 	<p class="message error">
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ error }}
+    <i class="fas fa-exclamation-triangle" aria-hidden="true"></i> {{ error }}
   </p>
 	{% endif %}
 
@@ -21,7 +21,7 @@
 		<form method="post" action="{{ url_for('index') }}">
       <div id="autocomplete">
         <input type="text" name="url" autocomplete="off" placeholder="Start typing or paste a playlist URL" />
-        <i class="flash fa fa-refresh"></i>
+        <span class="flash"><i class="fas fa-sync-alt"></i></span>
       </div>
 
       <ul id="autocomplete-result"></ul>
@@ -34,7 +34,7 @@
 		<div class="main">
 			Try newsic and discover new music with these hand-selected sample playlists.
 			<br/><br/>
-      Find more newsic playlists on <a href="https://www.youtube.com/channel/UCdBsONwgMEaRqqJ_KTE1HqQ/playlists" target="_blank" title="newsic on YouTube"><i class="fa fa-youtube-play"></i> YouTube</a> and on <a href="https://vimeo.com/newsic/collections" target="_blank" title="newsic on Vimeo"><i class="fa fa-vimeo"></i> Vimeo</a>.
+      Find more newsic playlists on <a href="https://www.youtube.com/channel/UCdBsONwgMEaRqqJ_KTE1HqQ/playlists" target="_blank" title="newsic on YouTube"><i class="fab fa-youtube"></i> YouTube</a> and on <a href="https://vimeo.com/newsic/collections" target="_blank" title="newsic on Vimeo"><i class="fab fa-vimeo-v"></i> Vimeo</a>.
 		</div>
 
 		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvc5sRRywmwrcoMoLZP_yNeq') }}" title="Go to San Fermin playlist">
@@ -69,7 +69,7 @@
 
 		<a href="{{ url_for('play_vimeo', vimeo_id='3951181', vimeo_type='album') }}" title="Go to Campusradio Dresden album">
       <img src="https://i.vimeocdn.com/video/510983747_295x166.jpg" alt="Campusradio Dresden" title="Campusradio Dresden" />
-      <p>Campusradio Dresden <i class="warning fa fa-exclamation-triangle" title="Attention: The support for this Vimeo playlist is still in beta status."></i></p>
+      <p>Campusradio Dresden <i class="warning fas fa-exclamation-triangle" title="Attention: The support for this Vimeo playlist is still in beta status."></i></p>
 		</a>
 
   </div>

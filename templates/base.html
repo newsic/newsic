@@ -29,7 +29,8 @@
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
   <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="shortcut icon" />
   {%- block css %}{%- endblock %}
-  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+  <!-- <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />-->
+  <link href="{{ url_for('static', filename='css/fontawesome/fa-svg-with-js.css') }}" rel="stylesheet" type="text/css" />
   <!-- former font weights: 400 and 600 -->
   <!-- new font weights: 600 and 800 -->
   <!-- TODO: try 900 -->
@@ -59,7 +60,7 @@
     <form method="post" action="{{ url_for('index') }}">
       <div id="autocomplete">
         <input type="text" name="url" autocomplete="off" placeholder="Start typing or paste a playlist URL" />
-        <i class="flash fa fa-refresh"></i>
+        <span class="flash"><i class="fas fa-sync-alt"></i></span>
       </div>
 
       <ul id="autocomplete-result"></ul>
@@ -74,7 +75,7 @@
   {%- block footer %}
   <footer>
     <a href="https://tocsin.de" target="_blank" title="Visit tocsin.de, the portfolio of the newsic creator">
-      <span>Made with <i class="fa fa-heart"></i> by tocsin</span>
+      <span>Made with <i class="fas fa-heart"></i> by tocsin</span>
     </a>
     <a href="https://github.com/newsic" target="_blank" title="Feel free to fork or review the Code on GitHub">
       <span>Source code on GitHub</span>
@@ -82,6 +83,10 @@
   </footer>
   {%- endblock %}
   {% if runtime %}<!-- runtime: {{ runtime }} -->{%- endif %}
+
+  <script defer src="{{ url_for('static', filename='js/fontawesome/fontawesome.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/fontawesome/fa-brands.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/fontawesome/fa-solid.min.js') }}"></script>
   </body>
 
 </html>

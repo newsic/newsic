@@ -1,0 +1,43 @@
+# http://humanstxt.org
+# The humans responsible and
+# technology colophon
+                         _
+                        (_)
+ _ __   _____      _____ _  ___
+| '_ \ / _ \ \ /\ / / __| |/ __|
+| | | |  __/\ V  V /\__ \ | (__
+|_| |_|\___| \_/\_/ |___/_|\___|
+
+newsic.tocsin.de
+trynewsic.tocsin.de
+
+# TEAM
+
+  Developer: Stephan Fischer
+  Site: https://stephan-fischer.de
+  Twitter: https://twitter.com/22uhr
+  GitHub: https://github.com/tocsinDE
+  Location: Germany
+
+# TECHNOLOGY COLOPHON
+
+  Standards: HTML5, CSS3 (via SASS), PEP8
+  Server: Linux, Apache, Python
+  Components:
+    Flask: https://github.com/pallets/flask
+    Plyr: https://github.com/sampotts/plyr
+    PyVimeo: https://github.com/vimeo/vimeo.py
+  Optional components:
+    Flask Caching: https://github.com/sh4nks/flask-caching
+    Flask-Compress: https://github.com/libwilliam/flask-compress
+    Flask-HTMLmin: https://github.com/hamidfzm/Flask-HTMLmin
+    python-dotenv: https://github.com/theskumar/python-dotenv
+  APIs:
+    YouTube: https://developers.google.com/youtube/v3
+    Vimeo: https://developer.vimeo.com/api/start
+  Software:
+    git: https://git-scm.com
+    Visual Studio Code: https://code.visualstudio.com
+    Insomnia: https://insomnia.rest
+    Inkscape: https://inkscape.org
+  Source: https://github.com/newsic/newsic

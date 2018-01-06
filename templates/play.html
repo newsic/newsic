@@ -53,7 +53,7 @@
 		<noscript>
 			Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript.
 			We kindly ask you to make a decision: Either activate JavaScript (or whitelist newsic on your content blocker) or install/use a fresh version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something else instead.
-			PSA: Using Edge isn't as cutting-edge as it sounds; but hey, that's entirely in your hands :)
+			PSA: Using Edge isn't as cutting-edge as it sounds; but hey, that's entirely up to you :)
 		</noscript>
 	</video>
 
@@ -68,19 +68,25 @@
 			</div>
 
 			<div class="controlbar">
-				<button class="playPrevious fa fa-backward" title="Previous snippet (shortcuts: A or left arrow key)"></button>
-				<button class="playPause fa fa-play" title="Play/pause (shortcuts: S, K or space bar)"></button>
-				<button class="playNext fa fa-forward" title="Next snippet (shortcuts: D or right arrow key)"></button>
+				<button class="playPrevious" title="Previous snippet (shortcuts: A or left arrow key)">
+          <i class="fas fa-backward"></i>
+        </button>
+        <button class="playPause" title="Play/pause (shortcuts: S, K or space bar)">
+          <i class="fas fa-play"></i>
+        </button>
+				<button class="playNext" title="Next snippet (shortcuts: D or right arrow key)">
+            <i class="fas fa-forward"></i>
+        </button>
 
 				<div class="right">
 					<button class="playComplete" title="Play complete song (shortcut: C)">
-						<i class="fa fa-plus-square"></i> Complete
+						<i class="fas fa-plus-square"></i> Complete
 					</button>
 					<a class="playMix" title="Play mix based on current video (shortcut: X)">
-						<button><i class="fa fa-random"></i> Mix</button>
+						<button><i class="fas fa-random"></i> Mix</button>
 					</a>
 					<a class="searchLyrics" target="_blank" title="Search lyrics on Genius.com (shortcut: L)">
-						<button><i class="fa fa-file-text-o"></i> Lyrics</button>
+						<button><i class="fas fa-file-alt"></i> Lyrics</button>
 					</a>
 				</div>
 			</div>
@@ -105,11 +111,11 @@
 
       {% if key[1] == "youtube" %}
 			{%- for country in key[6] -%}
-				{% if loop.first %}<i class="blocked warning fa fa-exclamation-triangle" title="blocked in {% endif %}{{ country }}{% if loop.last %}" data-blocked="{{ key[6] }}"></i>{% else %}, {% endif %}
+				{% if loop.first %}<i class="blocked warning fas fa-exclamation-triangle" title="blocked in {% endif %}{{ country }}{% if loop.last %}" data-blocked="{{ key[6] }}"></i>{% else %}, {% endif %}
 			{%- endfor %}
 
 			{%- for country in key[7] -%}
-				{% if loop.first %}<i class="allowed warning fa fa-exclamation-triangle" title="only allowed in {% endif %}{{ country }}{% if loop.last %}" data-allowed="{{ key[7] }}"></i>{% else %}, {% endif %}
+				{% if loop.first %}<i class="allowed warning fas fa-exclamation-triangle" title="only allowed in {% endif %}{{ country }}{% if loop.last %}" data-allowed="{{ key[7] }}"></i>{% else %}, {% endif %}
       {%- endfor %}
       {% endif %}
       </p>

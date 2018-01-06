@@ -22,8 +22,8 @@
 
 
 /* Plyr version
-Warning: Plyr 3 support in very early stage
-
+Temporary variable
+Warning: Plyr 3 support is still considered alpha
 Please remember to change file requests in play.html template
 
 Default: 2
@@ -61,25 +61,25 @@ Default: true
 */
 var autoplayPlyr = true;
 
-var controls = ["<div class='plyr__controls'>",
+var controlsPlyr2 = ["<div class='plyr__controls'>",
 
 "<button class='playPrevious' type='button' data-plyr='backward'>",
-    "<span class='fa fa-backward'></span>",
+    "<span class='fas fa-backward'></span>",
     "<span class='plyr__sr-only'>Previous snippet</span>",
 "</button>",
 
 "<button type='button' data-plyr='play'>",
-    "<span class='fa fa-play'></span>",
+    "<span class='fas fa-play'></span>",
     "<span class='plyr__sr-only'>Play</span>",
 "</button>",
 
 "<button type='button' data-plyr='pause'>",
-    "<span class='fa fa-pause'></span>",
+    "<span class='fas fa-pause'></span>",
     "<span class='plyr__sr-only'>Pause</span>",
 "</button>",
 
 "<button class='playNext' type='button' data-plyr='forward'>",
-    "<span class='fa fa-forward'></span>",
+    "<span class='fas fa-forward'></span>",
     "<span class='plyr__sr-only'>Next snippet</span>",
 "</button>",
 
@@ -106,17 +106,17 @@ var controls = ["<div class='plyr__controls'>",
 "</span>",
 
 "<button class='playComplete' type='button' data-plyr='complete'>",
-    "<span class='fa fa-plus-square'></span>",
+    "<span class='fas fa-plus-square'></span>",
     "<span class='plyr__sr-only'>Complete snippet</span>",
 "</button>",
 
 "<button class='playMix' type='button' data-plyr='mix'>",
-    "<span class='fa fa-random'></span>",
+    "<span class='fas fa-random'></span>",
     "<span class='plyr__sr-only'>Mix</span>",
 "</button>",
 
 "<button class='searchLyrics' type='button' data-plyr='lyrics'>",
-    "<span class='fa fa-file-text-o'></span>",
+    "<span class='fas fa-file-alt'></span>",
     "<span class='plyr__sr-only'>Lyrics</span>",
 "</button>",
 
@@ -128,12 +128,12 @@ var controls = ["<div class='plyr__controls'>",
 
 "</div>"].join("");
 
-var options_plyr2 = {
+var optionsPlyr2 = {
     debug: false,
     autoplay: autoplayPlyr,
     iconUrl: '/static/img/plyr/plyr.svg',
     blankUrl: '/static/blank.mp4',
-    html: controls,
+    html: controlsPlyr2,
     tooltips: { controls: true, seek: true },
 
     // "keyboardShorcuts" is a typo of Plyr 2, this will be fixed in Plyr 3
@@ -141,7 +141,7 @@ var options_plyr2 = {
     keyboardShorcuts: { focused: false, global: false }
 };
 
-var options_plyr3 = {
+var optionsPlyr3 = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: true,
@@ -150,30 +150,26 @@ var options_plyr3 = {
     tooltips: { controls: true },
     captions: { active: false },
     controls: [
-        'play-large',
-        'play',
-        'progress',
-        'current-time',
-        'mute',
-        'volume',
-        'settings',
-        'fullscreen'
-    ]
+        'play-large', 'play',
+        'progress', 'current-time',
+        'mute', 'volume',
+        'settings', 'fullscreen'
+    ],
+    // Unsupported value of 'large' for quality
+    quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
 };
 
 // Plyr 2
-if(plyrVersion == 2) {
-    var video = plyr.setup('.plyr', options_plyr2);
-}
+if(plyrVersion == 2) var video = plyr.setup('.plyr', optionsPlyr2);
 
 // Plyr 3
 if(plyrVersion == 3) {
-    var video = new Plyr('.plyr', options_plyr3);
+    var video = new Plyr('.plyr', optionsPlyr3);
     video[0] = video;
 }
 
 var elementMessage = document.getElementsByClassName("message")[0];
-var elementPlayPause = document.getElementsByClassName("playPause fa fa-play")[0];
+var elementPlayPause = document.getElementsByClassName("playPause")[0];
 var snippets = document.getElementById("snippets").children;
 
 // debug function
@@ -192,7 +188,7 @@ var showMessage = function(message, seconds) {
     // sloppy fix for browser with antipathy for some es6 specifications (Safari *cough*)
     if (typeof(seconds) === "undefined") seconds = 10;
 
-    elementMessage.innerHTML = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>' + " " + message;
+    elementMessage.innerHTML = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>' + " " + message;
     elementMessage.style.visibility = "visible";
     elementMessage.style.opacity = "1";
     if(seconds > 0) setInterval(toggleMessage, seconds * 1000);
@@ -202,30 +198,35 @@ var playPause = function() {
     video[0].togglePlay();
 
     // Plyr 2
-    if(plyrVersion == 2) {
-        var videoPaused = video[0].isPaused();
-    }
+    if(plyrVersion == 2) var videoPaused = video[0].isPaused();
 
     // Plyr 3
-    if(plyrVersion == 3) {
-        var videoPaused = video[0].paused;
-    }
+    if(plyrVersion == 3) var videoPaused = video[0].paused;
 
-    if(videoPaused) elementPlayPause.className = "playPause fa fa-play";
-    else elementPlayPause.className = "playPause fa fa-pause";
+    newElement = document.createElement("i");
+
+    if(videoPaused) {
+        while (elementPlayPause.firstChild) {
+            elementPlayPause.removeChild(elementPlayPause.firstChild);
+        }
+        newElement.classList = "fas fa-play";
+        elementPlayPause.appendChild(newElement);
+    } else {
+        while (elementPlayPause.firstChild) {
+            elementPlayPause.removeChild(elementPlayPause.firstChild);
+        }
+        newElement.classList = "fas fa-pause";
+        elementPlayPause.appendChild(newElement);
+    }
 }
 
 var playComplete = function() {
     
     // Plyr 2
-    if(plyrVersion == 2) {
-        video[0].seek(0);
-    }
+    if(plyrVersion == 2) video[0].seek(0);
 
     // Plyr 3
-    if(plyrVersion == 3) {
-        video[0].currentTime = 0;
-    }
+    if(plyrVersion == 3) video[0].currentTime = 0;
 
     complete = true;
 }
@@ -257,6 +258,9 @@ var searchLyrics = function() {
 }
 
 var updateElements = function() {
+    // temporary variable for Plyr 2/3 switch
+    var index;
+
     var firstCountdown = document.getElementsByClassName("countdown");
     if(firstCountdown.length > 1) firstCountdown[1].classList.toggle("countdown");
 
@@ -271,29 +275,13 @@ var updateElements = function() {
     document.getElementsByTagName("title")[0].innerHTML = title + " - " + document.getElementById("snippets").dataset.playlisttitle + " - newsic";
 
     // Plyr 2
-    if(plyrVersion == 2) {
-        document.getElementsByClassName("searchLyrics")[1].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
-    }
+    if(plyrVersion == 2) index = 1;
 
     // Plyr 3
-    if(plyrVersion == 3) {
-        document.getElementsByClassName("searchLyrics")[0].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
-    }
+    if(plyrVersion == 3) index = 0;
 
-
-    // TODO: simplify (URL is built the same way, just switch between provider)
-
-    // Plyr 2
-    if(plyrVersion == 2) {
-        if(snippets[i].dataset.type == "youtube") document.getElementsByClassName("playMix")[1].href = "/youtube/mix/" + snippets[i].dataset.id;
-        if(snippets[i].dataset.type == "vimeo") document.getElementsByClassName("playMix")[1].href = "/vimeo/mix/" + snippets[i].dataset.id;
-    }
-
-    // Plyr 3
-    if(plyrVersion == 3) {
-        if(snippets[i].dataset.type == "youtube") document.getElementsByClassName("playMix")[0].href = "/youtube/mix/" + snippets[i].dataset.id;
-        if(snippets[i].dataset.type == "vimeo") document.getElementsByClassName("playMix")[0].href = "/vimeo/mix/" + snippets[i].dataset.id;
-    }
+    document.getElementsByClassName("searchLyrics")[index].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
+    document.getElementsByClassName("playMix")[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id;
 }
 
 // switching source
@@ -343,26 +331,24 @@ video[0].on("ready", function() {
     // handle newsic's autoplay setting (affects first snippet only)
     if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
         video[0].pause();
-    } else //video[0].play();
+    } //else video[0].play();
 
-    if(snippets[i].dataset.type === "vimeo") {
-        ready = true;
-    }
+    if(snippets[i].dataset.type === "vimeo") ready = true;
 
     if(snippets[i].dataset.type === "youtube") {
 
         // Plyr 2
-        if(plyrVersion == 2) {
-            video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
-        }
+        if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
 
         // Plyr 3
         if(plyrVersion == 3) {
-
             // TODO: fix
-            video[0].currentTime = parseFloat(snippets[i].getAttribute("data-start")).toFixed(2);
-            //video[0].currentTime = snippets[i].getAttribute("data-start").toFixed;
+            // "TypeError: e.toFixed is not a function"
+            // -> caused by youtube.com/yts/jsbin/player-.../base.js
+
+            video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
         }
+
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
     }
@@ -371,14 +357,17 @@ video[0].on("ready", function() {
 
 video[0].on("playing", function() {
 
-    elementPlayPause.className = "playPause fa fa-pause";
+    while (elementPlayPause.firstChild) {
+        elementPlayPause.removeChild(elementPlayPause.firstChild);
+    }
+    newElement = document.createElement("i");
+    newElement.classList = "fas fa-pause";
+    elementPlayPause.appendChild(newElement);
 
     if(snippets[i].dataset.type === "vimeo" && ready) {
 
         // Plyr 2
-        if(plyrVersion == 2) {
-            video[0].seek(parseFloat(snippets[i].dataset.start));
-        }
+        if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].dataset.start));
 
         // Plyr 3
         if(plyrVersion == 3) {
@@ -389,6 +378,16 @@ video[0].on("playing", function() {
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
         ready = false;
     }
+});
+
+
+video[0].on("pause", function() {
+    while (elementPlayPause.firstChild) {
+        elementPlayPause.removeChild(elementPlayPause.firstChild);
+    }
+    newElement = document.createElement("i");
+    newElement.classList = "fas fa-play";
+    elementPlayPause.appendChild(newElement);
 });
 
 
@@ -407,10 +406,6 @@ video[0].on("error", function(error) {
     else playNext();
 });
 
-
-video[0].on("pause", function() {
-    elementPlayPause.className = "playPause fa fa-play";
-});
 
 // runs multiple times in a second when plyr plays video
 video[0].on("timeupdate", function() {
@@ -431,9 +426,7 @@ video[0].on("timeupdate", function() {
         // TODO: make it go to zero
 
         // Plyr 2
-        if(plyrVersion == 2) {
-            var videoCurrentTime = video[0].getCurrentTime();
-        }
+        if(plyrVersion == 2) var videoCurrentTime = video[0].getCurrentTime();
 
         // Plyr 3
         if(plyrVersion == 3) {

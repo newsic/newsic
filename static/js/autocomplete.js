@@ -190,8 +190,8 @@ input.oninput = function() {
                     br = document.createElement("br");
                     icon = document.createElement("i");
 
-                    icon.classList.add("fa");
-                    icon.classList.add("fa-youtube-play");
+                    icon.classList.add("fab");
+                    icon.classList.add("fa-youtube");
 
                     sub.textContent = " " + json[i]["amount"] + " videos";
                     sub.classList.add("sub");

@@ -40,7 +40,7 @@ app = Flask(__name__)
 # Config management
 
 # default: False
-CONFIG_DOTENV = True
+CONFIG_DOTENV = False
 
 def read_config(value):
 

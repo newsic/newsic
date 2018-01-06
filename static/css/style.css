@@ -386,7 +386,7 @@ form .flash {
   opacity: 0.7;
 }
 
-#autocomplete i {
+#autocomplete .flash {
   flex-grow: 0.05;
   text-align: right;
   color: #3d3d3d;

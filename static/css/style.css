@@ -588,7 +588,7 @@ form .flash {
     margin-top: 10%;
   }
   .home #autocomplete-result {
-    margin-top: 0 !important;
+    margin-top: 2px !important;
   }
   .home .box form {
     padding: 7% 14% 7% 14%;

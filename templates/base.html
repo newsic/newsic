@@ -34,7 +34,7 @@
   <!-- former font weights: 400 and 600 -->
   <!-- new font weights: 600 and 800 -->
   <!-- TODO: try 900 -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:600,800" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Raleway:600,800&amp;subset=latin-ext" rel="stylesheet" type="text/css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta property="og:type" content="website" />
@@ -82,11 +82,12 @@
     </a>
   </footer>
   {%- endblock %}
-  {% if runtime %}<!-- runtime: {{ runtime }} -->{%- endif %}
 
   <script defer src="{{ url_for('static', filename='js/fontawesome/fontawesome.min.js') }}"></script>
   <script defer src="{{ url_for('static', filename='js/fontawesome/fa-brands.min.js') }}"></script>
   <script defer src="{{ url_for('static', filename='js/fontawesome/fa-solid.min.js') }}"></script>
-  </body>
+
+  {% if runtime %}<!-- runtime: {{ runtime }} -->{%- endif %}
+</body>
 
 </html>

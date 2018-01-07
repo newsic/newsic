@@ -38,8 +38,9 @@ var resetSelection = function() {
     });
 }
 
+// dynamic ans responsive offset for correct positioning
 var resultDivMeasures = function() {
-    resultDiv.style.marginTop = container.offsetHeight + "px";
+    resultDiv.style.marginTop = container.offsetHeight +2 + "px";
     resultDiv.style.width = container.offsetWidth + "px";
 }
 

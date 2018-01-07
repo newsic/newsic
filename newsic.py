@@ -789,7 +789,7 @@ def mix_vimeo(vimeo_id):
         playlistTitle="Vimeo mix",
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
-        title=video_list[0][4] + " - " + "Vimeo mix",
+        title=video_list[0][2] + " - " + "Vimeo mix",
         message="vimeo-beta",
         runtime=flask_g.runtime())
 

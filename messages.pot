@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-09 17:51+0100\n"
+"POT-Creation-Date: 2018-01-09 23:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,6 +152,14 @@ msgstr ""
 msgid "Attention: The support for Vimeo playlists is still in beta status"
 msgstr ""
 
+#: templates/index.html:78
+msgid "No results :("
+msgstr ""
+
+#: templates/index.html:79
+msgid "videos"
+msgstr ""
+
 #: templates/play.html:39
 msgid ""
 "Vimeo support is still beta, sorry. <!-- <br/>Please <a "
@@ -202,7 +210,7 @@ msgstr ""
 msgid "Play mix based on current video (shortcut: X)"
 msgstr ""
 
-#: templates/play.html:86
+#: templates/play.html:86 templates/play.html:136
 msgid "Mix"
 msgstr ""
 
@@ -210,12 +218,60 @@ msgstr ""
 msgid "Search lyrics on Genius.com (shortcut: L)"
 msgstr ""
 
-#: templates/play.html:89
+#: templates/play.html:89 templates/play.html:137
 msgid "Lyrics"
 msgstr ""
 
 #: templates/play.html:100
 #, python-format
 msgid "Go directly to %(link)s"
+msgstr ""
+
+#: templates/play.html:128
+msgid "Next snippet"
+msgstr ""
+
+#: templates/play.html:129
+msgid "Play"
+msgstr ""
+
+#: templates/play.html:130
+msgid "Pause"
+msgstr ""
+
+#: templates/play.html:131
+msgid "Previous snippet"
+msgstr ""
+
+#: templates/play.html:132
+msgid "Toggle mute"
+msgstr ""
+
+#: templates/play.html:133
+msgid "Volume"
+msgstr ""
+
+#: templates/play.html:134
+msgid "buffered"
+msgstr ""
+
+#: templates/play.html:135
+msgid "Complete snippet"
+msgstr ""
+
+#: templates/play.html:138
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: templates/play.html:139
+msgid "Embedding forbidden or blocked in your country"
+msgstr ""
+
+#: templates/play.html:140
+msgid "Sorry, not available in your country"
+msgstr ""
+
+#: templates/play.html:141
+msgid "Video skipped"
 msgstr ""
 

@@ -66,32 +66,44 @@ var controlsPlyr2 = ["<div class='plyr__controls'>",
 
 "<button class='playPrevious' type='button' data-plyr='backward'>",
     "<span class='fas fa-backward'></span>",
-    "<span class='plyr__sr-only'>Previous snippet</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_previoussnippet,
+    "</span>",
 "</button>",
 
 "<button type='button' data-plyr='play'>",
     "<span class='fas fa-play'></span>",
-    "<span class='plyr__sr-only'>Play</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_play,
+    "</span>",
 "</button>",
 
 "<button type='button' data-plyr='pause'>",
     "<span class='fas fa-pause'></span>",
-    "<span class='plyr__sr-only'>Pause</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_pause,
+    "</span>",
 "</button>",
 
 "<button class='playNext' type='button' data-plyr='forward'>",
     "<span class='fas fa-forward'></span>",
-    "<span class='plyr__sr-only'>Next snippet</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_nextsnippet,
+    "</span>",
 "</button>",
 
 "<button type='button' data-plyr='mute'>",
     "<svg class='icon--muted'><use xlink:href='/static/img/plyr/plyr.svg#plyr-muted'></use></svg>",
     "<svg><use xlink:href='/static/img/plyr/plyr.svg#plyr-volume'></use></svg>",
-    "<span class='plyr__sr-only'>Toggle mute</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_togglemute,
+    "</span>",
 "</button>",
 
 "<span class='plyr__volume'>",
-    "<label for='volume{id}' class='plyr__sr-only'>Volume</label>",
+    "<label for='volume{id}' class='plyr__sr-only'>",
+    i18n_videohandler_volume,
+    "</label>",
     "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>",
     "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>",
 "</span>",
@@ -101,30 +113,39 @@ var controlsPlyr2 = ["<div class='plyr__controls'>",
     "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>",
     "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>",
     "<progress class='plyr__progress--buffer' max='100' value='0'>",
-        "<span>0</span>% buffered",
+        "<span>0</span>% ",
+        i18n_videohandler_buffered,
     "</progress>",
     "<span class='plyr__tooltip'>00:00</span>",
 "</span>",
 
 "<button class='playComplete' type='button' data-plyr='complete'>",
     "<span class='fas fa-plus-square'></span>",
-    "<span class='plyr__sr-only'>Complete snippet</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_completesnippet,
+    "</span>",
 "</button>",
 
 "<button class='playMix' type='button' data-plyr='mix'>",
     "<span class='fas fa-random'></span>",
-    "<span class='plyr__sr-only'>Mix</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_mix,
+    "</span>",
 "</button>",
 
 "<button class='searchLyrics' type='button' data-plyr='lyrics'>",
     "<span class='fas fa-file-alt'></span>",
-    "<span class='plyr__sr-only'>Lyrics</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_lyrics,
+    "</span>",
 "</button>",
 
 "<button type='button' data-plyr='fullscreen'>",
     "<svg class='icon--exit-fullscreen'><use xlink:href='/static/img/plyr/plyr.svg#plyr-exit-fullscreen'></use></svg>",
     "<svg><use xlink:href='/static/img/plyr/plyr.svg#plyr-enter-fullscreen'></use></svg>",
-    "<span class='plyr__sr-only'>Toggle fullscreen</span>",
+    "<span class='plyr__sr-only'>",
+    i18n_videohandler_togglefullscreen,
+    "</span>",
 "</button>",
 
 "</div>"].join("");
@@ -222,6 +243,8 @@ var playPause = function() {
 }
 
 var playComplete = function() {
+
+    video[0].pause();
     
     // Plyr 2
     if(plyrVersion == 2) video[0].seek(0);
@@ -230,6 +253,7 @@ var playComplete = function() {
     if(plyrVersion == 3) video[0].currentTime = 0;
 
     complete = true;
+    video[0].play();
 }
 
 var playPrevious = function() {
@@ -315,14 +339,12 @@ var jumpTo = function(index) {
 var mindTheHash = function() {
     // set index to first array element or - if hash in url is set - to requested item
     if (location.hash) {
-        // TODO: translate
         debugMessage("Hash is set");
         var input = window.location.hash.replace("#","");
 		if(input < snippets.length) i = input; 
 		else  i = window.location.hash = snippets.length-1;  // if hash > no. of videos
     } else i = 0; // no hash
 
-    // TODO: translate
     debugMessage("This is the beginning of a newsic session, the player is ready. Whoop whoop, fasten your seatbelts, etc.");
     jumpTo(i);
     updateElements();
@@ -352,7 +374,6 @@ video[0].on("ready", function() {
             video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
         }
 
-        // TODO: translate
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
     }
@@ -378,7 +399,7 @@ video[0].on("playing", function() {
             video[0].currentTime = parseFloat(snippets[i].dataset.start).toFixed(2);
             video[0].play();
         }
-        // TODO: translate
+
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
         ready = false;
@@ -403,12 +424,9 @@ video[0].on("error", function(error) {
 
         // see https://developers.google.com/youtube/iframe_api_reference?hl=de#Events
         if(error["detail"]["code"] == 150 || error["detail"]["code"] == 101) {
-            // TODO: translate
-            showMessage(title + ": Embedding forbidden or blocked in your country");
-            // TODO: translate
-        } else showMessage("Sorry, but " + title + " isn't available in your country.");
-        // TODO: translate
-    } else showMessage("Video skipped.");
+            showMessage(title + ": " + i18n_videohandler_embeddingforbidden);
+        } else showMessage(title + ": " + i18n_videohandler_blocked);
+    } else showMessage(title + ": " + i18n_videohandler_skipped);
     if(prevOrNext == "prev") playPrevious();
     else playNext();
 });
@@ -449,10 +467,8 @@ video[0].on("timeupdate", function() {
 
             if(i == (snippets.length - 1)) {
                 video[0].pause();
-                // TODO: translate
                 debugMessage("This party is over, now get out of here. Seriously.");
             } else {
-                // TODO: translate
                 debugMessage("End of snippet, let's go to the next one.");
                 playNext();
             }

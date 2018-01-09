@@ -179,8 +179,7 @@ input.oninput = function() {
             var json = JSON.parse(request.responseText);
 
             if(json.length < 1) {
-                // TODO: translate
-                resultDiv.innerHTML = '<li>No results :(</li>';
+                resultDiv.innerHTML = '<li>' + i18n_autocomplete_noresults + '</li>';
 
             } else {
 
@@ -195,8 +194,7 @@ input.oninput = function() {
                     icon.classList.add("fab");
                     icon.classList.add("fa-youtube");
 
-                    // TODO: translate
-                    sub.textContent = " " + json[i]["amount"] + " videos";
+                    sub.textContent = " " + json[i]["amount"] + " " + i18n_autocomplete_videos;
                     sub.classList.add("sub");
                     text.textContent = " " + json[i]["title"];
 

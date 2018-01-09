@@ -6,10 +6,10 @@
 {% block header %}{% endblock %}
 {% block body %}
 	<div class="logo_big">
-		<img src="{{ url_for('static', filename='img/logo_full.svg') }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!"  />
-	</div>
-
-	<p class="tac">Explore music from YouTube and Vimeo snippet by snippet</p>
+		<img src="{{ url_for('static', filename='img/logo_full.svg') }}" alt="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}" title="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}"  />
+  </div>
+  
+	<p class="tac">{{ _('Explore music from YouTube and Vimeo snippet by snippet') }}</p>
 
 	{% if error %}
 	<p class="message error">
@@ -20,56 +20,56 @@
 	<div class="box">
 		<form method="post" action="{{ url_for('index') }}">
       <div id="autocomplete">
-        <input type="text" name="url" autocomplete="off" placeholder="Start typing or paste a playlist URL" />
+        <input type="text" name="url" autocomplete="off" placeholder="{{ _('Start typing or paste a playlist URL') }}" />
         <span class="flash"><i class="fas fa-sync-alt"></i></span>
       </div>
 
       <ul id="autocomplete-result"></ul>
 
-      <button type="submit">start</button> 
+      <button type="submit">{{ _('start') }}</button> 
 		</form>
 	</div>
 
 	<div class="featured">
 		<div class="main">
-			Try newsic and discover new music with these hand-selected sample playlists.
-			<br/><br/>
-      Find more newsic playlists on <a href="https://www.youtube.com/channel/UCdBsONwgMEaRqqJ_KTE1HqQ/playlists" target="_blank" title="newsic on YouTube"><i class="fab fa-youtube"></i> YouTube</a> and on <a href="https://vimeo.com/newsic/collections" target="_blank" title="newsic on Vimeo"><i class="fab fa-vimeo-v"></i> Vimeo</a>.
+			{{ _('Try newsic and discover new music with these hand-selected sample playlists.') }}
+      <br/><br/>
+      {{ gettext('Find more newsic playlists on <a href="%(link_youtube)s" target="_blank" title="newsic on YouTube">%(icon_youtube)s YouTube</a> and on <a href="%(link_vimeo)s" target="_blank" title="newsic on Vimeo">%(icon_vimeo)s Vimeo</a>.', link_youtube='https://www.youtube.com/channel/UCdBsONwgMEaRqqJ_KTE1HqQ/playlists', icon_youtube='<i class="fab fa-youtube"></i>'|safe, link_vimeo='https://vimeo.com/newsic/collections', icon_vimeo='<i class="fab fa-vimeo-v"></i>'|safe) }}
 		</div>
 
-		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvc5sRRywmwrcoMoLZP_yNeq') }}" title="Go to San Fermin playlist">
+		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvc5sRRywmwrcoMoLZP_yNeq') }}" title="{{ _('Go to San Fermin playlist') }}">
       <img src="https://img.youtube.com/vi/LLQODwM--r4/mqdefault.jpg" alt="San Fermin" title="San Fermin" />
       <p>San Fermin</p>
 		</a>
 
-		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvcXPZriQd5pHJvph4aLIO2z') }}" title="Go to OK Go playlist">
+		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvcXPZriQd5pHJvph4aLIO2z') }}" title="{{ _('Go to OK Go playlist') }}">
       <img src="https://img.youtube.com/vi/Wm63LibDiFk/mqdefault.jpg" alt="OK Go" title="OK Go" />
       <p>OK Go</p>
 		</a>
 
-		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvdBeruhTkW9jd6poJZ5Z1Iv') }}" title="Go to STRFKR playlist">
+		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvdBeruhTkW9jd6poJZ5Z1Iv') }}" title="{{ _('Go to STRFKR playlist') }}">
       <img src="https://img.youtube.com/vi/P5V8X4B9voA/mqdefault.jpg" alt="STRFKR" title="STRFKR" />
       <p>STRFKR</p>
 		</a>
 
-		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvfTLaHCxPsIOjEsb8sfDIkl') }}" title="Go to RDGLDGRN playlist">
+		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvfTLaHCxPsIOjEsb8sfDIkl') }}" title="{{ _('Go to RDGLDGRN playlist') }}">
       <img src="https://img.youtube.com/vi/8bszvAgSwWQ/mqdefault.jpg" alt="RDGLDGRN" title="RDGLDGRN" />
       <p>RDGLDGRN</p>
 		</a>
 
-		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvfhu9pM5V6py8u76sSHXAkG') }}" title="Go to Blood Red Shoes playlist">
+		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvfhu9pM5V6py8u76sSHXAkG') }}" title="{{ _('Go to Blood Red Shoes playlist') }}">
       <img src="https://img.youtube.com/vi/g-yxwXIrQ-E/mqdefault.jpg" alt="Blood Red Shoes" title="Blood Red Shoes" />
       <p>Blood Red Shoes</p>
 		</a>
 
-		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvdqCo4GGHb2P842hbfletxK') }}" title="Go to [Mix] Hodgepodge I playlist">
+		<a href="{{ url_for('play_youtube', youtube_playlist='PLdduFHK2eLvdqCo4GGHb2P842hbfletxK') }}" title="{{ _('Go to [Mix] Hodgepodge I playlist') }}">
       <img src="https://img.youtube.com/vi/oHzc_DLHztA/mqdefault.jpg" alt="[Mix] Hodgepodge I" title="[Mix] Hodgepodge I" />
       <p>[Mix] Hodgepodge I</p>
 		</a>
 
-		<a href="{{ url_for('play_vimeo', vimeo_id='3951181', vimeo_type='album') }}" title="Go to Campusradio Dresden album">
+		<a href="{{ url_for('play_vimeo', vimeo_id='3951181', vimeo_type='album') }}" title="{{ _('Go to Campusradio Dresden album') }}">
       <img src="https://i.vimeocdn.com/video/510983747_295x166.jpg" alt="Campusradio Dresden" title="Campusradio Dresden" />
-      <p>Campusradio Dresden <i class="warning fas fa-exclamation-triangle" title="Attention: The support for this Vimeo playlist is still in beta status."></i></p>
+      <p>Campusradio Dresden <i class="warning fas fa-exclamation-triangle" title="{{ _('Attention: The support for Vimeo playlists is still in beta status') }}"></i></p>
 		</a>
 
   </div>

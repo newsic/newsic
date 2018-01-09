@@ -22,6 +22,7 @@ from click import echo as click_echo
 
 # flask
 from flask import Flask, render_template, request, redirect, url_for, g as flask_g
+from flask_babel import Babel, gettext
 
 try:
     from vimeo import VimeoClient
@@ -36,6 +37,7 @@ except ImportError:
     pass
 
 app = Flask(__name__)
+babel = Babel(app)
 
 # Config management
 
@@ -86,12 +88,12 @@ def debug(text):
     """
     Delivers output on debug mode (see config file) only
     """
-
+    
+    #TODO: think about deprecating "NEWSICDEBUG" and only use "DEBUG"
     if read_config("NEWSICDEBUG"):
-        print(text)
+        app.logger.debug(text)
 
 if read_config("CACHE"):
-    print(read_config("CACHE"))
     debug("Cache activated")
     CACHE = Cache(app, config={'CACHE_TYPE': read_config("CACHE_TYPE"),
                                'CACHE_DIR': read_config("CACHE_DIR")})
@@ -139,10 +141,10 @@ def flushcache():
     """
 
     if read_config("CACHE"):
-        click_echo("Cache successfully flashed")
+        click_echo("Cache successfully flushed")
         CACHE.clear()
     else:
-        click_echo("Cache inactive, nothing deleted")
+        click_echo("Cache inactive, unable to flush")
 
 
 def snippet_start_at(length):
@@ -151,7 +153,7 @@ def snippet_start_at(length):
     Calculates snippet start time
 
     Still experimenting. Previously started at half video length
-    (which matched the refrain pretty good mostly)
+    (which matched the refrain pretty good most times)
     """
 
     if length > int(read_config("SNIPPETLENGTH")):
@@ -310,7 +312,8 @@ def yt_grab(video_ids=[], playlist_id=None):
 
                     length_sec = (int(days) * 86400 + int(hours) * 60 * 60
                                   + int(minutes) * 60 + int(seconds))
-                    debug(("Length: {} seconds").format(length_sec))
+
+                    #debug(("Length: {} seconds").format(length_sec))
 
                     start_time = snippet_start_at(length_sec)
                     end_time = start_time + int(read_config("SNIPPETLENGTH"))
@@ -349,7 +352,7 @@ def index():
     return render_template(
         "index.html",
         bodyClass="home",
-        title="Home"
+        title=gettext(u"Home")
     )
 
 """
@@ -440,11 +443,12 @@ def index_post():
 
     # redirect to index page in case there's no valuable user input
     debug("No music found")
+
     return render_template(
         "index.html",
-        error="No music found",
+        error=gettext(u"No music found"),
         bodyClass="home",
-        title="No music found")
+        title=gettext(u"No music found"))
 
 @app.route("/search", methods=["POST"])
 def search():
@@ -509,11 +513,12 @@ def custom_playlist(path):
 
     if not regex:
         debug("No music found")
+
         return render_template(
             "index.html",
-            error="No music found",
+            error=gettext(u"No music found"),
             bodyClass="home",
-            title="No music found")
+            title=gettext(u"No music found"))
 
     youtube = [[i, x[1]] for i, x in enumerate(regex) if "youtube" in x]
     vimeo = [(i, x[1]) for i, x in enumerate(regex) if "vimeo" in x]
@@ -577,15 +582,15 @@ def custom_playlist(path):
 
     debug(video_list)
 
-    #TODO: set title and creator
+    #TODO: find better words for playlist title and creator
     return render_template(
         "play.html",
         videolist=video_list,
-        playlistTitle="custom playlist",
-        playlistCreator="anonymous",
+        playlistTitle=gettext(u"Custom playlist"),
+        playlistCreator=gettext(u"Anonymous"),
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
-        title=video_list[0][2] + " - " + "custom playlist",
+        title=video_list[0][2] + " - " + gettext(u"Custom playlist"),
         message=message,
         runtime=flask_g.runtime())
 
@@ -626,9 +631,9 @@ def mix_youtube(video_id):
         if data_search["pageInfo"]["totalResults"] == 0:
             return render_template(
                 "index.html",
-                error="No mix available for this video",
+                error=gettext(u"No mix available for this video"),
                 bodyClass="home",
-                title="No mix available")
+                title=gettext(u"No mix available"))
 
         randnum = randrange(max_results)
 
@@ -642,9 +647,9 @@ def mix_youtube(video_id):
 
     return render_template(
         "index.html",
-        error="No mix available for this video",
+        error=gettext(u"No mix available for this video"),
         bodyClass="home",
-        title="No mix available")
+        title=gettext(u"No mix available"))
 
 @app.route("/youtube/<youtube_playlist>")
 @cache()
@@ -661,9 +666,9 @@ def play_youtube(youtube_playlist):
     if not general_info:
         return render_template(
             "index.html",
-            error="This playlist is either empty, private or non-existing",
+            error=gettext(u"This playlist is either empty, private or non-existing"),
             bodyClass="home",
-            title="Invalid playlist")
+            title=gettext(u"Invalid playlist"))
 
     # TODO: rename yt_grab
     video_list = yt_grab(playlist_id=youtube_playlist)
@@ -693,9 +698,9 @@ def play_vimeo(vimeo_type, vimeo_id):
     if (vimeo_type != "album") and (vimeo_type != "channel"):
         return render_template(
             "index.html",
-            error="URL not found",
+            error=gettext(u"URL not found"),
             bodyClass="home",
-            title="URL not found"), 404
+            title=gettext(u"URL not found")), 404
 
     vimeo_type = vimeo_type + "s"
     vids = VIMEO.get(('/{}/{}/videos?filter=embeddable&filter_embeddable=true').format(
@@ -706,9 +711,9 @@ def play_vimeo(vimeo_type, vimeo_id):
     if not vids:
         return render_template(
             "index.html",
-            error="This album/channel is either empty, private or non-existing",
+            error=gettext(u"This album/channel is either empty, private or non-existing"),
             bodyClass="home",
-            title="Can't handle album/channel")
+            title=gettext(u"Can't handle album/channel"))
 
     regex_ids = re.compile(r"\/videos\/(\d+)\/pictures\/(\d+)")
 
@@ -783,13 +788,14 @@ def mix_vimeo(vimeo_id):
                 ids.group(2)])
 
     debug(("\nRuntime: {}").format(flask_g.runtime()))
+
     return render_template(
         "play.html",
         videolist=video_list,
-        playlistTitle="Vimeo mix",
+        playlistTitle=gettext(u"Vimeo mix"),
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
-        title=video_list[0][2] + " - " + "Vimeo mix",
+        title=video_list[0][2] + " - " + gettext(u"Vimeo mix"),
         message="vimeo-beta",
         runtime=flask_g.runtime())
 
@@ -804,9 +810,20 @@ def four0four(_):
 
     return render_template(
         "index.html",
-        error="URL not found",
+        error=gettext(u"URL not found"),
         bodyClass="home",
-        title="URL not found"), 404
+        title=gettext(u"URL not found")), 404
+
+@babel.localeselector
+def get_locale():
+
+    """
+    Supported languages for flask_babel (currently English as standard and German)
+    """
+
+    #TODO: amend "fr" when french version is ready
+    return request.accept_languages.best_match(['de', 'en'])
+
 
 if __name__ == "__main__":
     app.run(debug=read_config("DEBUG"))

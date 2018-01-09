@@ -10,16 +10,17 @@
 
 	=================================
 
-    Howdy, dear source code reader!
+  Howdy, dear source code reader!
 
-    * Project page: https://newsic.tocsin.de
-    * Demo: https://trynewsic.tocsin.de
-    * newsic on GitHub: https://github.com/newsic
+  * Project page: https://newsic.tocsin.de
+  * Demo: https://trynewsic.tocsin.de
+  * newsic on GitHub: https://github.com/newsic
 
-    * Author: Stephan Fischer (https://stephan-fischer.de, https://tocsin.de)
-
+  * Author: Stephan Fischer (https://stephan-fischer.de, https://tocsin.de)
 
 -->
+
+<!-- TODO: update to actual used language -->
 <html lang="en">
 
 <head>
@@ -41,8 +42,8 @@
   <meta property="og:site_name" content="newsic" />
 
   <!-- TODO: optimize description text -->
-  <meta property="description" content="Explore music from YouTube and Vimeo snippet by snippet" />
-  <meta property="og:description" content="Explore music from YouTube and Vimeo snippet by snippet" />
+  <meta property="description" content="{{ _('Explore music from YouTube and Vimeo snippet by snippet') }}" />
+  <meta property="og:description" content="{{ _('Explore music from YouTube and Vimeo snippet by snippet') }}" />
   <meta property="og:url" content="{{ request.url }}" />
   <link rel="canonical" href="{{ request.url }}" />
   {%- block metatags %}{%- endblock %}
@@ -52,20 +53,19 @@
 
   {%- block header %}
   <header>
-    <a href="{{ url_for('index') }}" class="logo_short" title="Go to start page">
-      <img src="{{ url_for('static', filename='img/logo_short.svg') }}" alt="Suddenly a wild newsic logo appears. Hey look, it's a SVG!"
-        title="Suddenly a wild newsic logo appears. Hey look, it's a SVG!" />
+    <a href="{{ url_for('index') }}" class="logo_short" title="{{ _('Go to start page') }}">
+      <img src="{{ url_for('static', filename='img/logo_short.svg') }}" alt="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}"
+        title="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}" />
     </a>
 
     <form method="post" action="{{ url_for('index') }}">
       <div id="autocomplete">
-        <input type="text" name="url" autocomplete="off" placeholder="Start typing or paste a playlist URL" />
+        <input type="text" name="url" autocomplete="off" placeholder="{{ _('Start typing or paste a playlist URL') }}" />
         <span class="flash"><i class="fas fa-sync-alt"></i></span>
       </div>
 
       <ul id="autocomplete-result"></ul>
-
-      <button type="submit">start</button>
+      <button type="submit">{{ _('start') }}</button>
     </form>
   </header>
   {%- endblock %}
@@ -74,11 +74,11 @@
 
   {%- block footer %}
   <footer>
-    <a href="https://tocsin.de" target="_blank" title="Visit tocsin.de, the portfolio of the newsic creator">
-      <span>Made with <i class="fas fa-heart"></i> by tocsin</span>
+    <a href="https://tocsin.de" target="_blank" title="{{ _('Visit tocsin.de, the portfolio of the newsic creator') }}">
+      <span>{{ _('Made with <i class="fas fa-heart"></i> by tocsin') }}</span>
     </a>
-    <a href="https://github.com/newsic" target="_blank" title="Feel free to fork or review the Code on GitHub">
-      <span>Source code on GitHub</span>
+    <a href="https://github.com/newsic" target="_blank" title="{{ _('Feel free to fork or review the Code on GitHub') }}">
+      <span>{{ _('Source code on GitHub') }}</span>
     </a>
   </footer>
   {%- endblock %}
@@ -87,7 +87,7 @@
   <script defer src="{{ url_for('static', filename='js/fontawesome/fa-brands.min.js') }}"></script>
   <script defer src="{{ url_for('static', filename='js/fontawesome/fa-solid.min.js') }}"></script>
 
-  {% if runtime %}<!-- runtime: {{ runtime }} -->{%- endif %}
+  {% if runtime %}<!-- {{ _('runtime') }}: {{ runtime }} -->{%- endif %}
 </body>
 
 </html>

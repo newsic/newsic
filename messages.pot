@@ -1,0 +1,221 @@
+# Translations template for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-01-09 17:51+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.1\n"
+
+#: newsic.py:355
+msgid "Home"
+msgstr ""
+
+#: newsic.py:449 newsic.py:451 newsic.py:519 newsic.py:521
+msgid "No music found"
+msgstr ""
+
+#: newsic.py:589 newsic.py:593
+msgid "Custom playlist"
+msgstr ""
+
+#: newsic.py:590
+msgid "Anonymous"
+msgstr ""
+
+#: newsic.py:634 newsic.py:650
+msgid "No mix available for this video"
+msgstr ""
+
+#: newsic.py:636 newsic.py:652
+msgid "No mix available"
+msgstr ""
+
+#: newsic.py:669
+msgid "This playlist is either empty, private or non-existing"
+msgstr ""
+
+#: newsic.py:671
+msgid "Invalid playlist"
+msgstr ""
+
+#: newsic.py:701 newsic.py:703 newsic.py:813 newsic.py:815
+msgid "URL not found"
+msgstr ""
+
+#: newsic.py:714
+msgid "This album/channel is either empty, private or non-existing"
+msgstr ""
+
+#: newsic.py:716
+msgid "Can't handle album/channel"
+msgstr ""
+
+#: newsic.py:795 newsic.py:798
+msgid "Vimeo mix"
+msgstr ""
+
+#: templates/base.html:45 templates/base.html:46 templates/index.html:12
+msgid "Explore music from YouTube and Vimeo snippet by snippet"
+msgstr ""
+
+#: templates/base.html:56
+msgid "Go to start page"
+msgstr ""
+
+#: templates/base.html:57 templates/base.html:58 templates/index.html:9
+msgid "Suddenly a wild newsic logo appears. Hey look, it's a SVG!"
+msgstr ""
+
+#: templates/base.html:63 templates/index.html:23
+msgid "Start typing or paste a playlist URL"
+msgstr ""
+
+#: templates/base.html:68 templates/index.html:29
+msgid "start"
+msgstr ""
+
+#: templates/base.html:77
+msgid "Visit tocsin.de, the portfolio of the newsic creator"
+msgstr ""
+
+#: templates/base.html:78
+msgid "Made with <i class=\"fas fa-heart\"></i> by tocsin"
+msgstr ""
+
+#: templates/base.html:80
+msgid "Feel free to fork or review the Code on GitHub"
+msgstr ""
+
+#: templates/base.html:81
+msgid "Source code on GitHub"
+msgstr ""
+
+#: templates/base.html:90
+msgid "runtime"
+msgstr ""
+
+#: templates/index.html:35
+msgid ""
+"Try newsic and discover new music with these hand-selected sample "
+"playlists."
+msgstr ""
+
+#: templates/index.html:37
+#, python-format
+msgid ""
+"Find more newsic playlists on <a href=\"%(link_youtube)s\" "
+"target=\"_blank\" title=\"newsic on YouTube\">%(icon_youtube)s "
+"YouTube</a> and on <a href=\"%(link_vimeo)s\" target=\"_blank\" "
+"title=\"newsic on Vimeo\">%(icon_vimeo)s Vimeo</a>."
+msgstr ""
+
+#: templates/index.html:40
+msgid "Go to San Fermin playlist"
+msgstr ""
+
+#: templates/index.html:45
+msgid "Go to OK Go playlist"
+msgstr ""
+
+#: templates/index.html:50
+msgid "Go to STRFKR playlist"
+msgstr ""
+
+#: templates/index.html:55
+msgid "Go to RDGLDGRN playlist"
+msgstr ""
+
+#: templates/index.html:60
+msgid "Go to Blood Red Shoes playlist"
+msgstr ""
+
+#: templates/index.html:65
+msgid "Go to [Mix] Hodgepodge I playlist"
+msgstr ""
+
+#: templates/index.html:70
+msgid "Go to Campusradio Dresden album"
+msgstr ""
+
+#: templates/index.html:72
+msgid "Attention: The support for Vimeo playlists is still in beta status"
+msgstr ""
+
+#: templates/play.html:39
+msgid ""
+"Vimeo support is still beta, sorry. <!-- <br/>Please <a "
+"href=\"https://github.com/newsic/newsic/issues\" target=\"_blank\" "
+"title=\"Report bugs about the Vimeo support via GitHub\">feel free to "
+"take a look at the bug</a> :) -->"
+msgstr ""
+
+#: templates/play.html:46
+msgid ""
+"Vimeo support is still beta, sorry. The order of videos isn't correct "
+"yet, this is caused by the Vimeo API."
+msgstr ""
+
+#: templates/play.html:54
+msgid ""
+"Either your browser is a disastrous piece of old crap or you should stop "
+"blocking JavaScript.\n"
+"\t\t\tWe kindly ask you to make a decision: Either activate JavaScript "
+"(or whitelist newsic on your content blocker) or install/use a fresh "
+"version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something "
+"else instead.\n"
+"\t\t\tPSA: Using Edge isn't as cutting-edge as it sounds; but hey, that's"
+" entirely up to you :)"
+msgstr ""
+
+#: templates/play.html:71
+msgid "Previous snippet (shortcuts: A or left arrow key)"
+msgstr ""
+
+#: templates/play.html:74
+msgid "Play/pause (shortcuts: S, K or space bar)"
+msgstr ""
+
+#: templates/play.html:77
+msgid "Next snippet (shortcuts: D or right arrow key)"
+msgstr ""
+
+#: templates/play.html:82
+msgid "Play complete song (shortcut: C)"
+msgstr ""
+
+#: templates/play.html:83
+msgid "Complete"
+msgstr ""
+
+#: templates/play.html:85
+msgid "Play mix based on current video (shortcut: X)"
+msgstr ""
+
+#: templates/play.html:86
+msgid "Mix"
+msgstr ""
+
+#: templates/play.html:88
+msgid "Search lyrics on Genius.com (shortcut: L)"
+msgstr ""
+
+#: templates/play.html:89
+msgid "Lyrics"
+msgstr ""
+
+#: templates/play.html:100
+#, python-format
+msgid "Go directly to %(link)s"
+msgstr ""
+

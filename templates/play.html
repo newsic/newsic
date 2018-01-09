@@ -36,14 +36,14 @@
   {% if message == "vimeo-beta" %}  
   <!-- Vimeo -->
   <div class="message">
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Vimeo support is still beta, sorry. <!-- <br/>Please <a href="https://github.com/newsic/newsic/issues" target="_blank" title="Report bugs about the Vimeo support via GitHub">feel free to take a look at the bug</a> :) -->
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ _('Vimeo support is still beta, sorry. <!-- <br/>Please <a href="https://github.com/newsic/newsic/issues" target="_blank" title="Report bugs about the Vimeo support via GitHub">feel free to take a look at the bug</a> :) -->') }}
   </div>
   {% endif %}
 
   {% if message == "custom-vimeo-beta" %}  
   <!-- Vimeo -->
   <div class="message">
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Vimeo support is still beta, sorry. The order of videos isn't correct yet, this is caused by the Vimeo API.
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ _('Vimeo support is still beta, sorry. The order of videos isn\'t correct yet, this is caused by the Vimeo API.') }}
   </div>
   {% endif %}
   <div class="message error fade-in-and-out"></div>
@@ -51,9 +51,9 @@
   <!-- Plyr -->
 	<video class="plyr" crossorigin>
 		<noscript>
-			Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript.
+			{{ _('Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript.
 			We kindly ask you to make a decision: Either activate JavaScript (or whitelist newsic on your content blocker) or install/use a fresh version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something else instead.
-			PSA: Using Edge isn't as cutting-edge as it sounds; but hey, that's entirely up to you :)
+			PSA: Using Edge isn\'t as cutting-edge as it sounds; but hey, that\'s entirely up to you :)') }}
 		</noscript>
 	</video>
 
@@ -68,25 +68,25 @@
 			</div>
 
 			<div class="controlbar">
-				<button class="playPrevious" title="Previous snippet (shortcuts: A or left arrow key)">
+				<button class="playPrevious" title="{{ _('Previous snippet (shortcuts: A or left arrow key)') }}">
           <i class="fas fa-backward"></i>
         </button>
-        <button class="playPause" title="Play/pause (shortcuts: S, K or space bar)">
+        <button class="playPause" title="{{ _('Play/pause (shortcuts: S, K or space bar)') }}">
           <i class="fas fa-play"></i>
         </button>
-				<button class="playNext" title="Next snippet (shortcuts: D or right arrow key)">
+				<button class="playNext" title="{{ _('Next snippet (shortcuts: D or right arrow key)') }}">
             <i class="fas fa-forward"></i>
         </button>
 
 				<div class="right">
-					<button class="playComplete" title="Play complete song (shortcut: C)">
-						<i class="fas fa-plus-square"></i> Complete
-					</button>
-					<a class="playMix" title="Play mix based on current video (shortcut: X)">
-						<button><i class="fas fa-random"></i> Mix</button>
-					</a>
-					<a class="searchLyrics" target="_blank" title="Search lyrics on Genius.com (shortcut: L)">
-						<button><i class="fas fa-file-alt"></i> Lyrics</button>
+					<button class="playComplete" title="{{ _('Play complete song (shortcut: C)') }}">
+						<i class="fas fa-plus-square"></i> {{ _('Complete') }}
+          </button>
+					<a class="playMix" title="{{ _('Play mix based on current video (shortcut: X)') }}">
+						<button><i class="fas fa-random"></i> {{ _('Mix') }}</button>
+          </a>
+					<a class="searchLyrics" target="_blank" title="{{ _('Search lyrics on Genius.com (shortcut: L)') }}">
+						<button><i class="fas fa-file-alt"></i> {{ _('Lyrics') }}</button>
 					</a>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
   <!-- snippets overview -->
 	<div id="snippets" data-playlisttitle="{{ playlistTitle }}" data-playlistcreator="{{ playlistCreator }}">
     {%- for key in videolist %}
-    <a href="#{{ loop.index0 }}" data-type="{{ key[1] }}" data-id="{{ key[0] }}" data-length="{{ key[5] }}" data-start="{{ key[3] }}" data-end="{{ key[4] }}" title="Go directly to {{ key[2] }}" itemscope itemtype="http://schema.org/VideoObject">
+    <a href="#{{ loop.index0 }}" data-type="{{ key[1] }}" data-id="{{ key[0] }}" data-length="{{ key[5] }}" data-start="{{ key[3] }}" data-end="{{ key[4] }}" title="{{ gettext('Go directly to %(link)s', link=key[2]) }}" itemscope itemtype="http://schema.org/VideoObject">
       
       {% if key[1] == "youtube" %}
       <img src="https://img.youtube.com/vi/{{ key[0] }}/mqdefault.jpg" alt="{{ key[2] }}" title="{{ key[2] }}" itemprop="thumbnailUrl" />
@@ -110,11 +110,12 @@
         <span class="name" itemprop="name">{{ key[2] }}</span>
 
       {% if key[1] == "youtube" %}
-			{%- for country in key[6] -%}
+      <!-- TODO: translate -->
+      {%- for country in key[6] -%}
 				{% if loop.first %}<i class="blocked warning fas fa-exclamation-triangle" title="blocked in {% endif %}{{ country }}{% if loop.last %}" data-blocked="{{ key[6] }}"></i>{% else %}, {% endif %}
 			{%- endfor %}
 
-			{%- for country in key[7] -%}
+      {%- for country in key[7] -%}
 				{% if loop.first %}<i class="allowed warning fas fa-exclamation-triangle" title="only allowed in {% endif %}{{ country }}{% if loop.last %}" data-allowed="{{ key[7] }}"></i>{% else %}, {% endif %}
       {%- endfor %}
       {% endif %}

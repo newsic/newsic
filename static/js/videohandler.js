@@ -61,6 +61,7 @@ Default: true
 */
 var autoplayPlyr = true;
 
+// TODO: translate
 var controlsPlyr2 = ["<div class='plyr__controls'>",
 
 "<button class='playPrevious' type='button' data-plyr='backward'>",
@@ -314,12 +315,14 @@ var jumpTo = function(index) {
 var mindTheHash = function() {
     // set index to first array element or - if hash in url is set - to requested item
     if (location.hash) {
+        // TODO: translate
         debugMessage("Hash is set");
         var input = window.location.hash.replace("#","");
 		if(input < snippets.length) i = input; 
 		else  i = window.location.hash = snippets.length-1;  // if hash > no. of videos
     } else i = 0; // no hash
 
+    // TODO: translate
     debugMessage("This is the beginning of a newsic session, the player is ready. Whoop whoop, fasten your seatbelts, etc.");
     jumpTo(i);
     updateElements();
@@ -349,6 +352,7 @@ video[0].on("ready", function() {
             video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
         }
 
+        // TODO: translate
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
     }
@@ -374,6 +378,7 @@ video[0].on("playing", function() {
             video[0].currentTime = parseFloat(snippets[i].dataset.start).toFixed(2);
             video[0].play();
         }
+        // TODO: translate
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
         ready = false;
@@ -398,9 +403,11 @@ video[0].on("error", function(error) {
 
         // see https://developers.google.com/youtube/iframe_api_reference?hl=de#Events
         if(error["detail"]["code"] == 150 || error["detail"]["code"] == 101) {
-            // TODO: insert title
+            // TODO: translate
             showMessage(title + ": Embedding forbidden or blocked in your country");
+            // TODO: translate
         } else showMessage("Sorry, but " + title + " isn't available in your country.");
+        // TODO: translate
     } else showMessage("Video skipped.");
     if(prevOrNext == "prev") playPrevious();
     else playNext();
@@ -429,9 +436,7 @@ video[0].on("timeupdate", function() {
         if(plyrVersion == 2) var videoCurrentTime = video[0].getCurrentTime();
 
         // Plyr 3
-        if(plyrVersion == 3) {
-            var videoCurrentTime = video[0].currentTime;
-        }
+        if(plyrVersion == 3) var videoCurrentTime = video[0].currentTime;
 
         var countdownWidth = Math.floor(end - videoCurrentTime) / (end - start) * 100 +  "%";
         
@@ -444,8 +449,10 @@ video[0].on("timeupdate", function() {
 
             if(i == (snippets.length - 1)) {
                 video[0].pause();
+                // TODO: translate
                 debugMessage("This party is over, now get out of here. Seriously.");
             } else {
+                // TODO: translate
                 debugMessage("End of snippet, let's go to the next one.");
                 playNext();
             }

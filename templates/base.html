@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <!--
 
-	                         _
-	                        (_)
-	 _ __   _____      _____ _  ___
-	| '_ \ / _ \ \ /\ / / __| |/ __|
-	| | | |  __/\ V  V /\__ \ | (__
-	|_| |_|\___| \_/\_/ |___/_|\___|
+                           _
+                          (_)
+   _ __   _____      _____ _  ___
+  | '_ \ / _ \ \ /\ / / __| |/ __|
+  | | | |  __/\ V  V /\__ \ | (__
+  |_| |_|\___| \_/\_/ |___/_|\___|
 
-	=================================
+  =================================
 
   Howdy, dear source code reader!
 
@@ -20,8 +20,7 @@
 
 -->
 
-<!-- TODO: update to actual used language -->
-<html lang="en">
+<html lang="{{ getlocale }}">
 
 <head>
   <title>{{ title }} - newsic</title>
@@ -40,6 +39,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="newsic" />
+
+  <!-- TODO: research whats the best approach for i18n of Open Graph and meta tags -->
+  <meta property="og:locale:alternate" content="de_DE" />
+  <meta property="og:locale:alternate" content="fr_FR" />
 
   <!-- TODO: optimize description text -->
   <meta property="description" content="{{ _('Explore music from YouTube and Vimeo snippet by snippet') }}" />

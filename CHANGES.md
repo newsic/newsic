@@ -36,6 +36,7 @@
 
 ### Et cetera:
 * Plyr 2.0.18 (while preparing support for upcoming Plyr 3)
+* FontAwesome 5.0.2
 * Improved subfolder deployment
 * Added playlist title to page title
 * New calculation of snippet start time (currently testing, not in use yet)
@@ -60,8 +61,11 @@
 * Linux: Input fields keep background color on dark GTK themes
 * Browser: moved to KeyboardEvent.key
 * .editorconfig file
-* seperate SCSS files (home page, responsive layout)
-
+* Seperate SCSS files (home page, responsive layout)
+* Support for environment variables with python-dotenv
+* Included humans.txt
+* Support for i18n (with flask-babel); German and French translation
+* More Open Graph and Twitter card meta tags
 
 # 0.2: Fire
 ## Release: 2017-03-06

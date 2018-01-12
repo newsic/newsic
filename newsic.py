@@ -351,6 +351,7 @@ def index():
 
     return render_template(
         "index.html",
+        getlocale=get_locale(),
         bodyClass="home",
         title=gettext(u"Home")
     )
@@ -446,6 +447,7 @@ def index_post():
 
     return render_template(
         "index.html",
+        getlocale=get_locale(),
         error=gettext(u"No music found"),
         bodyClass="home",
         title=gettext(u"No music found"))
@@ -516,6 +518,7 @@ def custom_playlist(path):
 
         return render_template(
             "index.html",
+            getlocale=get_locale(),
             error=gettext(u"No music found"),
             bodyClass="home",
             title=gettext(u"No music found"))
@@ -585,6 +588,7 @@ def custom_playlist(path):
     #TODO: find better words for playlist title and creator
     return render_template(
         "play.html",
+        getlocale=get_locale(),
         videolist=video_list,
         playlistTitle=gettext(u"Custom playlist"),
         playlistCreator=gettext(u"Anonymous"),
@@ -631,6 +635,7 @@ def mix_youtube(video_id):
         if data_search["pageInfo"]["totalResults"] == 0:
             return render_template(
                 "index.html",
+                getlocale=get_locale(),
                 error=gettext(u"No mix available for this video"),
                 bodyClass="home",
                 title=gettext(u"No mix available"))
@@ -647,6 +652,7 @@ def mix_youtube(video_id):
 
     return render_template(
         "index.html",
+        getlocale=get_locale(),
         error=gettext(u"No mix available for this video"),
         bodyClass="home",
         title=gettext(u"No mix available"))
@@ -666,6 +672,7 @@ def play_youtube(youtube_playlist):
     if not general_info:
         return render_template(
             "index.html",
+            getlocale=get_locale(),
             error=gettext(u"This playlist is either empty, private or non-existing"),
             bodyClass="home",
             title=gettext(u"Invalid playlist"))
@@ -676,6 +683,7 @@ def play_youtube(youtube_playlist):
     debug(("\nRuntime: {}").format(flask_g.runtime()))
     return render_template(
         "play.html",
+        getlocale=get_locale(),
         videolist=video_list,
         playlistTitle=general_info["title"],
         playlistCreator=general_info["channelTitle"],
@@ -698,6 +706,7 @@ def play_vimeo(vimeo_type, vimeo_id):
     if (vimeo_type != "album") and (vimeo_type != "channel"):
         return render_template(
             "index.html",
+            getlocale=get_locale(),
             error=gettext(u"URL not found"),
             bodyClass="home",
             title=gettext(u"URL not found")), 404
@@ -711,6 +720,7 @@ def play_vimeo(vimeo_type, vimeo_id):
     if not vids:
         return render_template(
             "index.html",
+            getlocale=get_locale(),
             error=gettext(u"This album/channel is either empty, private or non-existing"),
             bodyClass="home",
             title=gettext(u"Can't handle album/channel"))
@@ -742,6 +752,7 @@ def play_vimeo(vimeo_type, vimeo_id):
     debug(("\nRuntime: {}").format(flask_g.runtime()))
     return render_template(
         "play.html",
+        getlocale=get_locale(),
         videolist=video_list,
         playlistTitle=general_data["name"],
         playlistCreator=general_data["user"]["name"],
@@ -791,6 +802,7 @@ def mix_vimeo(vimeo_id):
 
     return render_template(
         "play.html",
+        getlocale=get_locale(),
         videolist=video_list,
         playlistTitle=gettext(u"Vimeo mix"),
         playlistVideoAmount=len(video_list),
@@ -810,19 +822,24 @@ def four0four(_):
 
     return render_template(
         "index.html",
+        getlocale=get_locale(),
         error=gettext(u"URL not found"),
         bodyClass="home",
         title=gettext(u"URL not found")), 404
+
 
 @babel.localeselector
 def get_locale():
 
     """
-    Supported languages for flask_babel (currently English as standard and German)
+    Supported languages for flask-babel (currently included: English and German)
     """
 
-    #TODO: amend "fr" when french version is ready
-    return request.accept_languages.best_match(['de', 'en'])
+    # Open Graph/Facebook support
+    if request.args.get("fb_locale").partition("_")[0] in read_config("LANGUAGES"):
+        return request.args.get("fb_locale").partition("_")[0]
+
+    return request.accept_languages.best_match(read_config("LANGUAGES"))
 
 
 if __name__ == "__main__":

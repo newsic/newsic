@@ -62,6 +62,7 @@ For more details see [LICENSE](/LICENSE).
 
 ### Core
 * [Flask](https://github.com/pallets/flask): Armin Ronacher (@mitsuhiko) and contributors, BSD License (3-clause)
+* [Flask-Babel](https://github.com/python-babel/flask-babel): Python-Babel team (https://github.com/python-babel), BSD License (3-clause)
 * [Plyr](https://github.com/sampotts/plyr): Sam Potts (@sampotts), MIT License
 * [PyVimeo](https://github.com/vimeo/vimeo.py): Vimeo (@vimeo), Apache License 2.0
 

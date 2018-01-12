@@ -94,7 +94,7 @@ class General(object):
     https://pythonhosted.org/Flask-Babel/
     '''
 
-    LANGUAGES = ['de', 'en']
+    LANGUAGES = ["de", "fr", "en"]
 
 
 class Local(General):

@@ -832,7 +832,7 @@ def four0four(_):
 def get_locale():
 
     """
-    Supported languages for flask-babel (currently included: English and German)
+    Supported languages for flask-babel (based on config value)
     """
 
     # Open Graph/Facebook support

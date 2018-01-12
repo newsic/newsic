@@ -836,7 +836,7 @@ def get_locale():
     """
 
     # Open Graph/Facebook support
-    if request.args.get("fb_locale").partition("_")[0] in read_config("LANGUAGES"):
+    if request.args.get("fb_locale") and request.args.get("fb_locale").partition("_")[0] in read_config("LANGUAGES"):
         return request.args.get("fb_locale").partition("_")[0]
 
     return request.accept_languages.best_match(read_config("LANGUAGES"))

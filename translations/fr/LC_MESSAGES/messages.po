@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: newsic 0.3\n"
 "Report-Msgid-Bugs-To: hallo@tocsin.de\n"
 "POT-Creation-Date: 2018-01-10 14:03+0100\n"
-"PO-Revision-Date: 2018-01-12 11:44+0100\n"
+"PO-Revision-Date: 2018-01-12 19:39+0100\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Generated-By: Babel 2.5.1\n"
 "Last-Translator: Stephan Fischer <hallo@tocsin.de>\n"
 "X-Generator: Poedit 2.0.5\n"
+"Language-Team: \n"
 
 #: newsic.py:355
 msgid "Home"
@@ -76,7 +77,7 @@ msgstr "Aller à la page d'accueil"
 
 #: templates/base.html:57 templates/base.html:58 templates/index.html:9
 msgid "Suddenly a wild newsic logo appears. Hey look, it's a SVG!"
-msgstr "Magnifique logo de newsic"
+msgstr "Logo magnifique de newsic"
 
 #: templates/base.html:63 templates/index.html:23
 msgid "Start typing or paste a playlist URL"
@@ -95,7 +96,6 @@ msgid "Made with <i class=\"fas fa-heart\"></i> by tocsin"
 msgstr "Produit avec <i class=\"fas fa-heart\"></i> par tocsin"
 
 #: templates/base.html:80
-#, fuzzy
 msgid "Feel free to fork or review the Code on GitHub"
 msgstr "N'héstite pas à fork ou revoire le code sur GitHub"
 
@@ -108,13 +108,11 @@ msgid "runtime"
 msgstr "temps d'exécution"
 
 #: templates/index.html:35
-#, fuzzy
 msgid ""
 "Try newsic and discover new music with these hand-selected sample "
 "playlists."
 msgstr ""
-"Essaye newsic et découvre de musique avec cettes playlists sélectionnés "
-"à la main."
+"Essaye newsic et découvre de musique avec cettes playlists sélectionnés."
 
 #: templates/index.html:37
 #, python-format
@@ -171,7 +169,6 @@ msgid "videos"
 msgstr "vidéos"
 
 #: templates/play.html:39
-#, fuzzy
 msgid ""
 "Vimeo support is still beta, sorry. <!-- <br/>Please <a href=\"https://"
 "github.com/newsic/newsic/issues\" target=\"_blank\" title=\"Report bugs "
@@ -180,7 +177,6 @@ msgid ""
 msgstr "Pardon, Vimeo support est toujours en version bêta."
 
 #: templates/play.html:46
-#, fuzzy
 msgid ""
 "Vimeo support is still beta, sorry. The order of videos isn't correct "
 "yet, this is caused by the Vimeo API."

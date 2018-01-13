@@ -12,7 +12,7 @@ Got YouTube or Vimeo playlists with way too many songs and a thirst for explorin
 
 ## How newsic looks like
 
-![How newsic looks like.](https://newsic.tocsin.de/pr/github/demo_2016-10-02.png)
+![How newsic looks like.](https://newsic.tocsin.de/pr/demo%202018-01-13.jpg)
 
 ## System requirements
 

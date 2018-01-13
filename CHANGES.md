@@ -4,16 +4,15 @@
 ### New Features
 
 * Mix function: finds new playlist based on current video or video url input
-* Autocomplete for input form (beta, YouTube only)
+* Autocomplete (beta, YouTube only)
 * Improved Vimeo support (now in beta status)
-* Custom URL feature (working title) makes it possible to use cross-provider playlists (in combination with in-dev playlist creator for project page)
-* Link to lyrics search (very basic; powered by Genius)
+* Custom playlists (beta): support for cross-provider playlists (in combination with soon to be released playlist creator)
 * Added support for caching, compressing and minification (installable via requirements-performance.txt)
-* German and French translations
+* German and French translations for most parts of frontend
+* Link to lyric search (very basic; powered by Genius)
 
 ### Layout/Design/UI
 
-* Added countdown bar to current selected snippet
 * Simplified logo and favicon (ditched the shadow)
 * Bye, "float": More and more Flexbox used
 * So sassy: CSS code generated via SCSS files
@@ -23,12 +22,16 @@
 * Improved structure of header
 * Linux: Input fields keep background color on dark GTK themes
 * Moved control buttons into snippet info
+* Increased font weight and made font sizes dynamic
+* More dynamic margins and paddings ("vw" instead of "px")
 
 ### UX
 
+* Added countdown bar to currently selected snippet
 * Introducing more keyboard shortcuts: "S" for play/pause, "X" for mix, "M" for mute, "L" for lyric search
 * Using same opacity changes on hovering for all elements (buttons, thumbs etc.)
-* Increased font weight and font sizes (especially for smaller device widths) with consequent usage of "vw"
+* Rearranged order of Plyr controls
+* Added newsic buttons and Raleway as standard font for Plyr
 
 ### Server/Deployment
 
@@ -42,11 +45,12 @@
 * From now on all CSS and JavaScript files are minified (human readable versions still available)
 * .editorconfig file
 * JavaScript: put console.log messages in toggable debug function
+* Plyr 3 testing: version switch in videohandler.js
 
 ### Et cetera
 
-* Plyr 2.0.18 (while preparing support for upcoming Plyr 3)
-* FontAwesome 5.0.2
+* Update to Plyr 2.0.18 (while preparing support for upcoming Plyr 3)
+* Update to FontAwesome 5.0.2 (SVG and JavaScript instead of old approach with font files)
 * Added playlist title to page title
 * New calculation of snippet start time (currently testing, not in use yet)
 * Switching to official Vimeo library ("PyVimeo" instead of "Vimeo")
@@ -60,10 +64,11 @@
     * tests needed, country check might come back eventually
 * Renamed and reorganized files
 * Source code of HTML templates shows elapsed time for non-cached page requests
-* Browser: moved to KeyboardEvent.key
+* Browser/JavaScript: moved to KeyboardEvent.key
 * Seperate SCSS files (home page, responsive layout)
 * Included humans.txt
 * More Open Graph and Twitter card meta tags
+* JavaScript and HTML: Began on replacing tabs with spaces
 
 # 0.2: Fire
 ## Release: 2017-03-06

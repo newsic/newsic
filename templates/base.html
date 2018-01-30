@@ -29,18 +29,15 @@
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
   <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="shortcut icon" />
   {%- block css %}{%- endblock %}
-  <!-- <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />-->
-  <link href="{{ url_for('static', filename='css/fontawesome/fa-svg-with-js.css') }}" rel="stylesheet" type="text/css" />
-  <!-- former font weights: 400 and 600 -->
-  <!-- new font weights: 600 and 800 -->
-  <!-- TODO: try 900 -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:600,800&amp;subset=latin-ext" rel="stylesheet" type="text/css" />
+  <link href="{{ url_for('static', filename='css/fontawesome/fa-svg-with-js.css') }}" rel="stylesheet" type="text/css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="newsic" />
 
   <!-- TODO: research whats the best approach for i18n of Open Graph and meta tags -->
+  <meta property="og:locale:alternate" content="en" />
   <meta property="og:locale:alternate" content="de_DE" />
   <meta property="og:locale:alternate" content="fr_FR" />
 

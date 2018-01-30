@@ -1,7 +1,7 @@
 # 0.3: OML
 ## Release: 2018
 
-### New Features
+### New features
 
 * Mix function: finds new playlist based on current video or video url input
 * Autocomplete (beta, YouTube only)

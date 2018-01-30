@@ -240,9 +240,9 @@ def yt_grab(video_ids=[], playlist_id=None):
             request_iteration = request_iteration + 1
 
     else:
-        #TODO: check if code is correct (assumption: it is not)
         request_iteration = len(video_ids) % max_results
-        #debug(request_iteration)
+        if len(video_ids) >= max_results:
+            request_iteration = request_iteration + 1
 
 
     range_start = 0
@@ -548,10 +548,10 @@ def custom_playlist(path):
         for video in vimeo:
             vimeo_ids.append("/" + video[1])
 
-        message="custom-vimeo-beta"
+        message = "custom-vimeo-beta"
 
         vids = VIMEO.get(('/videos?links={}').format(",".join(vimeo_ids)),
-                     params={"fields": "name, pictures.uri, duration"})
+                         params={"fields": "name, pictures.uri, duration"})
 
         debug(vimeo_ids)
         debug(",".join(vimeo_ids))
@@ -568,7 +568,7 @@ def custom_playlist(path):
             if end_time > data["duration"]:
                 end_time = data["duration"]
 
-            # video_list = 0: id, 1: provider, 2: title, 3: start, 4: end, 5: length, 6: thumbnail id
+            # video_list: 0: id, 1: provider, 2: title, 3: start, 4: end, 5: length, 6: thumbnail id
 
             if ids:
                 vimeo_api_results.append([
@@ -579,7 +579,7 @@ def custom_playlist(path):
                     end_time,
                     data["duration"],
                     ids.group(2)])
-        
+
         for position, video in enumerate(vimeo_api_results):
             video_list.insert(vimeo[position][0], video)
 
@@ -608,6 +608,7 @@ def mix_youtube(video_id):
     """
 
     #TODO: use fields for filtering the results
+    # needed: snippet title
 
     api_get_video_title = (
         "{}/videos?id={}&part=snippet"
@@ -624,6 +625,7 @@ def mix_youtube(video_id):
         max_results = 15
 
         #TODO: use fields for filtering the results
+        # needed: ["pageInfo"]["totalResults"], playlistID (random one from "items")
         api_search_with_title = (
             "{}/search?q={}&type=playlist&part=id"
             + "&maxResults={}&key={}").format(
@@ -774,7 +776,7 @@ def mix_vimeo(vimeo_id):
 
     video_list = []
 
-    vids = VIMEO.get(('/videos/{}/videos?filter=related&per_page=25').format(
+    vids = VIMEO.get(('/videos/{}/videos?filter=related&per_page=20').format(
         vimeo_id), params={"fields": "name, pictures.uri, duration"})
 
     regex_ids = re.compile(r"\/videos\/(\d+)\/pictures\/(\d+)")

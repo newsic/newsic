@@ -45,7 +45,7 @@
 * From now on all CSS and JavaScript files are minified (human readable versions still available)
 * .editorconfig file
 * JavaScript: put console.log messages in toggable debug function
-* Plyr 3 testing: version switch in videohandler.js
+* Included Plyr 3 files (videohandler.js contains version switch)
 
 ### Et cetera
 
@@ -69,6 +69,7 @@
 * Included humans.txt
 * More Open Graph and Twitter card meta tags
 * JavaScript and HTML: Began on replacing tabs with spaces
+* Basic Progressive Web App support
 
 # 0.2: Fire
 ## Release: 2017-03-06

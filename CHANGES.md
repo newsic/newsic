@@ -1,5 +1,5 @@
 # 0.3: OML
-## Release: 2018
+## Release: 2018-02-01
 
 ### New features
 

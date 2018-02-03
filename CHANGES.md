@@ -1,3 +1,9 @@
+# In development
+
+### Et cetera
+
+* Update to FontAwesome 5.0.6 and removed old CSS files (completely moved to SVG with JS principle)
+
 # 0.3: OML
 ## Release: 2018-02-01
 

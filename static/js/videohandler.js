@@ -372,6 +372,7 @@ video[0].on("ready", function() {
             // -> caused by youtube.com/yts/jsbin/player-.../base.js
 
             video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
+            video[0].play();
         }
 
         debugMessage("Jumped to start time.");
@@ -397,7 +398,6 @@ video[0].on("playing", function() {
         // Plyr 3
         if(plyrVersion == 3) {
             video[0].currentTime = parseFloat(snippets[i].dataset.start).toFixed(2);
-            video[0].play();
         }
 
         debugMessage("Jumped to start time.");

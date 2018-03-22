@@ -29,7 +29,7 @@ Please remember to change file requests in play.html template
 Default: 2
 
 */
-var plyrVersion = 2;
+var plyrVersion = 3;
 
 
 var ready = false;
@@ -150,6 +150,71 @@ var controlsPlyr2 = ["<div class='plyr__controls'>",
 
 "</div>"].join("");
 
+var controlsPlyr3 = ["<div class='plyr__controls'>",
+
+"<button type='button' class='plyr__control playPrevious' data-plyr='forward' aria-label='",
+    i18n_videohandler_previoussnippet,
+    "'>",
+    "<span class='fas fa-backward'></span>",
+    "<span class='label plyr__tooltip' role='tooltip'>",
+    i18n_videohandler_previoussnippet,
+    "</span>",
+"</button>",
+
+
+'<button type="button" class="plyr__control" aria-pressed="false" aria-label="Play" data-plyr="play"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-pause"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-play"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Pause</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Play</span></button>',
+
+"<button type='button' class='plyr__control playNext' data-plyr='forward' aria-label='",
+    i18n_videohandler_nextsnippet,
+    "'>",
+    "<span class='fas fa-forward'></span>",
+    "<span class='label plyr__tooltip' role='tooltip'>",
+    i18n_videohandler_nextsnippet,
+    "</span>",
+"</button>",
+
+'<button type="button" class="plyr__control" aria-pressed="true" aria-label="Mute" data-plyr="mute"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-muted"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-volume"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Unmute</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Mute</span></button><div class="plyr__volume"><label for="plyr-volume-{id}" class="plyr__sr-only">Volume</label><input data-plyr="volume" min="0" max="1" step="0.05" value="0" autocomplete="off" id="plyr-volume-{id}" type="range"></div>',
+
+// TODO: ids not set correctly
+'<div class="plyr__progress"><label for="plyr-seek" class="plyr__sr-only">Seek</label><input data-plyr="seek" min="0" max="100" step="0.01" value="0" autocomplete="off" id="plyr-seek" type="range"><progress class="plyr__progress--buffer" min="0" max="100" value="0">% buffered</progress><span role="tooltip" class="plyr__tooltip">00:00</span></div>',
+
+// TODO: Fix this. Documentation will follow: https://github.com/sampotts/plyr/issues/812
+
+'<!--<button type="button" class="plyr__control" aria-pressed="false" aria-label="Enable captions" data-plyr="captions"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-captions-on"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-captions-off"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Disable captions</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Enable captions</span></button><div class="plyr__menu"><button id="plyr-settings-toggle-{id}" aria-haspopup="true" aria-controls="plyr-settings-{id}" aria-expanded="false" type="button" class="plyr__control" data-plyr="settings"><svg role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-settings"></use></svg><span class="plyr__tooltip" role="tooltip">Settings</span></button><form class="plyr__menu__container" id="plyr-settings-{id}" aria-hidden="true" aria-labelled-by="plyr-settings-toggle-{id}" role="tablist" tabindex="-1"><div><div id="plyr-settings-{id}-home" aria-hidden="false" aria-labelled-by="plyr-settings-toggle-{id}" role="tabpanel"><ul role="tablist"><li role="tab" hidden=""><button data-plyr="settings" type="button" class="plyr__control plyr__control--forward" id="plyr-settings-{id}-captions-tab" aria-haspopup="true" aria-controls="plyr-settings-{id}-captions" aria-expanded="false">Captions<span class="plyr__menu__value">None</span></button></li><li role="tab"><button data-plyr="settings" type="button" class="plyr__control plyr__control--forward" id="plyr-settings-{id}-quality-tab" aria-haspopup="true" aria-controls="plyr-settings-{id}-quality" aria-expanded="false">Quality<span class="plyr__menu__value">480P</span></button></li><li role="tab"><button data-plyr="settings" type="button" class="plyr__control plyr__control--forward" id="plyr-settings-{id}-speed-tab" aria-haspopup="true" aria-controls="plyr-settings-{id}-speed" aria-expanded="false">Speed<span class="plyr__menu__value">Normal</span></button></li></ul></div><div id="plyr-settings-{id}-captions" aria-hidden="true" aria-labelled-by="plyr-settings-{id}-captions-tab" role="tabpanel" tabindex="-1" hidden=""><button type="button" class="plyr__control plyr__control--back" aria-haspopup="true" aria-controls="plyr-settings-{id}-home" aria-expanded="false">Captions</button><ul></ul></div><div id="plyr-settings-{id}-quality" aria-hidden="true" aria-labelled-by="plyr-settings-{id}-quality-tab" role="tabpanel" tabindex="-1"><button type="button" class="plyr__control plyr__control--back" aria-haspopup="true" aria-controls="plyr-settings-{id}-home" aria-expanded="false">Quality</button><ul><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="hd1080" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1080P<span class="plyr__menu__value"><span class="plyr__badge">HD</span></span></label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="hd720" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>720P<span class="plyr__menu__value"><span class="plyr__badge">HD</span></span></label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="large" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>480P</label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="medium" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>360P</label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="small" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>240P</label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="tiny" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>Tiny</label></li></ul></div><div id="plyr-settings-{id}-speed" aria-hidden="true" aria-labelled-by="plyr-settings-{id}-speed-tab" role="tabpanel" tabindex="-1"><button type="button" class="plyr__control plyr__control--back" aria-haspopup="true" aria-controls="plyr-settings-{id}-home" aria-expanded="false">Speed</button><ul><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="0.5" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>0.5×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="0.75" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>0.75×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>Normal</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1.25" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1.25×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1.5" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1.5×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1.75" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1.75×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="2" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>2×</label></li></ul></div></div></form></div>-->',
+
+
+"<button type='button' class='playComplete plyr__control' data-plyr='forward' aria-label='",
+    i18n_videohandler_completesnippet,
+    "'>",
+    "<span class='fas fa-plus-square'></span>",
+    "<span class='label plyr__tooltip' role='tooltip'>",
+    i18n_videohandler_completesnippet,
+    "</span>",
+"</button>",
+
+
+"<button type='button' class='plyr__control playMix' data-plyr='forward' aria-label='",
+    i18n_videohandler_mix,
+    "'>",
+    "<span class='fas fa-random'></span>",
+    "<span class='label plyr__tooltip' role='tooltip'>",
+    i18n_videohandler_mix,
+    "</span>",
+"</button>",
+
+
+"<button type='button' class='plyr__control searchLyrics' data-plyr='forward' aria-label='",
+    i18n_videohandler_lyrics,
+    "'>",
+    "<span class='fas fa-file-alt'></span>",
+    "<span class='label plyr__tooltip' role='tooltip'>",
+    i18n_videohandler_lyrics,
+    "</span>",
+"</button>",
+
+'<button type="button" class="plyr__control" aria-pressed="false" aria-label="Enter fullscreen" data-plyr="fullscreen"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-exit-fullscreen"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-enter-fullscreen"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Exit fullscreen</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Enter fullscreen</span></button>',
+"</div>"].join("");
+
 var optionsPlyr2 = {
     debug: false,
     autoplay: autoplayPlyr,
@@ -166,17 +231,12 @@ var optionsPlyr2 = {
 var optionsPlyr3 = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
-    debug: true,
+    debug: false,
     iconUrl: '/static/img/plyr/3/plyr.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },
-    controls: [
-        'play-large', 'play',
-        'progress', 'current-time',
-        'mute', 'volume',
-        'settings', 'fullscreen'
-    ],
+    controls: controlsPlyr3,
     // Unsupported value of 'large' for quality
     quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
 };
@@ -353,6 +413,23 @@ var mindTheHash = function() {
 video[0].on("ready", function() {
     complete = false;
 
+    // TODO: could be put into an array, then onclick bindings could be solved by foreach
+    playPreviousElements = document.getElementsByClassName("playPrevious");
+    playNextElements = document.getElementsByClassName("playNext");
+    playCompleteElements = document.getElementsByClassName("playComplete");
+    playMixElements = document.getElementsByClassName("playMix");
+    searchLyricsElements = document.getElementsByClassName("searchLyrics");
+
+    for (var temp = 0; temp <= 1; temp++) {
+        playPreviousElements[temp].onclick = playPrevious;
+        playNextElements[temp].onclick = playNext;
+        playCompleteElements[temp].onclick = playComplete;
+        playMixElements[temp].onclick = playMix;
+        searchLyricsElements[temp].onclick = searchLyrics;
+    }
+
+    document.getElementsByClassName("playPause")[0].onclick = playPause;
+
     // handle newsic's autoplay setting (affects first snippet only)
     if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
         video[0].pause();
@@ -367,10 +444,6 @@ video[0].on("ready", function() {
 
         // Plyr 3
         if(plyrVersion == 3) {
-            // TODO: fix
-            // "TypeError: e.toFixed is not a function"
-            // -> caused by youtube.com/yts/jsbin/player-.../base.js
-
             video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
             video[0].play();
         }
@@ -397,7 +470,7 @@ video[0].on("playing", function() {
 
         // Plyr 3
         if(plyrVersion == 3) {
-            video[0].currentTime = parseFloat(snippets[i].dataset.start).toFixed(2);
+            video[0].currentTime = parseFloat(snippets[i].dataset.start);
         }
 
         debugMessage("Jumped to start time.");
@@ -442,7 +515,7 @@ video[0].on("timeupdate", function() {
         var start = parseFloat(snippets[i].dataset.start);
 
         if(complete) {
-            end = snippets[i].dataset.length;
+            end = parseFloat(snippets[i].dataset.length);
             start = 0;
         }
 
@@ -464,7 +537,7 @@ video[0].on("timeupdate", function() {
         if (Math.ceil(videoCurrentTime) >= end) {
 
             //video[0].pause();
-
+            
             if(i == (snippets.length - 1)) {
                 video[0].pause();
                 debugMessage("This party is over, now get out of here. Seriously.");
@@ -481,40 +554,6 @@ video[0].on("timeupdate", function() {
 mindTheHash();
 window.onhashchange = mindTheHash;
 
-// TODO: the following code is working, but far from being good
-playPreviousElements = document.getElementsByClassName("playPrevious");
-playPauseElements = document.getElementsByClassName("playPause");
-playNextElements = document.getElementsByClassName("playNext");
-playCompleteElements = document.getElementsByClassName("playComplete");
-playMixElements = document.getElementsByClassName("playMix");
-searchLyricsElements = document.getElementsByClassName("searchLyrics");
-
-
-// TODO: improve!1!eleven and use foreach
-for (var temp = 0; temp < playPreviousElements.length; temp++) {
-    playPreviousElements[temp].onclick = playPrevious;
-}
-
-for (var temp = 0; temp < playPauseElements.length; temp++) {
-    playPauseElements[temp].onclick = playPause;
-}
-
-for (var temp = 0; temp < playNextElements.length; temp++) {
-    playNextElements[temp].onclick = playNext;
-}
-
-for (var temp = 0; temp < playCompleteElements.length; temp++) {
-    playCompleteElements[temp].onclick = playComplete;
-}
-
-// Plyr 2
-if(plyrVersion == 2) {
-    // only for first mix button (Plyr)
-    playMixElements[0].onclick = playMix;
-    // only for first lyric search button (Plyr)
-    searchLyricsElements[0].onclick = searchLyrics;
-}
-
 // whole bunch of handy keyboard shortcuts (inspired by several popular video content provider *cough*)
 document.addEventListener("keydown", function(e) {
 
@@ -524,7 +563,8 @@ document.addEventListener("keydown", function(e) {
         switch (e.key) {
             // "f": toggle fullscreen
             case "f":
-                video[0].toggleFullscreen();
+                if(plyrVersion == 2) video[0].toggleFullscreen();
+                if(plyrVersion == 3) video[0].fullscreen.toggle();
                 break;
 
             // "l": search for lyrics
@@ -534,7 +574,11 @@ document.addEventListener("keydown", function(e) {
 
             // "m": mute player
             case "m":
-                video[0].toggleMute();
+                if(plyrVersion == 2) video[0].toggleMute();
+                if(plyrVersion == 3) {
+                    if (video[0].muted) video[0].muted = false;
+                    else video[0].muted = true;
+                }
                 break;
 
             // "x": start mix

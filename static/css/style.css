@@ -124,9 +124,6 @@ footer a:hover .fa-heart, footer a:visited:hover .fa-heart {
   color: #ccc;
   text-align: center;
   overflow: auto;
-}
-
-.snippetinfo {
   padding: 8px;
 }
 
@@ -673,4 +670,27 @@ form .flash {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.plyr .searchLyrics, .plyr .playMix, .plyr .playComplete, .plyr .playPrevious, .plyr .playNext {
+  background: none;
+}
+
+.plyr .searchLyrics:hover svg, .plyr .playMix:hover svg, .plyr .playComplete:hover svg, .plyr .playPrevious:hover svg, .plyr .playNext:hover svg {
+  color: #56641c !important;
+}
+
+.plyr .plyr__control:hover {
+  background: #BCD35F !important;
+  color: #56641c !important;
+}
+
+/* TODO: find a better way to fix */
+.plyr--full-ui [aria-hidden="true"] {
+  display: inline !important;
+  color: #fff;
+}
+
+.plyr--full-ui input[type="range"] {
+  color: #BCD35F !important;
 }

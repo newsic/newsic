@@ -150,18 +150,6 @@ h1 {
   font-weight: 800;
 }
 
-.plyr {
-  font-family: "Raleway", sans-serif !important;
-  font-weight: 600;
-  width: 70%;
-  margin: auto;
-  margin-top: 2vw;
-}
-
-.plyr--fullscreen-active {
-  margin-top: 0;
-}
-
 #snippets {
   margin: auto;
   width: 70%;
@@ -336,93 +324,6 @@ form input:hover, form input:focus, form button:hover, form button:focus {
 
 .tac {
   text-align: center;
-}
-
-/* Animations */
-.flash {
-  animation-name: flash;
-  animation-duration: 4s;
-  animation-fill-mode: both;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-@keyframes flash {
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-  25%, 75% {
-    opacity: 0;
-  }
-}
-
-form .flash {
-  visibility: hidden;
-}
-
-/* Autocomplete */
-#autocomplete {
-  flex-grow: 0.80;
-  display: flex;
-  align-items: center;
-  background: #fff;
-  opacity: 0.7;
-  transition: opacity 0.5s ease;
-  box-shadow: #e6e6e6 1px 1px, #e6e6e6 2px 2px, #e6e6e6 3px 3px, #e6e6e6 4px 4px;
-  padding-right: 1vw;
-}
-
-#autocomplete:hover, #autocomplete:focus-within {
-  opacity: 1;
-}
-
-#autocomplete input {
-  color: #000;
-  box-shadow: unset;
-  flex-grow: 0.95;
-  opacity: 0.7;
-}
-
-#autocomplete .flash {
-  flex-grow: 0.05;
-  text-align: right;
-  color: #3d3d3d;
-}
-
-#autocomplete-result {
-  align-self: flex-start;
-  position: absolute;
-  background: rgba(230, 230, 230, 0.85);
-  box-shadow: 0px 20px 61px -3px rgba(0, 0, 0, 0.6);
-  padding: 0;
-  z-index: 1000;
-  list-style: none;
-}
-
-#autocomplete-result li {
-  margin-left: 0;
-  padding: 2% 3% 2% 3%;
-  display: flex;
-  align-items: center;
-  color: #7a7a7a;
-  background: #fff;
-  transition: opacity 0.5s ease;
-  opacity: 0.7;
-  justify-content: space-between;
-}
-
-#autocomplete-result li:hover, #autocomplete-result li:focus, #autocomplete-result li.selected {
-  cursor: pointer;
-  opacity: 1;
-}
-
-#autocomplete-result li .sub {
-  font-weight: 400;
-  font-size: 0.9em;
-}
-
-#autocomplete-result li img {
-  max-width: 15%;
 }
 
 /* index.html */
@@ -672,6 +573,102 @@ form .flash {
   }
 }
 
+/* Autocomplete */
+#autocomplete {
+  flex-grow: 0.80;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
+  box-shadow: #e6e6e6 1px 1px, #e6e6e6 2px 2px, #e6e6e6 3px 3px, #e6e6e6 4px 4px;
+  padding-right: 1vw;
+}
+
+#autocomplete:hover, #autocomplete:focus-within {
+  opacity: 1;
+}
+
+#autocomplete input {
+  color: #000;
+  box-shadow: unset;
+  flex-grow: 0.95;
+  opacity: 0.7;
+}
+
+#autocomplete .flash {
+  flex-grow: 0.05;
+  text-align: right;
+  color: #3d3d3d;
+}
+
+#autocomplete-result {
+  align-self: flex-start;
+  position: absolute;
+  background: rgba(230, 230, 230, 0.85);
+  box-shadow: 0px 20px 61px -3px rgba(0, 0, 0, 0.6);
+  padding: 0;
+  z-index: 1000;
+  list-style: none;
+}
+
+#autocomplete-result li {
+  margin-left: 0;
+  padding: 2% 3% 2% 3%;
+  display: flex;
+  align-items: center;
+  color: #7a7a7a;
+  background: #fff;
+  transition: opacity 0.5s ease;
+  opacity: 0.7;
+  justify-content: space-between;
+}
+
+#autocomplete-result li:hover, #autocomplete-result li:focus, #autocomplete-result li.selected {
+  cursor: pointer;
+  opacity: 1;
+}
+
+#autocomplete-result li .sub {
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+#autocomplete-result li img {
+  max-width: 15%;
+}
+
+/* Animations */
+.flash {
+  animation-name: flash;
+  animation-duration: 4s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+form .flash {
+  visibility: hidden;
+}
+
+/* Plyr */
+.plyr {
+  font-family: "Raleway", sans-serif !important;
+  font-weight: 600;
+  width: 70%;
+  margin: auto;
+  margin-top: 2vw;
+}
+
 .plyr .searchLyrics, .plyr .playMix, .plyr .playComplete, .plyr .playPrevious, .plyr .playNext {
   background: none;
 }
@@ -693,4 +690,8 @@ form .flash {
 
 .plyr--full-ui input[type="range"] {
   color: #BCD35F !important;
+}
+
+.plyr--fullscreen-active {
+  margin-top: 0;
 }

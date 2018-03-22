@@ -1,0 +1,38 @@
+/* Plyr */
+
+.plyr {
+
+    font-family: $font !important;
+    font-weight: $font_weight;
+    width: $width_desktop;
+    margin: auto;
+    margin-top: 2vw;
+
+    .searchLyrics, .playMix, .playComplete, .playPrevious, .playNext {
+        background: none;
+
+        &:hover svg {
+            color: darken($button_color, 35%) !important;
+        }
+    }
+
+    .plyr__control:hover {
+        background: $button_color !important;
+        color: darken($button_color, 35%) !important;
+    }
+}
+
+
+/* TODO: find a better way to fix */
+.plyr--full-ui [aria-hidden="true"] {
+    display: inline !important;
+    color: #fff;
+}
+
+.plyr--full-ui input[type="range"] {
+    color: $button_color !important;
+}
+
+.plyr--fullscreen-active {
+    margin-top: 0;
+}

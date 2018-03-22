@@ -22,11 +22,10 @@
 
 
 /* Plyr version
-Temporary variable
-Warning: Plyr 3 support is still considered alpha
+Temporary variable (as long as transition to Plyr 3 lasts)
 Please remember to change file requests in play.html template
 
-Default: 2
+Default: 3
 
 */
 var plyrVersion = 3;
@@ -270,7 +269,7 @@ var showMessage = function(message, seconds) {
     // sloppy fix for browser with antipathy for some es6 specifications (Safari *cough*)
     if (typeof(seconds) === "undefined") seconds = 10;
 
-    elementMessage.innerHTML = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>' + " " + message;
+    elementMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i>' + " " + message;
     elementMessage.style.visibility = "visible";
     elementMessage.style.opacity = "1";
     if(seconds > 0) setInterval(toggleMessage, seconds * 1000);
@@ -411,6 +410,8 @@ var mindTheHash = function() {
 };
 
 video[0].on("ready", function() {
+    // omits playing video before setting offset time
+    video[0].pause();
     complete = false;
 
     // TODO: could be put into an array, then onclick bindings could be solved by foreach
@@ -430,11 +431,6 @@ video[0].on("ready", function() {
 
     document.getElementsByClassName("playPause")[0].onclick = playPause;
 
-    // handle newsic's autoplay setting (affects first snippet only)
-    if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
-        video[0].pause();
-    } //else video[0].play();
-
     if(snippets[i].dataset.type === "vimeo") ready = true;
 
     if(snippets[i].dataset.type === "youtube") {
@@ -445,11 +441,15 @@ video[0].on("ready", function() {
         // Plyr 3
         if(plyrVersion == 3) {
             video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
-            video[0].play();
         }
 
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
+
+        // handle newsic's autoplay setting (affects first snippet only)
+        if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
+            video[0].pause();
+        } else video[0].play();
     }
 });
 

@@ -60,6 +60,10 @@
     footer {
         width: 90%;
     }
+
+    #snippets .main {
+        padding: 1.5 vw;
+    }
     
     .home {
         width: 80%;
@@ -82,7 +86,7 @@
         font-size: $font-size;
     }
 
-    #snippets a {
+    #snippets a, #snippets .main {
         flex-basis: 30%;
     }
 
@@ -116,6 +120,10 @@
     
     body, input, button {
         font-size: $font-size;
+    }
+
+    #snippets .main {
+        padding: 3vw;
     }
 
     .home {
@@ -159,7 +167,7 @@
         margin-bottom: 4vw;
     }
 
-    #snippets a {
+    #snippets a, #snippets .main {
         flex-basis: 45%;
     }
 
@@ -210,7 +218,7 @@
         padding: 4vw 5% 2vw 5%;
     }
 
-    #snippets a {
+    #snippets a, #snippets .main {
         flex-basis: 100%;
         flex-direction: column;
         margin-bottom: 5vw;

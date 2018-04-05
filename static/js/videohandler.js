@@ -20,7 +20,7 @@
 
 */
 
-
+// TODO: remove, depreated soon
 /* Plyr version
 Temporary variable (as long as transition to Plyr 3 lasts)
 Please remember to change file requests in play.html template
@@ -60,7 +60,7 @@ Default: true
 */
 var autoplayPlyr = true;
 
-// TODO: translate
+// TODO: remove, depreated soon
 var controlsPlyr2 = ["<div class='plyr__controls'>",
 
 "<button class='playPrevious' type='button' data-plyr='backward'>",
@@ -161,7 +161,13 @@ var controlsPlyr3 = ["<div class='plyr__controls'>",
 "</button>",
 
 
-'<button type="button" class="plyr__control" aria-pressed="false" aria-label="Play" data-plyr="play"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-pause"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-play"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Pause</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Play</span></button>',
+'<button type="button" class="plyr__control" aria-pressed="false" aria-label="',
+i18n_videohandler_play,
+'" data-plyr="play"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-pause"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-play"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">',
+i18n_videohandler_pause,
+'</span><span class="label--not-pressed plyr__tooltip" role="tooltip">',
+i18n_videohandler_play,
+'</span></button>',
 
 "<button type='button' class='plyr__control playNext' data-plyr='forward' aria-label='",
     i18n_videohandler_nextsnippet,
@@ -172,10 +178,32 @@ var controlsPlyr3 = ["<div class='plyr__controls'>",
     "</span>",
 "</button>",
 
-'<button type="button" class="plyr__control" aria-pressed="true" aria-label="Mute" data-plyr="mute"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-muted"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-volume"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Unmute</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Mute</span></button><div class="plyr__volume"><label for="plyr-volume-{id}" class="plyr__sr-only">Volume</label><input data-plyr="volume" min="0" max="1" step="0.05" value="0" autocomplete="off" id="plyr-volume-{id}" type="range"></div>',
+'<button type="button" class="plyr__control" aria-pressed="true" aria-label="',
+// TODO: seperate translations
 
-// TODO: ids not set correctly
-'<div class="plyr__progress"><label for="plyr-seek" class="plyr__sr-only">Seek</label><input data-plyr="seek" min="0" max="100" step="0.01" value="0" autocomplete="off" id="plyr-seek" type="range"><progress class="plyr__progress--buffer" min="0" max="100" value="0">% buffered</progress><span role="tooltip" class="plyr__tooltip">00:00</span></div>',
+// mute
+i18n_videohandler_togglemute,
+'" data-plyr="mute"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-muted"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-volume"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">',
+
+// unmute
+i18n_videohandler_togglemute,
+
+'</span><span class="label--not-pressed plyr__tooltip" role="tooltip">',
+
+// mute
+i18n_videohandler_togglemute,
+'</span></button><div class="plyr__volume"><label for="plyr-volume-{id}" class="plyr__sr-only">',
+i18n_videohandler_volume,
+'</label><input data-plyr="volume" min="0" max="1" step="0.05" value="0" autocomplete="off" id="plyr-volume-{id}" type="range"></div>',
+
+// TODO: ids not set correctly (Are those actually needed? There will be only one instance, so it's rather useless to use ids)
+'<div class="plyr__progress"><label for="plyr-seek" class="plyr__sr-only">',
+i18n_videohandler_seek,
+'</label><input data-plyr="seek" min="0" max="100" step="0.01" value="0" autocomplete="off" id="plyr-seek" type="range"><progress class="plyr__progress--buffer" min="0" max="100" value="0">% ',
+i18n_videohandler_buffered,
+'</progress><span role="tooltip" class="plyr__tooltip">00:00</span></div>',
+
+
 
 // TODO: Fix this. Documentation will follow: https://github.com/sampotts/plyr/issues/812
 
@@ -211,9 +239,25 @@ var controlsPlyr3 = ["<div class='plyr__controls'>",
     "</span>",
 "</button>",
 
-'<button type="button" class="plyr__control" aria-pressed="false" aria-label="Enter fullscreen" data-plyr="fullscreen"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-exit-fullscreen"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-enter-fullscreen"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Exit fullscreen</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Enter fullscreen</span></button>',
+// TODO: instead translating "toggle fullscreen" implement translation for entering and leaving fullscreen
+
+'<button type="button" class="plyr__control" aria-pressed="false" aria-label="',
+
+// enter fullscreen
+i18n_videohandler_togglefullscreen,
+'" data-plyr="fullscreen"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-exit-fullscreen"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-enter-fullscreen"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">',
+
+// leaving fullscreen
+i18n_videohandler_togglefullscreen,
+
+'</span><span class="label--not-pressed plyr__tooltip" role="tooltip">',
+
+// enter fullscreen
+i18n_videohandler_togglefullscreen,
+'</span></button>',
 "</div>"].join("");
 
+// TODO: remove, depreated soon
 var optionsPlyr2 = {
     debug: false,
     autoplay: autoplayPlyr,
@@ -240,6 +284,7 @@ var optionsPlyr3 = {
     quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
 };
 
+// TODO: remove, depreated soon
 // Plyr 2
 if(plyrVersion == 2) var video = plyr.setup('.plyr', optionsPlyr2);
 
@@ -251,11 +296,14 @@ if(plyrVersion == 3) {
 
 var elementMessage = document.getElementsByClassName("message")[0];
 var elementPlayPause = document.getElementsByClassName("playPause")[0];
-var snippets = document.getElementById("snippets").children;
+var snippets = document.getElementById("snippets").getElementsByTagName("a");
 
 // debug function
-var debugMessage = function(message) {
-    if (debug) console.log(message);
+var debugMessage = function(message, warn=false) {
+    if (debug) {
+        if (warn) console.warn(message);
+        else console.log(message);
+    }
 }
 
 // some basic functions (triggered by GUI buttons or keyboard shortcuts)
@@ -278,6 +326,7 @@ var showMessage = function(message, seconds) {
 var playPause = function() {
     video[0].togglePlay();
 
+    // TODO: remove, depreated soon
     // Plyr 2
     if(plyrVersion == 2) var videoPaused = video[0].isPaused();
 
@@ -305,6 +354,7 @@ var playComplete = function() {
 
     video[0].pause();
     
+    // TODO: remove, depreated soon
     // Plyr 2
     if(plyrVersion == 2) video[0].seek(0);
 
@@ -358,6 +408,7 @@ var updateElements = function() {
     document.getElementById("title").innerHTML = title;
     document.getElementsByTagName("title")[0].innerHTML = title + " - " + document.getElementById("snippets").dataset.playlisttitle + " - newsic";
 
+    // TODO: remove, depreated soon
     // Plyr 2
     if(plyrVersion == 2) index = 1;
 
@@ -371,6 +422,7 @@ var updateElements = function() {
 // switching source
 var jumpTo = function(index) {
 
+    // TODO: remove, depreated soon
     // Plyr 2
     if(plyrVersion == 2) {
         video[0].source({
@@ -435,6 +487,7 @@ video[0].on("ready", function() {
 
     if(snippets[i].dataset.type === "youtube") {
 
+        // TODO: remove, depreated soon
         // Plyr 2
         if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
 
@@ -465,12 +518,16 @@ video[0].on("playing", function() {
 
     if(snippets[i].dataset.type === "vimeo" && ready) {
 
+        console.log("playing event");
+
+        // TODO: remove, depreated soon
         // Plyr 2
         if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].dataset.start));
 
         // Plyr 3
         if(plyrVersion == 3) {
-            video[0].currentTime = parseFloat(snippets[i].dataset.start);
+            video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
+            //video[0].currentTime = parseFloat(snippets[i].dataset.start);
         }
 
         debugMessage("Jumped to start time.");
@@ -491,6 +548,10 @@ video[0].on("pause", function() {
 
 
 video[0].on("error", function(error) {
+
+    // TODO: update for Plyr 3
+    // problems with Vimeo -> don't skip videos on error
+
     var title = snippets[i].getElementsByClassName("name")[0].innerText;
     if(snippets[i].dataset.type == "youtube") {
         debugMessage("Error: " + error["detail"]["code"]);
@@ -499,9 +560,10 @@ video[0].on("error", function(error) {
         if(error["detail"]["code"] == 150 || error["detail"]["code"] == 101) {
             showMessage(title + ": " + i18n_videohandler_embeddingforbidden);
         } else showMessage(title + ": " + i18n_videohandler_blocked);
-    } else showMessage(title + ": " + i18n_videohandler_skipped);
-    if(prevOrNext == "prev") playPrevious();
-    else playNext();
+
+        if(prevOrNext == "prev") playPrevious();
+        else playNext();
+    }
 });
 
 
@@ -523,6 +585,7 @@ video[0].on("timeupdate", function() {
 
         // TODO: make it go to zero
 
+        // TODO: remove, depreated soon
         // Plyr 2
         if(plyrVersion == 2) var videoCurrentTime = video[0].getCurrentTime();
 
@@ -614,4 +677,4 @@ document.addEventListener("keydown", function(e) {
         }
     }
 }
-, false);
+, false);  

@@ -157,7 +157,7 @@ footer {
 .snippetinfo {
     background: #3d3d3d;
     width: $width_desktop;
-    margin: 2.5vw auto 2.5vw auto;
+    margin: 2.5vw auto 5.5vw auto;
     color: #ccc;
     text-align: center;
     overflow: auto;
@@ -201,14 +201,29 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: flex-start;
+
+    a, .main {
+        flex-basis: 23%;
+        transition: all $transition_speed ease;
+    }
+
+    .main {
+        background: #3d3d3d;
+        padding: 2vw 1vw;
+        text-align: justify;
+    
+        h2 {
+            margin-top: 0;
+        }
+    }
 
     a {
-        flex-basis: 23%;
-        margin-bottom: 3vw;
-        transition: all $transition_speed ease;
         cursor: pointer;
         text-decoration: none;
         opacity: $opacity_start;
+        align-content: flex-start;
+        margin-bottom: 3vw;
 
         &:hover {
             opacity: $opacity_end;
@@ -392,6 +407,6 @@ form {
 }
 
 @import "index";
-@import "responsive";
 @import "autocomplete";
 @import "plyr-branding";
+@import "responsive";

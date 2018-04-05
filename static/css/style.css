@@ -120,7 +120,7 @@ footer a:hover .fa-heart, footer a:visited:hover .fa-heart {
 .snippetinfo {
   background: #3d3d3d;
   width: 70%;
-  margin: 2.5vw auto 2.5vw auto;
+  margin: 2.5vw auto 5.5vw auto;
   color: #ccc;
   text-align: center;
   overflow: auto;
@@ -157,15 +157,30 @@ h1 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-start;
+}
+
+#snippets a, #snippets .main {
+  flex-basis: 23%;
+  transition: all 0.5s ease;
+}
+
+#snippets .main {
+  background: #3d3d3d;
+  padding: 2vw 1vw;
+  text-align: justify;
+}
+
+#snippets .main h2 {
+  margin-top: 0;
 }
 
 #snippets a {
-  flex-basis: 23%;
-  margin-bottom: 3vw;
-  transition: all 0.5s ease;
   cursor: pointer;
   text-decoration: none;
   opacity: 0.7;
+  align-content: flex-start;
+  margin-bottom: 3vw;
 }
 
 #snippets a:hover {
@@ -411,168 +426,6 @@ form input:hover, form input:focus, form button:hover, form button:focus {
   width: 100%;
 }
 
-/* responsive */
-@media screen and (max-width: 1500px) {
-  .home .featured a, .home .featured .main {
-    flex-basis: 30%;
-  }
-}
-
-@media screen and (max-width: 1400px) {
-  body, input, button {
-    font-size: 1.3vw;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  body, input, button {
-    font-size: 1.5vw;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  body, input, button {
-    font-size: 1.7vw;
-  }
-  .snippetinfo {
-    padding: 0;
-  }
-  .snippetinfo .border {
-    border: 0;
-    padding: 3% 5% 3% 5%;
-  }
-  .plyr, .snippetinfo {
-    width: 100%;
-  }
-  #snippets {
-    width: 90%;
-  }
-  header {
-    padding: 4vw 5% 2vw 5%;
-  }
-  footer {
-    width: 90%;
-  }
-  .home {
-    width: 80%;
-  }
-  .home .featured a, .home .featured .main {
-    flex-basis: 45%;
-  }
-  .home .featured .main {
-    padding: 1.5vw;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  body, input, button {
-    font-size: 2.1vw;
-  }
-  #snippets a {
-    flex-basis: 30%;
-  }
-  .home .featured .main {
-    padding: 2vw;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .controlbar button {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .controlbar .right {
-    width: 100%;
-  }
-  .controlbar .right button {
-    margin: 3vw 0 0 0;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  body, input, button {
-    font-size: 2.5vw;
-  }
-  .home {
-    position: relative;
-    width: 90%;
-    margin-top: 10%;
-  }
-  .home #autocomplete-result {
-    margin-top: 2px !important;
-  }
-  .home .box form {
-    padding: 7% 14% 7% 14%;
-    display: block;
-  }
-  .home .box form button {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 5%;
-  }
-  .home .featured a, .home .featured .main {
-    flex-basis: 100%;
-    margin-bottom: 5vw;
-  }
-  .home .featured .main {
-    padding: 3vw;
-  }
-  .logo_big {
-    width: 60%;
-    margin-bottom: 10%;
-  }
-  .countdown-shadow {
-    margin-bottom: 4vw;
-  }
-  #snippets a {
-    flex-basis: 45%;
-  }
-  header {
-    align-items: flex-start;
-  }
-  header .logo_short {
-    margin-bottom: 1vw;
-  }
-  header #autocomplete {
-    flex-grow: 1;
-  }
-  header form {
-    flex-basis: 85%;
-  }
-  header form button {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  body, input, button {
-    font-size: 3vw;
-  }
-  footer {
-    background: none;
-    box-shadow: unset;
-    height: auto;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  body, input, button {
-    font-size: 4vw;
-  }
-  header {
-    padding: 4vw 5% 2vw 5%;
-  }
-  #snippets a {
-    flex-basis: 100%;
-    flex-direction: column;
-    margin-bottom: 5vw;
-  }
-  footer a {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
 /* Autocomplete */
 #autocomplete {
   flex-grow: 0.80;
@@ -694,4 +547,172 @@ form .flash {
 
 .plyr--fullscreen-active {
   margin-top: 0;
+}
+
+/* responsive */
+@media screen and (max-width: 1500px) {
+  .home .featured a, .home .featured .main {
+    flex-basis: 30%;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  body, input, button {
+    font-size: 1.3vw;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  body, input, button {
+    font-size: 1.5vw;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  body, input, button {
+    font-size: 1.7vw;
+  }
+  .snippetinfo {
+    padding: 0;
+  }
+  .snippetinfo .border {
+    border: 0;
+    padding: 3% 5% 3% 5%;
+  }
+  .plyr, .snippetinfo {
+    width: 100%;
+  }
+  #snippets {
+    width: 90%;
+  }
+  header {
+    padding: 4vw 5% 2vw 5%;
+  }
+  footer {
+    width: 90%;
+  }
+  #snippets .main {
+    padding: 1.5 vw;
+  }
+  .home {
+    width: 80%;
+  }
+  .home .featured a, .home .featured .main {
+    flex-basis: 45%;
+  }
+  .home .featured .main {
+    padding: 1.5vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  body, input, button {
+    font-size: 2.1vw;
+  }
+  #snippets a, #snippets .main {
+    flex-basis: 30%;
+  }
+  .home .featured .main {
+    padding: 2vw;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .controlbar button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .controlbar .right {
+    width: 100%;
+  }
+  .controlbar .right button {
+    margin: 3vw 0 0 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body, input, button {
+    font-size: 2.5vw;
+  }
+  #snippets .main {
+    padding: 3vw;
+  }
+  .home {
+    position: relative;
+    width: 90%;
+    margin-top: 10%;
+  }
+  .home #autocomplete-result {
+    margin-top: 2px !important;
+  }
+  .home .box form {
+    padding: 7% 14% 7% 14%;
+    display: block;
+  }
+  .home .box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 5%;
+  }
+  .home .featured a, .home .featured .main {
+    flex-basis: 100%;
+    margin-bottom: 5vw;
+  }
+  .home .featured .main {
+    padding: 3vw;
+  }
+  .logo_big {
+    width: 60%;
+    margin-bottom: 10%;
+  }
+  .countdown-shadow {
+    margin-bottom: 4vw;
+  }
+  #snippets a, #snippets .main {
+    flex-basis: 45%;
+  }
+  header {
+    align-items: flex-start;
+  }
+  header .logo_short {
+    margin-bottom: 1vw;
+  }
+  header #autocomplete {
+    flex-grow: 1;
+  }
+  header form {
+    flex-basis: 85%;
+  }
+  header form button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body, input, button {
+    font-size: 3vw;
+  }
+  footer {
+    background: none;
+    box-shadow: unset;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  body, input, button {
+    font-size: 4vw;
+  }
+  header {
+    padding: 4vw 5% 2vw 5%;
+  }
+  #snippets a, #snippets .main {
+    flex-basis: 100%;
+    flex-direction: column;
+    margin-bottom: 5vw;
+  }
+  footer a {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

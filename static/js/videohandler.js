@@ -20,7 +20,7 @@
 
 */
 
-// TODO: remove, depreated soon
+// TODO: remove, deprecated soon
 /* Plyr version
 Temporary variable (as long as transition to Plyr 3 lasts)
 Please remember to change file requests in play.html template
@@ -60,7 +60,7 @@ Default: true
 */
 var autoplayPlyr = true;
 
-// TODO: remove, depreated soon
+// TODO: remove, deprecated soon
 var controlsPlyr2 = ["<div class='plyr__controls'>",
 
 "<button class='playPrevious' type='button' data-plyr='backward'>",
@@ -257,7 +257,7 @@ i18n_videohandler_togglefullscreen,
 '</span></button>',
 "</div>"].join("");
 
-// TODO: remove, depreated soon
+// TODO: remove, deprecated soon
 var optionsPlyr2 = {
     debug: false,
     autoplay: autoplayPlyr,
@@ -284,7 +284,7 @@ var optionsPlyr3 = {
     quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
 };
 
-// TODO: remove, depreated soon
+// TODO: remove, deprecated soon
 // Plyr 2
 if(plyrVersion == 2) var video = plyr.setup('.plyr', optionsPlyr2);
 
@@ -326,7 +326,7 @@ var showMessage = function(message, seconds) {
 var playPause = function() {
     video[0].togglePlay();
 
-    // TODO: remove, depreated soon
+    // TODO: remove, deprecated soon
     // Plyr 2
     if(plyrVersion == 2) var videoPaused = video[0].isPaused();
 
@@ -354,7 +354,7 @@ var playComplete = function() {
 
     video[0].pause();
     
-    // TODO: remove, depreated soon
+    // TODO: remove, deprecated soon
     // Plyr 2
     if(plyrVersion == 2) video[0].seek(0);
 
@@ -408,7 +408,7 @@ var updateElements = function() {
     document.getElementById("title").innerHTML = title;
     document.getElementsByTagName("title")[0].innerHTML = title + " - " + document.getElementById("snippets").dataset.playlisttitle + " - newsic";
 
-    // TODO: remove, depreated soon
+    // TODO: remove, deprecated soon
     // Plyr 2
     if(plyrVersion == 2) index = 1;
 
@@ -422,7 +422,7 @@ var updateElements = function() {
 // switching source
 var jumpTo = function(index) {
 
-    // TODO: remove, depreated soon
+    // TODO: remove, deprecated soon
     // Plyr 2
     if(plyrVersion == 2) {
         video[0].source({
@@ -487,7 +487,7 @@ video[0].on("ready", function() {
 
     if(snippets[i].dataset.type === "youtube") {
 
-        // TODO: remove, depreated soon
+        // TODO: remove, deprecated soon
         // Plyr 2
         if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
 
@@ -520,7 +520,7 @@ video[0].on("playing", function() {
 
         console.log("playing event");
 
-        // TODO: remove, depreated soon
+        // TODO: remove, deprecated soon
         // Plyr 2
         if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].dataset.start));
 
@@ -585,7 +585,7 @@ video[0].on("timeupdate", function() {
 
         // TODO: make it go to zero
 
-        // TODO: remove, depreated soon
+        // TODO: remove, deprecated soon
         // Plyr 2
         if(plyrVersion == 2) var videoCurrentTime = video[0].getCurrentTime();
 

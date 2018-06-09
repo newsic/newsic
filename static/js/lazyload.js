@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
   
     if ("IntersectionObserver" in window) {
+      //console.log("Observer support");
       var lazyImageObserver = new IntersectionObserver(function(entries, observer) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
         lazyImageObserver.observe(lazyImage);
       });
     } else {
+
+      //console.log("No observer support, switching to polyfill solution");
       var active = false;
   
     const lazyLoad = function() {

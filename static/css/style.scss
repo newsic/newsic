@@ -18,7 +18,43 @@
 
 */
 
-// TODO: replace px values with vw (if possible; not plausible for box-shadow) - questionable occurences are highlighted with TODO: tags
+/* 
+    * TODO: replace px values with vw (if possible; not plausible for box-shadow)
+        * questionable occurences are highlighted with TODO: tags
+*/
+
+// change
+
+// basic function for fonts
+@mixin font($font, $filename, $fontname, $fontname2, $style, $weight) {
+    src: url("fonts/#{$font}/#{$filename}.eot");
+    font-family: $font;
+    src:
+      local("#{$fontname}"), local("#{$fontname2}"),
+      url("fonts/#{$font}/#{$filename}.eot?##{$font}") format("embedded-opentype"),
+      url("fonts/#{$font}/#{$filename}.woff") format("woff"),
+      url("fonts/#{$font}/#{$filename}.woff2") format("woff2"),
+      url("fonts/#{$font}/#{$filename}.ttf") format("truetype"),
+      url("fonts/#{$font}/#{$filename}.svg##{$font}") format("svg");
+    font-style: $style;
+    font-weight: $weight;
+}
+  
+@font-face {
+    @include font(raleway, raleway-v12-latin-ext-600, Raleway SemiBold, Raleway-SemiBold, normal, 600);
+}
+
+@font-face {
+    @include font(raleway, raleway-v12-latin-ext-600italic, Raleway SemiBold Italic, Raleway-SemiBoldItalic, italic, 600);
+}
+
+@font-face {
+    @include font(raleway, raleway-v12-latin-ext-800, Raleway ExtraBold, Raleway-ExtraBold, normal, 800);
+}
+
+@font-face {
+    @include font(raleway, raleway-v12-latin-ext-800italic, Raleway ExtraBold Italic, Raleway-ExtraBoldItalic, italic, 800);
+}
 
 /* Variables */
 
@@ -99,19 +135,35 @@ header {
 
 footer {
     width: $width_desktop;
-    margin: 5vw auto 5vw auto;
-    background: #666;
-    box-shadow: $shadow_bar;
-    height: 5px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    text-align: center;
+
+    margin: 3vw auto 3vw auto;
     
-    span {
-        background: #4d4d4d;
-        border: 1px solid #808080;
-        padding: 5px 20px 5px 20px;
-        border-radius: 2px;
+    .main {
+        background: #666;
+        box-shadow: $shadow_bar;
+        height: 5px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        margin: 5vw auto 5vw auto;
+
+        span {
+            background: #4d4d4d;
+            border: 1px solid #808080;
+            padding: 10px 20px 10px 20px;
+            border-radius: 2px;
+        }
+    }
+    
+
+    .tocsin {
+        img {
+            // TODO: replacing px possible?
+            max-width: 30px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
     }
 
     a, a:visited {
@@ -164,6 +216,19 @@ footer {
     
     // TODO: replacing px possible?
     padding: 8px;
+
+    &.fixed {
+        position: fixed;
+        margin-bottom: 0;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        margin: 0;
+
+        .plyr {
+            max-width: 100px !important;
+        }
+    }
 
     .border {
         padding: 2% 10% 2% 10%;

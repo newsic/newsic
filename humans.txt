@@ -10,13 +10,17 @@
 
 newsic.tocsin.de
 trynewsic.tocsin.de
+newsic.io
+try.newsic.io
 
 # TEAM
 
-  Developer: Stephan Fischer
+  Developer: Stephan Fischer (tocsin)
   Site: https://stephan-fischer.de
   Twitter: https://twitter.com/22uhr
   GitHub: https://github.com/tocsinDE
+  GitLab: https://gitlab.com/tocsinDE
+  BitBucket: https://bitbucket.org/tocsin
   Location: Germany
 
 # TECHNOLOGY COLOPHON
@@ -40,4 +44,5 @@ trynewsic.tocsin.de
     Visual Studio Code: https://code.visualstudio.com
     Insomnia: https://insomnia.rest
     Inkscape: https://inkscape.org
+    Affinity Designer: https://affinity.serif.com/designer/
   Source: https://github.com/newsic/newsic

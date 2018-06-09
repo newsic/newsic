@@ -95,6 +95,19 @@
             padding: 2vw;
         }
     }
+
+    footer {
+        .main {
+            background: none;
+            box-shadow: unset;
+            height: auto;
+        }
+
+        a {
+            // TODO: replacing px possible?
+            margin: 0px 5px 30px 5px;
+        }
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -179,7 +192,7 @@
         }
 
         #autocomplete {
-            flex-grow:1;
+            flex-grow: 1;
         }
 
         form {
@@ -197,12 +210,6 @@
     
     body, input, button {
         font-size: $font-size;
-    }
-
-    footer {
-        background: none;
-        box-shadow: unset;
-        height: auto;
     }
 }
 

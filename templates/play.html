@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 
 {% block css %}
-  <!-- TODO: remove, deprecated soon -->
-  <!-- Plyr 2 -->
-  <!-- <link href="{{ url_for('static', filename='css/plyr/plyr.css') }}" rel="stylesheet" type="text/css" /> -->
-  
-  <!-- Plyr 3 -->
-  <link href="{{ url_for('static', filename='css/plyr/3/plyr.css') }}" rel="stylesheet" type="text/css" />
+  <!-- Plyr -->
+  <link href="{{ url_for('static', filename='css/plyr/plyr-3.3.7.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block metatags %}
@@ -56,8 +52,8 @@
 			We kindly ask you to make a decision: Either activate JavaScript (or whitelist newsic on your content blocker) or install/use a fresh version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something else instead.
 			PSA: Using Edge isn\'t as cutting-edge as it sounds; but hey, that\'s entirely up to you :)') }}
 		</noscript>
-	</video>
-
+  </video>
+  
 	<!-- info box (contains current snippet title, playlist name and our precious countdown) -->
 	<div class="snippetinfo">
 		<div class="border">
@@ -93,8 +89,8 @@
 			</div>
 
 		</div>
-	</div>
-
+  </div>
+  
   <!-- snippets overview -->
 	<div id="snippets" data-playlisttitle="{{ playlistTitle }}" data-playlistcreator="{{ playlistCreator }}">
 
@@ -142,6 +138,8 @@
     var i18n_videohandler_play = "{{_ ('Play') }}";
     var i18n_videohandler_pause = "{{_ ('Pause') }}";
     var i18n_videohandler_previoussnippet = "{{_ ('Previous snippet') }}";
+    
+    // TODO: replace with mute and unmute
     var i18n_videohandler_togglemute = "{{_ ('Toggle mute') }}";
     var i18n_videohandler_volume = "{{_ ('Volume') }}";
     var i18n_videohandler_buffered = "{{_ ('buffered') }}";
@@ -149,6 +147,8 @@
     var i18n_videohandler_completesnippet = "{{_ ('Complete snippet') }}";
     var i18n_videohandler_mix = "{{_ ('Mix') }}";
     var i18n_videohandler_lyrics = "{{_ ('Lyrics') }}";
+
+    // TODO: write seperate between enter and exit fullscreen
     var i18n_videohandler_togglefullscreen = "{{_ ('Toggle fullscreen') }}";
     var i18n_videohandler_embeddingforbidden = "{{_ ('Embedding forbidden or blocked in your country') }}";
     var i18n_videohandler_blocked = "{{_ ('Sorry, not available in your country') }}";
@@ -159,16 +159,11 @@
   </script>
 
   <!-- JavaScript files -->
-  
 
-  <!-- TODO: remove, deprecated soon -->
-  <!-- Plyr 2 -->
-  <!-- <script src="{{ url_for('static', filename='js/plyr/plyr.js') }}"></script> -->
-
-  <!-- Plyr 3 -->
-  <script src="{{ url_for('static', filename='js/plyr/3/plyr.min.js') }}"></script>
+  <!-- Plyr -->
+  <script src="{{ url_for('static', filename='js/plyr/plyr-3.3.7.min.js') }}"></script>
 
   <script async src="{{ url_for('static', filename='js/videohandler.js') }}"></script>
   <script async src="{{ url_for('static', filename='js/autocomplete.min.js') }}"></script>
-  <script async src="{{ url_for('static', filename='js/lazyload.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/lazyload.min.js') }}"></script>
 {% endblock %}

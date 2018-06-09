@@ -20,17 +20,6 @@
 
 */
 
-// TODO: remove, deprecated soon
-/* Plyr version
-Temporary variable (as long as transition to Plyr 3 lasts)
-Please remember to change file requests in play.html template
-
-Default: 3
-
-*/
-var plyrVersion = 3;
-
-
 var ready = false;
 var complete = false;
 var prevOrNext = "next";
@@ -60,247 +49,71 @@ Default: true
 */
 var autoplayPlyr = true;
 
-// TODO: remove, deprecated soon
-var controlsPlyr2 = ["<div class='plyr__controls'>",
+var controlsPlyr = [
+    'mute',
+    'volume',
+    'play-large',
+    'play',
+    'progress',
+    'settings',
+    'pip',
+    'airplay',
+    'fullscreen'
+];
 
-"<button class='playPrevious' type='button' data-plyr='backward'>",
-    "<span class='fas fa-backward'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_previoussnippet,
-    "</span>",
-"</button>",
+var i18nPlyr =  {
+    // see: https://github.com/sampotts/plyr/blob/master/controls.md#example
+    play: i18n_videohandler_play,
+    pause: i18n_videohandler_pause,
+    seek: i18n_videohandler_seek,
+    buffered: i18n_videohandler_buffered,
 
-"<button type='button' data-plyr='play'>",
-    "<span class='fas fa-play'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_play,
-    "</span>",
-"</button>",
+    volume: i18n_videohandler_volume,
 
-"<button type='button' data-plyr='pause'>",
-    "<span class='fas fa-pause'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_pause,
-    "</span>",
-"</button>",
+    // TODO: only togglemute implemented, seperate mute/unmute has to be set in play.html
+    mute: i18n_videohandler_togglemute,
+    unmute: i18n_videohandler_togglemute,
 
-"<button class='playNext' type='button' data-plyr='forward'>",
-    "<span class='fas fa-forward'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_nextsnippet,
-    "</span>",
-"</button>",
-
-"<button type='button' data-plyr='mute'>",
-    "<svg class='icon--muted'><use xlink:href='/static/img/plyr/plyr.svg#plyr-muted'></use></svg>",
-    "<svg><use xlink:href='/static/img/plyr/plyr.svg#plyr-volume'></use></svg>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_togglemute,
-    "</span>",
-"</button>",
-
-"<span class='plyr__volume'>",
-    "<label for='volume{id}' class='plyr__sr-only'>",
-    i18n_videohandler_volume,
-    "</label>",
-    "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>",
-    "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>",
-"</span>",
-
-"<span class='plyr__progress'>",
-    "<label for='seek{id}' class='plyr__sr-only'>Seek</label>",
-    "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>",
-    "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>",
-    "<progress class='plyr__progress--buffer' max='100' value='0'>",
-        "<span>0</span>% ",
-        i18n_videohandler_buffered,
-    "</progress>",
-    "<span class='plyr__tooltip'>00:00</span>",
-"</span>",
-
-"<button class='playComplete' type='button' data-plyr='complete'>",
-    "<span class='fas fa-plus-square'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_completesnippet,
-    "</span>",
-"</button>",
-
-"<button class='playMix' type='button' data-plyr='mix'>",
-    "<span class='fas fa-random'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_mix,
-    "</span>",
-"</button>",
-
-"<button class='searchLyrics' type='button' data-plyr='lyrics'>",
-    "<span class='fas fa-file-alt'></span>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_lyrics,
-    "</span>",
-"</button>",
-
-"<button type='button' data-plyr='fullscreen'>",
-    "<svg class='icon--exit-fullscreen'><use xlink:href='/static/img/plyr/plyr.svg#plyr-exit-fullscreen'></use></svg>",
-    "<svg><use xlink:href='/static/img/plyr/plyr.svg#plyr-enter-fullscreen'></use></svg>",
-    "<span class='plyr__sr-only'>",
-    i18n_videohandler_togglefullscreen,
-    "</span>",
-"</button>",
-
-"</div>"].join("");
-
-var controlsPlyr3 = ["<div class='plyr__controls'>",
-
-"<button type='button' class='plyr__control playPrevious' data-plyr='forward' aria-label='",
-    i18n_videohandler_previoussnippet,
-    "'>",
-    "<span class='fas fa-backward'></span>",
-    "<span class='label plyr__tooltip' role='tooltip'>",
-    i18n_videohandler_previoussnippet,
-    "</span>",
-"</button>",
-
-
-'<button type="button" class="plyr__control" aria-pressed="false" aria-label="',
-i18n_videohandler_play,
-'" data-plyr="play"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-pause"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-play"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">',
-i18n_videohandler_pause,
-'</span><span class="label--not-pressed plyr__tooltip" role="tooltip">',
-i18n_videohandler_play,
-'</span></button>',
-
-"<button type='button' class='plyr__control playNext' data-plyr='forward' aria-label='",
-    i18n_videohandler_nextsnippet,
-    "'>",
-    "<span class='fas fa-forward'></span>",
-    "<span class='label plyr__tooltip' role='tooltip'>",
-    i18n_videohandler_nextsnippet,
-    "</span>",
-"</button>",
-
-'<button type="button" class="plyr__control" aria-pressed="true" aria-label="',
-// TODO: seperate translations
-
-// mute
-i18n_videohandler_togglemute,
-'" data-plyr="mute"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-muted"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-volume"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">',
-
-// unmute
-i18n_videohandler_togglemute,
-
-'</span><span class="label--not-pressed plyr__tooltip" role="tooltip">',
-
-// mute
-i18n_videohandler_togglemute,
-'</span></button><div class="plyr__volume"><label for="plyr-volume-{id}" class="plyr__sr-only">',
-i18n_videohandler_volume,
-'</label><input data-plyr="volume" min="0" max="1" step="0.05" value="0" autocomplete="off" id="plyr-volume-{id}" type="range"></div>',
-
-// TODO: ids not set correctly (Are those actually needed? There will be only one instance, so it's rather useless to use ids)
-'<div class="plyr__progress"><label for="plyr-seek" class="plyr__sr-only">',
-i18n_videohandler_seek,
-'</label><input data-plyr="seek" min="0" max="100" step="0.01" value="0" autocomplete="off" id="plyr-seek" type="range"><progress class="plyr__progress--buffer" min="0" max="100" value="0">% ',
-i18n_videohandler_buffered,
-'</progress><span role="tooltip" class="plyr__tooltip">00:00</span></div>',
-
-
-
-// TODO: Fix this. Documentation will follow: https://github.com/sampotts/plyr/issues/812
-
-'<!--<button type="button" class="plyr__control" aria-pressed="false" aria-label="Enable captions" data-plyr="captions"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-captions-on"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-captions-off"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">Disable captions</span><span class="label--not-pressed plyr__tooltip" role="tooltip">Enable captions</span></button><div class="plyr__menu"><button id="plyr-settings-toggle-{id}" aria-haspopup="true" aria-controls="plyr-settings-{id}" aria-expanded="false" type="button" class="plyr__control" data-plyr="settings"><svg role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-settings"></use></svg><span class="plyr__tooltip" role="tooltip">Settings</span></button><form class="plyr__menu__container" id="plyr-settings-{id}" aria-hidden="true" aria-labelled-by="plyr-settings-toggle-{id}" role="tablist" tabindex="-1"><div><div id="plyr-settings-{id}-home" aria-hidden="false" aria-labelled-by="plyr-settings-toggle-{id}" role="tabpanel"><ul role="tablist"><li role="tab" hidden=""><button data-plyr="settings" type="button" class="plyr__control plyr__control--forward" id="plyr-settings-{id}-captions-tab" aria-haspopup="true" aria-controls="plyr-settings-{id}-captions" aria-expanded="false">Captions<span class="plyr__menu__value">None</span></button></li><li role="tab"><button data-plyr="settings" type="button" class="plyr__control plyr__control--forward" id="plyr-settings-{id}-quality-tab" aria-haspopup="true" aria-controls="plyr-settings-{id}-quality" aria-expanded="false">Quality<span class="plyr__menu__value">480P</span></button></li><li role="tab"><button data-plyr="settings" type="button" class="plyr__control plyr__control--forward" id="plyr-settings-{id}-speed-tab" aria-haspopup="true" aria-controls="plyr-settings-{id}-speed" aria-expanded="false">Speed<span class="plyr__menu__value">Normal</span></button></li></ul></div><div id="plyr-settings-{id}-captions" aria-hidden="true" aria-labelled-by="plyr-settings-{id}-captions-tab" role="tabpanel" tabindex="-1" hidden=""><button type="button" class="plyr__control plyr__control--back" aria-haspopup="true" aria-controls="plyr-settings-{id}-home" aria-expanded="false">Captions</button><ul></ul></div><div id="plyr-settings-{id}-quality" aria-hidden="true" aria-labelled-by="plyr-settings-{id}-quality-tab" role="tabpanel" tabindex="-1"><button type="button" class="plyr__control plyr__control--back" aria-haspopup="true" aria-controls="plyr-settings-{id}-home" aria-expanded="false">Quality</button><ul><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="hd1080" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1080P<span class="plyr__menu__value"><span class="plyr__badge">HD</span></span></label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="hd720" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>720P<span class="plyr__menu__value"><span class="plyr__badge">HD</span></span></label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="large" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>480P</label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="medium" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>360P</label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="small" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>240P</label></li><li><label class="plyr__control"><input data-plyr="quality" name="plyr-quality" value="tiny" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>Tiny</label></li></ul></div><div id="plyr-settings-{id}-speed" aria-hidden="true" aria-labelled-by="plyr-settings-{id}-speed-tab" role="tabpanel" tabindex="-1"><button type="button" class="plyr__control plyr__control--back" aria-haspopup="true" aria-controls="plyr-settings-{id}-home" aria-expanded="false">Speed</button><ul><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="0.5" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>0.5×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="0.75" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>0.75×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>Normal</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1.25" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1.25×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1.5" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1.5×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="1.75" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>1.75×</label></li><li><label class="plyr__control"><input data-plyr="speed" name="plyr-speed" value="2" checked="false" class="plyr__sr-only" type="radio"><span aria-hidden="true"></span>2×</label></li></ul></div></div></form></div>-->',
-
-
-"<button type='button' class='playComplete plyr__control' data-plyr='forward' aria-label='",
-    i18n_videohandler_completesnippet,
-    "'>",
-    "<span class='fas fa-plus-square'></span>",
-    "<span class='label plyr__tooltip' role='tooltip'>",
-    i18n_videohandler_completesnippet,
-    "</span>",
-"</button>",
-
-
-"<button type='button' class='plyr__control playMix' data-plyr='forward' aria-label='",
-    i18n_videohandler_mix,
-    "'>",
-    "<span class='fas fa-random'></span>",
-    "<span class='label plyr__tooltip' role='tooltip'>",
-    i18n_videohandler_mix,
-    "</span>",
-"</button>",
-
-
-"<button type='button' class='plyr__control searchLyrics' data-plyr='forward' aria-label='",
-    i18n_videohandler_lyrics,
-    "'>",
-    "<span class='fas fa-file-alt'></span>",
-    "<span class='label plyr__tooltip' role='tooltip'>",
-    i18n_videohandler_lyrics,
-    "</span>",
-"</button>",
-
-// TODO: instead translating "toggle fullscreen" implement translation for entering and leaving fullscreen
-
-'<button type="button" class="plyr__control" aria-pressed="false" aria-label="',
-
-// enter fullscreen
-i18n_videohandler_togglefullscreen,
-'" data-plyr="fullscreen"><svg class="icon--pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-exit-fullscreen"></use></svg><svg class="icon--not-pressed" role="presentation"><use xlink:href="/static/img/plyr/3/plyr.svg#plyr-enter-fullscreen"></use></svg><span class="label--pressed plyr__tooltip" role="tooltip">',
-
-// leaving fullscreen
-i18n_videohandler_togglefullscreen,
-
-'</span><span class="label--not-pressed plyr__tooltip" role="tooltip">',
-
-// enter fullscreen
-i18n_videohandler_togglefullscreen,
-'</span></button>',
-"</div>"].join("");
-
-// TODO: remove, deprecated soon
-var optionsPlyr2 = {
-    debug: false,
-    autoplay: autoplayPlyr,
-    iconUrl: '/static/img/plyr/plyr.svg',
-    blankUrl: '/static/blank.mp4',
-    html: controlsPlyr2,
-    tooltips: { controls: true, seek: true },
-
-    // "keyboardShorcuts" is a typo of Plyr 2, this will be fixed in Plyr 3
-    // https://github.com/sampotts/plyr/issues/572#issuecomment-342144587
-    keyboardShorcuts: { focused: false, global: false }
+    // TODO: play.html needs sepeate versions for enter and exit
+    enterFullscreen: i18n_videohandler_togglefullscreen,
+    exitFullscreen: i18n_videohandler_togglefullscreen,
+    
+    // TODO:  translate
+    //settings: 'Settings',
+    //speed: 'Speed',
+    //normal: 'Normal',
+    //quality: 'Quality',
 };
 
-var optionsPlyr3 = {
+var optionsPlyr = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: false,
-    iconUrl: '/static/img/plyr/3/plyr.svg',
+    iconUrl: '/static/img/plyr/plyr-3.3.7.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },
-    controls: controlsPlyr3,
+    controls: controlsPlyr,
+    i18n: i18nPlyr,
     // Unsupported value of 'large' for quality
-    quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
+    //quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
 };
 
-// TODO: remove, deprecated soon
-// Plyr 2
-if(plyrVersion == 2) var video = plyr.setup('.plyr', optionsPlyr2);
-
-// Plyr 3
-if(plyrVersion == 3) {
-    var video = new Plyr('.plyr', optionsPlyr3);
-    video[0] = video;
-}
+var video = new Plyr('.plyr', optionsPlyr);
+video[0] = video;
 
 var elementMessage = document.getElementsByClassName("message")[0];
+
+// needs to be extended for new mini player (class "snippetinfo")
 var elementPlayPause = document.getElementsByClassName("playPause")[0];
 var snippets = document.getElementById("snippets").getElementsByTagName("a");
 
 // debug function
-var debugMessage = function(message, warn=false) {
+var debugMessage = function(message, warn) {
     if (debug) {
+        // default value
+        if (typeof(warn) === "undefined") warn = false;
+        
         if (warn) console.warn(message);
         else console.log(message);
     }
@@ -326,12 +139,7 @@ var showMessage = function(message, seconds) {
 var playPause = function() {
     video[0].togglePlay();
 
-    // TODO: remove, deprecated soon
-    // Plyr 2
-    if(plyrVersion == 2) var videoPaused = video[0].isPaused();
-
-    // Plyr 3
-    if(plyrVersion == 3) var videoPaused = video[0].paused;
+    var videoPaused = video[0].paused;
 
     newElement = document.createElement("i");
 
@@ -351,15 +159,9 @@ var playPause = function() {
 }
 
 var playComplete = function() {
-
     video[0].pause();
     
-    // TODO: remove, deprecated soon
-    // Plyr 2
-    if(plyrVersion == 2) video[0].seek(0);
-
-    // Plyr 3
-    if(plyrVersion == 3) video[0].currentTime = 0;
+    video[0].currentTime = 0;
 
     complete = true;
     video[0].play();
@@ -408,12 +210,7 @@ var updateElements = function() {
     document.getElementById("title").innerHTML = title;
     document.getElementsByTagName("title")[0].innerHTML = title + " - " + document.getElementById("snippets").dataset.playlisttitle + " - newsic";
 
-    // TODO: remove, deprecated soon
-    // Plyr 2
-    if(plyrVersion == 2) index = 1;
-
-    // Plyr 3
-    if(plyrVersion == 3) index = 0;
+    index = 0;
 
     document.getElementsByClassName("searchLyrics")[index].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
     document.getElementsByClassName("playMix")[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id;
@@ -421,31 +218,14 @@ var updateElements = function() {
 
 // switching source
 var jumpTo = function(index) {
-
-    // TODO: remove, deprecated soon
-    // Plyr 2
-    if(plyrVersion == 2) {
-        video[0].source({
-            type: "video",
-            sources: [{
-                src: snippets[index].dataset.id,
-                type: snippets[index].dataset.type
-            }]
-        });
-    }
-
-    // Plyr 3
-    if(plyrVersion == 3) {
-        video[0].source = {
-            type: "video",
-            sources: [{
-                src: snippets[index].dataset.id,
-                provider: snippets[index].dataset.type
-            }]
-        };
-    }
+    video[0].source = {
+        type: "video",
+        sources: [{
+            src: snippets[index].dataset.id,
+            provider: snippets[index].dataset.type
+        }]
+    };
 }
-
 
 var mindTheHash = function() {
     // set index to first array element or - if hash in url is set - to requested item
@@ -461,10 +241,39 @@ var mindTheHash = function() {
     updateElements();
 };
 
+var PlyrCustomButton = function(className, before, dataPlyr, fontawesome, labeltext) {
+    var reference = document.getElementsByClassName("plyr__controls")[0].querySelector(before);
+
+    var element = document.createElement("button");
+    element.classList = "plyr__control " + className;
+    element.setAttribute("data-plyr", dataPlyr);
+    element.setAttribute("type", "button");
+    element.setAttribute("aria-label", label);
+
+    var icon = document.createElement("span");
+    icon.classList = fontawesome;
+
+    var label = document.createElement("span");
+    label.classList = "label plyr__tooltip";
+    label.setAttribute("role", "tooltip");
+    label.textContent = labeltext;
+
+    element.appendChild(icon);
+    element.appendChild(label);
+
+    reference.parentNode.insertBefore(element, reference);
+}
+
 video[0].on("ready", function() {
     // omits playing video before setting offset time
     video[0].pause();
     complete = false;
+
+    PlyrCustomButton("playPrevious", "[data-plyr=play]", "backward", "fas fa-backward", i18n_videohandler_previoussnippet);
+    PlyrCustomButton("playNext", "div.plyr__progress", "backward", "fas fa-forward", i18n_videohandler_nextsnippet);
+    PlyrCustomButton("playComplete", "[data-plyr=settings]", "complete", "fas fa-plus-square", i18n_videohandler_completesnippet);
+    PlyrCustomButton("playMix", "[data-plyr=settings]", "mix", "fas fa-random", i18n_videohandler_mix);
+    PlyrCustomButton("searchLyrics", "[data-plyr=settings]", "lyrics", "fas fa-file-alt", i18n_videohandler_lyrics);
 
     // TODO: could be put into an array, then onclick bindings could be solved by foreach
     playPreviousElements = document.getElementsByClassName("playPrevious");
@@ -473,7 +282,7 @@ video[0].on("ready", function() {
     playMixElements = document.getElementsByClassName("playMix");
     searchLyricsElements = document.getElementsByClassName("searchLyrics");
 
-    for (var temp = 0; temp <= 1; temp++) {
+    for (var temp = 0; temp < 2; temp++) {
         playPreviousElements[temp].onclick = playPrevious;
         playNextElements[temp].onclick = playNext;
         playCompleteElements[temp].onclick = playComplete;
@@ -481,20 +290,16 @@ video[0].on("ready", function() {
         searchLyricsElements[temp].onclick = searchLyrics;
     }
 
-    document.getElementsByClassName("playPause")[0].onclick = playPause;
+    playPauseElements = document.getElementsByClassName("playPause");
+    for (var temp = 0; temp < 1; temp++) {
+        playPauseElements[temp].onclick = playPause;
+    }
 
     if(snippets[i].dataset.type === "vimeo") ready = true;
 
     if(snippets[i].dataset.type === "youtube") {
-
-        // TODO: remove, deprecated soon
-        // Plyr 2
-        if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].getAttribute("data-start")));
-
-        // Plyr 3
-        if(plyrVersion == 3) {
-            video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
-        }
+        video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
+    }
 
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
@@ -504,7 +309,7 @@ video[0].on("ready", function() {
             video[0].pause();
         } else video[0].play();
     }
-});
+);
 
 
 video[0].on("playing", function() {
@@ -520,15 +325,7 @@ video[0].on("playing", function() {
 
         console.log("playing event");
 
-        // TODO: remove, deprecated soon
-        // Plyr 2
-        if(plyrVersion == 2) video[0].seek(parseFloat(snippets[i].dataset.start));
-
-        // Plyr 3
-        if(plyrVersion == 3) {
-            video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
-            //video[0].currentTime = parseFloat(snippets[i].dataset.start);
-        }
+        video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
 
         debugMessage("Jumped to start time.");
         debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
@@ -585,12 +382,7 @@ video[0].on("timeupdate", function() {
 
         // TODO: make it go to zero
 
-        // TODO: remove, deprecated soon
-        // Plyr 2
-        if(plyrVersion == 2) var videoCurrentTime = video[0].getCurrentTime();
-
-        // Plyr 3
-        if(plyrVersion == 3) var videoCurrentTime = video[0].currentTime;
+        var videoCurrentTime = video[0].currentTime;
 
         var countdownWidth = Math.floor(end - videoCurrentTime) / (end - start) * 100 +  "%";
         
@@ -626,8 +418,7 @@ document.addEventListener("keydown", function(e) {
         switch (e.key) {
             // "f": toggle fullscreen
             case "f":
-                if(plyrVersion == 2) video[0].toggleFullscreen();
-                if(plyrVersion == 3) video[0].fullscreen.toggle();
+                video[0].fullscreen.toggle();
                 break;
 
             // "l": search for lyrics
@@ -635,13 +426,10 @@ document.addEventListener("keydown", function(e) {
                 searchLyrics();
                 break;
 
-            // "m": mute player
+            // "m": toggle mute
             case "m":
-                if(plyrVersion == 2) video[0].toggleMute();
-                if(plyrVersion == 3) {
-                    if (video[0].muted) video[0].muted = false;
-                    else video[0].muted = true;
-                }
+                if (video[0].muted) video[0].muted = false;
+                else video[0].muted = true;
                 break;
 
             // "x": start mix
@@ -677,4 +465,4 @@ document.addEventListener("keydown", function(e) {
         }
     }
 }
-, false);  
+, false);

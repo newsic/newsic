@@ -27,12 +27,16 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
   <link href="{{ url_for('static', filename='css/style.min.css') }}" rel="stylesheet" type="text/css" />
+
+  <!-- TODO: maybe add different sizes (16x16, 32x32, 64x64)? -->
   <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="shortcut icon" />
   {%- block css %}{%- endblock %}
-  <link href="https://fonts.googleapis.com/css?family=Raleway:600,800&amp;subset=latin-ext" rel="stylesheet" type="text/css" />
+
+  <!-- TODO: replace with self-hosted version -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:600,800&amp;subset=latin-ext" rel="stylesheet" type="text/css" /> -->
   <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="newsic" />
 
@@ -74,18 +78,23 @@
 
   {%- block footer %}
   <footer>
-    <a href="https://tocsin.de" target="_blank" title="{{ _('Visit tocsin.de, the portfolio of the newsic creator') }}">
-      <span>{{ _('Made with <i class="fas fa-heart"></i> by tocsin') }}</span>
+
+    <div class="main">
+
+      <!-- TODO: translate -->
+      <a href="https://newsic.io" target="_blank" title="{{ _('Go to newsic\'s project page') }}">
+        <span>{{ _('About newsic') }}</span>
+      </a>
+      
+      <a href="https://github.com/newsic" target="_blank" title="{{ _('Feel free to fork or review the Code on GitHub') }}">
+        <span>{{ _('Source code on GitHub') }}</span>
+      </a>
+    </div>
+
+    <a class="tocsin" href="https://tocsin.de" target="_blank" title="{{ _('Visit tocsin.de, the portfolio of the newsic creator') }}"><img src="{{ url_for('static', filename='img/tocsin.svg') }}" alt="" title="" /> {{ _('Made with <i class="fas fa-heart"></i> by tocsin') }}
     </a>
 
-    <!-- TODO: translate -->
-    <a href="https://newsic.io" target="_blank" title="{{ _('Go to newsic\'s project page') }}">
-      <span>{{ _('About newsic') }}</span>
-    </a>
-    
-    <a href="https://github.com/newsic" target="_blank" title="{{ _('Feel free to fork or review the Code on GitHub') }}">
-      <span>{{ _('Source code on GitHub') }}</span>
-    </a>
+
   </footer>
   {%- endblock %}
 

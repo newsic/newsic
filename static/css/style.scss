@@ -453,6 +453,10 @@ form {
             opacity: $opacity_end;
         }
     }
+
+    button[type=submit]:hover {
+        cursor: pointer;
+    }
 }
 
 /* small helpers */

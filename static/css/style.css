@@ -386,6 +386,10 @@ form input:hover, form input:focus, form button:hover, form button:focus {
   opacity: 1;
 }
 
+form button[type=submit]:hover {
+  cursor: pointer;
+}
+
 /* small helpers */
 .fl {
   float: left;
@@ -582,6 +586,12 @@ form .flash {
   margin-top: 2vw;
 }
 
+.plyr .plyr__control--overlaid {
+  background: #BCD35F !important;
+  color: #56641c !important;
+  opacity: 0.7;
+}
+
 .plyr .searchLyrics, .plyr .playMix, .plyr .playComplete, .plyr .playPrevious, .plyr .playNext {
   background: none;
 }
@@ -593,6 +603,19 @@ form .flash {
 .plyr .plyr__control:hover {
   background: #BCD35F !important;
   color: #56641c !important;
+}
+
+.plyr:hover .plyr__control {
+  opacity: 1;
+}
+
+.plyr__controls .plyr__control[aria-expanded="true"] {
+  background: #BCD35F !important;
+  color: #56641c !important;
+}
+
+.plyr__menu__container label.plyr__control input[type="radio"]:checked + span {
+  background: #BCD35F !important;
 }
 
 /* TODO: find a better way to fix */

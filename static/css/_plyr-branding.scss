@@ -5,12 +5,17 @@
 // TODO: checkboxes in settings menu (video speed and quality) need to be greeen
 
 .plyr {
-
     font-family: $font !important;
     font-weight: $font_weight;
     width: $width_desktop;
     margin: auto;
     margin-top: 2vw;
+
+    .plyr__control--overlaid {
+        background: $button_color !important;
+        color: darken($button_color, 35%) !important;
+        opacity: $opacity_start;
+    }
 
     .searchLyrics, .playMix, .playComplete, .playPrevious, .playNext {
         background: none;
@@ -24,8 +29,21 @@
         background: $button_color !important;
         color: darken($button_color, 35%) !important;
     }
+
+    &:hover .plyr__control {
+        opacity: $opacity_end;
+    }
 }
 
+
+.plyr__controls .plyr__control[aria-expanded="true"] {
+    background: $button_color !important;
+    color: darken($button_color, 35%) !important;
+}
+
+.plyr__menu__container label.plyr__control input[type="radio"]:checked + span {
+    background: $button_color !important;
+}
 
 /* TODO: find a better way to fix */
 .plyr--full-ui [aria-hidden="true"] {

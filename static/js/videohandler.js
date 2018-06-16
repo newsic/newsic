@@ -55,7 +55,7 @@ var controlsPlyr = [
     'play-large',
     'play',
     'progress',
-    'settings',
+    //'settings',
     'pip',
     'airplay',
     'fullscreen'
@@ -271,9 +271,11 @@ video[0].on("ready", function() {
 
     PlyrCustomButton("playPrevious", "[data-plyr=play]", "backward", "fas fa-backward", i18n_videohandler_previoussnippet);
     PlyrCustomButton("playNext", "div.plyr__progress", "backward", "fas fa-forward", i18n_videohandler_nextsnippet);
-    PlyrCustomButton("playComplete", "[data-plyr=settings]", "complete", "fas fa-plus-square", i18n_videohandler_completesnippet);
-    PlyrCustomButton("playMix", "[data-plyr=settings]", "mix", "fas fa-random", i18n_videohandler_mix);
-    PlyrCustomButton("searchLyrics", "[data-plyr=settings]", "lyrics", "fas fa-file-alt", i18n_videohandler_lyrics);
+
+    // these buttons were placed before settings menu ("[data-plyr=settings]")
+    PlyrCustomButton("playComplete", "[data-plyr=fullscreen]", "complete", "fas fa-plus-square", i18n_videohandler_completesnippet);
+    PlyrCustomButton("playMix", "[data-plyr=fullscreen]", "mix", "fas fa-random", i18n_videohandler_mix);
+    PlyrCustomButton("searchLyrics", "[data-plyr=fullscreen]", "lyrics", "fas fa-file-alt", i18n_videohandler_lyrics);
 
     // TODO: could be put into an array, then onclick bindings could be solved by foreach
     playPreviousElements = document.getElementsByClassName("playPrevious");

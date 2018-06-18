@@ -479,3 +479,8 @@ form {
 @import "autocomplete";
 @import "plyr-branding";
 @import "responsive";
+
+.plyr.mini {
+    position: fixed;
+    z-index: 1;
+}

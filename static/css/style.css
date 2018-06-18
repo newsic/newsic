@@ -802,3 +802,8 @@ form .flash {
     margin-right: auto;
   }
 }
+
+.plyr.mini {
+  position: fixed;
+  z-index: 1;
+}

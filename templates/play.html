@@ -46,13 +46,15 @@
   <div class="message error fade-in-and-out"></div>
 
   <!-- Plyr -->
-	<video class="plyr" crossorigin>
-		<noscript>
-			{{ _('Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript.
-			We kindly ask you to make a decision: Either activate JavaScript (or whitelist newsic on your content blocker) or install/use a fresh version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something else instead.
-			PSA: Using Edge isn\'t as cutting-edge as it sounds; but hey, that\'s entirely up to you :)') }}
-		</noscript>
-  </video>
+  <div class="plyr-wrapper">
+    <video class="plyr" crossorigin>
+      <noscript>
+        {{ _('Either your browser is a disastrous piece of old crap or you should stop blocking JavaScript.
+        We kindly ask you to make a decision: Either activate JavaScript (or whitelist newsic on your content blocker) or install/use a fresh version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something else instead.
+        PSA: Using Edge isn\'t as cutting-edge as it sounds; but hey, that\'s entirely up to you :)') }}
+      </noscript>
+    </video>
+  </div>
   
 	<!-- info box (contains current snippet title, playlist name and our precious countdown) -->
 	<div class="snippetinfo">

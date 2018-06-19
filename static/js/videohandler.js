@@ -89,7 +89,7 @@ var optionsPlyr = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: false,
-    iconUrl: '/static/img/plyr/plyr-3.3.7.svg',
+    iconUrl: '/static/img/plyr/plyr-3.3.17.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },
@@ -310,6 +310,8 @@ video[0].on("ready", function() {
         if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
             video[0].pause();
         } else video[0].play();
+
+        video[0].muted = false;
     }
 );
 

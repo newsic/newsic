@@ -22,6 +22,7 @@
 
 var ready = false;
 var complete = false;
+var loop = false;
 var prevOrNext = "next";
 var i;
 
@@ -265,8 +266,11 @@ var PlyrCustomButton = function(className, before, dataPlyr, fontawesome, labelt
 }
 
 video[0].on("ready", function() {
+
+    // TODO: test whether video[0].pause() is still needed
     // omits playing video before setting offset time
     video[0].pause();
+
     complete = false;
 
     PlyrCustomButton("playPrevious", "[data-plyr=play]", "backward", "fas fa-backward", i18n_videohandler_previoussnippet);
@@ -396,13 +400,17 @@ video[0].on("timeupdate", function() {
         if (Math.ceil(videoCurrentTime) >= end) {
 
             //video[0].pause();
-            
-            if(i == (snippets.length - 1)) {
-                video[0].pause();
-                debugMessage("This party is over, now get out of here. Seriously.");
+
+            if(loop) {
+                video[0].currentTime = start;
             } else {
-                debugMessage("End of snippet, let's go to the next one.");
-                playNext();
+                if(i == (snippets.length - 1)) {
+                    video[0].pause();
+                    debugMessage("This party is over, now get out of here. Seriously.");
+                } else {
+                    debugMessage("End of snippet, let's go to the next one.");
+                    playNext();
+                }
             }
         }
     }
@@ -432,10 +440,15 @@ document.addEventListener("keydown", function(e) {
 
             // "m": toggle mute
             case "m":
-                if (video[0].muted) video[0].muted = false;
-                else video[0].muted = true;
+                video[0].muted = !video[0].muted;
                 break;
 
+            // TODO: find a better shortcut key
+            // "y": toggle loop
+            case "y":
+                loop = !loop;
+                break;
+                
             // "x": start mix
             case "x":
                 playMix();
@@ -445,7 +458,7 @@ document.addEventListener("keydown", function(e) {
             case "k":
             case "s":
             case " ":
-                // prevent scrolling down the page
+                // prevent page from scrolling down
                 e.preventDefault();
                 playPause();
                 break;

@@ -22,6 +22,7 @@
 
 var ready = false;
 var complete = false;
+var muted = false;
 var loop = false;
 var prevOrNext = "next";
 var i;
@@ -90,7 +91,7 @@ var optionsPlyr = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: false,
-    iconUrl: '/static/img/plyr/plyr-3.3.17.svg',
+    iconUrl: '/static/img/plyr/plyr-3.3.20.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },
@@ -315,7 +316,7 @@ video[0].on("ready", function() {
             video[0].pause();
         } else video[0].play();
 
-        video[0].muted = false;
+        if (!muted) video[0].muted = false;
     }
 );
 
@@ -441,6 +442,8 @@ document.addEventListener("keydown", function(e) {
             // "m": toggle mute
             case "m":
                 video[0].muted = !video[0].muted;
+                muted = !muted;
+                console.log("mute toggle");
                 break;
 
             // TODO: find a better shortcut key

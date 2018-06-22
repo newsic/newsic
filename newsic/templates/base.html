@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+
+                           _
+                          (_)
+   _ __   _____      _____ _  ___
+  | '_ \ / _ \ \ /\ / / __| |/ __|
+  | | | |  __/\ V  V /\__ \ | (__
+  |_| |_|\___| \_/\_/ |___/_|\___|
+
+  =================================
+
+  Howdy, dear source code reader!
+
+  * Project page: https://newsic.tocsin.de
+  * Demo: https://trynewsic.tocsin.de
+  * newsic on GitHub: https://github.com/newsic
+
+  * Author: Stephan Fischer (https://stephan-fischer.de, https://tocsin.de)
+
+-->
+
+<html lang="{{ getlocale }}">
+
+<head>
+  <title>{{ title }} - newsic</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <link href="{{ url_for('static', filename='css/style.min.css') }}" rel="stylesheet" type="text/css" />
+
+  <!-- TODO: maybe add different sizes (16x16, 32x32, 64x64)? -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="shortcut icon" />
+  {%- block css %}{%- endblock %}
+
+  <!-- TODO: replace with self-hosted version -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:600,800&amp;subset=latin-ext" rel="stylesheet" type="text/css" /> -->
+  <link href="{{ url_for('static', filename='manifest.json') }}" rel="manifest" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="newsic" />
+
+  <!-- TODO: research whats the best approach for i18n of Open Graph and meta tags -->
+  <meta property="og:locale:alternate" content="en" />
+  <meta property="og:locale:alternate" content="de_DE" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+
+  <!-- TODO: optimize description text -->
+  <meta property="description" content="{{ _('Explore music from YouTube and Vimeo snippet by snippet') }}" />
+  <meta property="og:description" content="{{ _('Explore music from YouTube and Vimeo snippet by snippet') }}" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <link rel="canonical" href="{{ request.url }}" />
+  {%- block metatags %}{%- endblock %}
+</head>
+
+<body{% if bodyClass %} class="{{ bodyClass }}" {% endif %}>
+
+  {%- block header %}
+  <header>
+    <a href="{{ url_for('index.index') }}" class="logo_short" title="{{ _('Go to start page') }}">
+      <img src="{{ url_for('static', filename='img/logo_short.svg') }}" alt="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}"
+        title="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}" />
+    </a>
+
+    <form method="post" action="{{ url_for('index.index') }}">
+      <div id="autocomplete">
+        <input type="text" name="url" autocomplete="off" placeholder="{{ _('Start typing or paste a playlist URL') }}" />
+        <span class="flash"><i class="fas fa-sync-alt"></i></span>
+      </div>
+
+      <ul id="autocomplete-result"></ul>
+      <button type="submit">{{ _('start') }}</button>
+    </form>
+  </header>
+  {%- endblock %}
+
+  {%- block body %}{%- endblock %}
+
+  {%- block footer %}
+  <footer>
+
+    <div class="main">
+
+      <!-- TODO: translate -->
+      <a href="https://newsic.io" target="_blank" title="{{ _('Go to newsic\'s project page') }}">
+        <span>{{ _('About newsic') }}</span>
+      </a>
+      
+      <a href="https://github.com/newsic" target="_blank" title="{{ _('Feel free to fork or review the Code on GitHub') }}">
+        <span>{{ _('Source code on GitHub') }}</span>
+      </a>
+    </div>
+
+    <a class="tocsin" href="https://tocsin.de" target="_blank" title="{{ _('Visit tocsin.de, the portfolio of the newsic creator') }}"><img src="{{ url_for('static', filename='img/tocsin.svg') }}" alt="" title="" /> {{ _('Made with <i class="fas fa-heart"></i> by tocsin') }}
+    </a>
+
+
+  </footer>
+  {%- endblock %}
+
+  <script defer src="{{ url_for('static', filename='js/fontawesome/fontawesome-5.1.0.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/fontawesome/brands-5.1.0.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/fontawesome/solid-5.1.0.js') }}"></script>
+
+  {% if runtime %}<!-- {{ _('runtime') }}: {{ runtime }} -->{%- endif %}
+</body>
+
+</html>

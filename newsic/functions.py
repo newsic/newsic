@@ -49,11 +49,9 @@ def read_config(value):
 
     else:
         # fetch config values from config.py
-        # use class "local" from config.py
-        # app.config.from_object("config.Local")
-
-        app.config.from_object('newsic.config.Config')
-        #app.config.from_object("config.Server")
+        app.config.from_object('newsic.config.General')
+        # override with Server object in config.py
+        # app.config.from_object("newsic.config.Server")
 
         return app.config[value]
 

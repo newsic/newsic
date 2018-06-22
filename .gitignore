@@ -3,5 +3,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-config.py
-.env
+
+newsic/__pycache__/
+newsic/config.py
+newsic/.env
+.vscode
+cache
+newsic/cache

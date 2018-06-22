@@ -105,12 +105,7 @@ class Local(General):
     Local config
     """
 
-    # standard Flask debug
     DEBUG = True
-
-    # for more detailed, pure newsic-related debug messages
-    NEWSICDEBUG = True
-
     CACHE = False
 
 
@@ -121,6 +116,4 @@ class Server(General):
     """
 
     DEBUG = False
-    NEWSICDEBUG = False
-
     CACHE = False

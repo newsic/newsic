@@ -109,7 +109,7 @@
     {%- for key in videolist %}
     <a href="#{{ loop.index0 }}" data-type="{{ key[1] }}" data-id="{{ key[0] }}" data-length="{{ key[5] }}" data-start="{{ key[3] }}" data-end="{{ key[4] }}" title="{{ gettext('Go directly to %(link)s', link=key[2]) }}" itemscope itemtype="http://schema.org/VideoObject">
       
-      <img class="lazy" src="{{ url_for('static', filename='img/loading2.svg') }}"
+      <img class="lazy" src="{{ url_for('static', filename='img/loading.svg') }}"
 
       {%- if key[1] == "youtube" %} data-src="https://img.youtube.com/vi/{{ key[0] }}/mqdefault.jpg" {% endif -%}
       {%- if key[1] == "vimeo" %} data-src="https://i.vimeocdn.com/video/{{ key[6] }}_295x166.jpg" {% endif -%}

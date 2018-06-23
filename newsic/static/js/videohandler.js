@@ -196,7 +196,6 @@ var searchLyrics = function() {
 }
 
 var updateElements = function() {
-    // temporary variable for Plyr 2/3 switch
     var index;
 
     var firstCountdown = document.getElementsByClassName("countdown");
@@ -390,7 +389,6 @@ video[0].on("timeupdate", function() {
         var countdowns = document.getElementsByClassName("countdown");
 
         // TODO: make it go to zero
-
         var videoCurrentTime = video[0].currentTime;
 
         var countdownWidth = Math.floor(end - videoCurrentTime) / (end - start) * 100 +  "%";
@@ -443,7 +441,6 @@ document.addEventListener("keydown", function(e) {
             case "m":
                 video[0].muted = !video[0].muted;
                 muted = !muted;
-                console.log("mute toggle");
                 break;
 
             // TODO: find a better shortcut key

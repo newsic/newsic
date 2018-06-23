@@ -49,7 +49,7 @@ def read_config(value):
 
     else:
         # fetch config values from config.py
-        app.config.from_object('newsic.config.General')
+        app.config.from_object('newsic.config.Local')
         # override with Server object in config.py
         # app.config.from_object("newsic.config.Server")
 
@@ -111,6 +111,24 @@ def debug(text):
     if app.debug:
         app.logger.debug(text)
 
+"""
+Flask-Caching
+"""
+
+if read_config("CACHE"):
+    CACHE = Cache(app, config={'CACHE_TYPE': read_config("CACHE_TYPE"),
+                               'CACHE_DIR': ("{}").format(read_config("CACHE_DIR"))})
+
+def cache():
+
+    """
+    Toggles caching based on setting in config.py
+    """
+
+    if read_config("CACHE"):
+        return CACHE.cached(timeout=read_config("CACHE_TIMEOUT"))
+    return lambda x: x
+
 @app.cli.command()
 def flushcache():
 
@@ -125,25 +143,6 @@ def flushcache():
         CACHE.clear()
     else:
         click_echo("Cache inactive, unable to flush")
-
-"""
-Flask-Caching
-"""
-
-if read_config("CACHE"):
-    CACHE = Cache(app, config={'CACHE_TYPE': read_config("CACHE_TYPE"),
-                               'CACHE_DIR': read_config("CACHE_DIR")})
-
-
-def cache():
-
-    """
-    Toggles caching based on setting in config.py
-    """
-
-    if read_config("CACHE"):
-        return CACHE.cached(timeout=read_config("CACHE_TIMEOUT"))
-    return lambda x: x
 
 
 """

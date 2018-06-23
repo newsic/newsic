@@ -22,37 +22,30 @@ try:
 except ImportError:
     pass
 
-# python-dotenv
+# for python-dotenv
 from os.path import join, dirname
 from os import getenv
-
-CONFIG_DOTENV = False
 
 def read_config(value):
 
     """
     Import config from config.py
-    Settings can be overwritten by .env file
+    Settings can be overwritten by .env file (see config.py.example)
     """
 
-    if CONFIG_DOTENV:
-        # it's your task to implement environment variables
-        # newsic recommends using python-dotenv
-        # have a look at  https://github.com/newsic/deployment for a manual
+    app.config.from_object('newsic.config.Local')
 
-        # python-dotenv
+    # python-dotenv
+    if app.config["CONFIG_DOTENV"]:
+
         dotenv_path = join(dirname(__file__), '.env')
         load_dotenv(dotenv_path)
 
-    if CONFIG_DOTENV and getenv(value):
+    # look if setting is set in .env, else use config.py
+    if app.config["CONFIG_DOTENV"] and getenv(value):
         return getenv(value)
 
     else:
-        # fetch config values from config.py
-        app.config.from_object('newsic.config.Local')
-        # override with Server object in config.py
-        # app.config.from_object("newsic.config.Server")
-
         return app.config[value]
 
 @app.errorhandler(404)

@@ -8,6 +8,14 @@ TODO: add link to deployment repo and a short explanation on how to use env vari
 class General(object):
 
     '''
+    Usage of python-dotenv
+
+    python-dotenv is optional and it uses the .env file to overwrite specific settings of this config file
+    '''
+
+    CONFIG_DOTENV = False
+
+    '''
     YouTube API configuration
     Request a token at https://console.developers.google.com/apis/api/youtube/
     (newsic is using the YouTube Data API v3)
@@ -26,8 +34,8 @@ class General(object):
     VIMEO_KEY = ""
     VIMEO_SECRET = ""
 
-    # snippet length (default: 30)
-    SNIPPETLENGTH = 30 #seconds
+    # snippet length in seconds (default: 30)
+    SNIPPETLENGTH = 30
 
     '''
     Performance/caching (with Flask Caching, Flask Compress and Flask-HTMLmin)

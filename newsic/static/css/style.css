@@ -22,33 +22,33 @@
         * questionable occurences are highlighted with TODO: tags
 */
 @font-face {
-  src: url("../fonts/raleway/raleway-v12-latin-ext-600.eot");
+  src: url("/static/fonts/raleway/raleway-v12-latin-ext-600.eot");
   font-family: raleway;
-  src: local("Raleway SemiBold"), local("Raleway-SemiBold"), url("../fonts/raleway/raleway-v12-latin-ext-600.eot?#raleway") format("embedded-opentype"), url("../fonts/raleway/raleway-v12-latin-ext-600.woff") format("woff"), url("../fonts/raleway/raleway-v12-latin-ext-600.woff2") format("woff2"), url("../fonts/raleway/raleway-v12-latin-ext-600.ttf") format("truetype"), url("../fonts/raleway/raleway-v12-latin-ext-600.svg#raleway") format("svg");
+  src: local("Raleway SemiBold"), local("Raleway-SemiBold"), url("/static/fonts/raleway/raleway-v12-latin-ext-600.eot?#raleway") format("embedded-opentype"), url("/static/fonts/raleway/raleway-v12-latin-ext-600.woff") format("woff"), url("/static/fonts/raleway/raleway-v12-latin-ext-600.woff2") format("woff2"), url("/static/fonts/raleway/raleway-v12-latin-ext-600.ttf") format("truetype"), url("/static/fonts/raleway/raleway-v12-latin-ext-600.svg#raleway") format("svg");
   font-style: normal;
   font-weight: 600;
 }
 
 @font-face {
-  src: url("../fonts/raleway/raleway-v12-latin-ext-600italic.eot");
+  src: url("/static/fonts/raleway/raleway-v12-latin-ext-600italic.eot");
   font-family: raleway;
-  src: local("Raleway SemiBold Italic"), local("Raleway-SemiBoldItalic"), url("../fonts/raleway/raleway-v12-latin-ext-600italic.eot?#raleway") format("embedded-opentype"), url("../fonts/raleway/raleway-v12-latin-ext-600italic.woff") format("woff"), url("../fonts/raleway/raleway-v12-latin-ext-600italic.woff2") format("woff2"), url("../fonts/raleway/raleway-v12-latin-ext-600italic.ttf") format("truetype"), url("../fonts/raleway/raleway-v12-latin-ext-600italic.svg#raleway") format("svg");
+  src: local("Raleway SemiBold Italic"), local("Raleway-SemiBoldItalic"), url("/static/fonts/raleway/raleway-v12-latin-ext-600italic.eot?#raleway") format("embedded-opentype"), url("/static/fonts/raleway/raleway-v12-latin-ext-600italic.woff") format("woff"), url("/static/fonts/raleway/raleway-v12-latin-ext-600italic.woff2") format("woff2"), url("/static/fonts/raleway/raleway-v12-latin-ext-600italic.ttf") format("truetype"), url("/static/fonts/raleway/raleway-v12-latin-ext-600italic.svg#raleway") format("svg");
   font-style: italic;
   font-weight: 600;
 }
 
 @font-face {
-  src: url("../fonts/raleway/raleway-v12-latin-ext-800.eot");
+  src: url("/static/fonts/raleway/raleway-v12-latin-ext-800.eot");
   font-family: raleway;
-  src: local("Raleway ExtraBold"), local("Raleway-ExtraBold"), url("../fonts/raleway/raleway-v12-latin-ext-800.eot?#raleway") format("embedded-opentype"), url("../fonts/raleway/raleway-v12-latin-ext-800.woff") format("woff"), url("../fonts/raleway/raleway-v12-latin-ext-800.woff2") format("woff2"), url("../fonts/raleway/raleway-v12-latin-ext-800.ttf") format("truetype"), url("../fonts/raleway/raleway-v12-latin-ext-800.svg#raleway") format("svg");
+  src: local("Raleway ExtraBold"), local("Raleway-ExtraBold"), url("/static/fonts/raleway/raleway-v12-latin-ext-800.eot?#raleway") format("embedded-opentype"), url("/static/fonts/raleway/raleway-v12-latin-ext-800.woff") format("woff"), url("/static/fonts/raleway/raleway-v12-latin-ext-800.woff2") format("woff2"), url("/static/fonts/raleway/raleway-v12-latin-ext-800.ttf") format("truetype"), url("/static/fonts/raleway/raleway-v12-latin-ext-800.svg#raleway") format("svg");
   font-style: normal;
   font-weight: 800;
 }
 
 @font-face {
-  src: url("../fonts/raleway/raleway-v12-latin-ext-800italic.eot");
+  src: url("/static/fonts/raleway/raleway-v12-latin-ext-800italic.eot");
   font-family: raleway;
-  src: local("Raleway ExtraBold Italic"), local("Raleway-ExtraBoldItalic"), url("../fonts/raleway/raleway-v12-latin-ext-800italic.eot?#raleway") format("embedded-opentype"), url("../fonts/raleway/raleway-v12-latin-ext-800italic.woff") format("woff"), url("../fonts/raleway/raleway-v12-latin-ext-800italic.woff2") format("woff2"), url("../fonts/raleway/raleway-v12-latin-ext-800italic.ttf") format("truetype"), url("../fonts/raleway/raleway-v12-latin-ext-800italic.svg#raleway") format("svg");
+  src: local("Raleway ExtraBold Italic"), local("Raleway-ExtraBoldItalic"), url("/static/fonts/raleway/raleway-v12-latin-ext-800italic.eot?#raleway") format("embedded-opentype"), url("/static/fonts/raleway/raleway-v12-latin-ext-800italic.woff") format("woff"), url("/static/fonts/raleway/raleway-v12-latin-ext-800italic.woff2") format("woff2"), url("/static/fonts/raleway/raleway-v12-latin-ext-800italic.ttf") format("truetype"), url("/static/fonts/raleway/raleway-v12-latin-ext-800italic.svg#raleway") format("svg");
   font-style: italic;
   font-weight: 800;
 }
@@ -333,6 +333,17 @@ a:hover .warning, a:visited:hover .warning {
 .controlbar button:hover {
   opacity: 1;
   transition: opacity 0.5s ease;
+}
+
+.controlbar button.inactive {
+  background: grey;
+  color: #272727;
+  border-bottom: 4px solid #4d4d4d;
+  cursor: default;
+}
+
+.controlbar button.inactive:hover {
+  opacity: 0.7;
 }
 
 .logo_short {

@@ -102,11 +102,17 @@ var optionsPlyr = {
 };
 
 var video = new Plyr('.plyr', optionsPlyr);
-video[0] = video;
+
+// TODO: could be put into an array, then onclick bindings could be solved by foreach
+var playPreviousElements = document.getElementsByClassName("playPrevious");
+var playNextElements = document.getElementsByClassName("playNext");
+var playCompleteElements = document.getElementsByClassName("playComplete");
+var playMixElements = document.getElementsByClassName("playMix");
+var searchLyricsElements = document.getElementsByClassName("searchLyrics");
 
 var elementMessage = document.getElementsByClassName("message")[0];
 
-// needs to be extended for new mini player (class "snippetinfo")
+// TODO: needs to be extended for new mini player (class "snippetinfo")
 var elementPlayPause = document.getElementsByClassName("playPause")[0];
 var snippets = document.getElementById("snippets").getElementsByTagName("a");
 
@@ -139,13 +145,10 @@ var showMessage = function(message, seconds) {
 }
 
 var playPause = function() {
-    video[0].togglePlay();
-
-    var videoPaused = video[0].paused;
-
+    video.togglePlay();
     newElement = document.createElement("i");
 
-    if(videoPaused) {
+    if(video.paused) {
         while (elementPlayPause.firstChild) {
             elementPlayPause.removeChild(elementPlayPause.firstChild);
         }
@@ -161,12 +164,12 @@ var playPause = function() {
 }
 
 var playComplete = function() {
-    video[0].pause();
+    video.pause();
     
-    video[0].currentTime = 0;
+    video.currentTime = 0;
 
     complete = true;
-    video[0].play();
+    video.play();
 }
 
 var playPrevious = function() {
@@ -213,13 +216,31 @@ var updateElements = function() {
 
     index = 0;
 
+
+    // TODO: these elements have already been referenced (lines 110 and 111)
     document.getElementsByClassName("searchLyrics")[index].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
     document.getElementsByClassName("playMix")[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id;
+
+    if(i == (snippets.length - 1)) {
+        playNextElements[0].classList.add("inactive");
+        playNextElements[0].setAttribute("disabled", "disabled");
+    } else {
+        playNextElements[0].classList.remove("inactive");
+        playNextElements[0].removeAttribute("disabled");
+    }
+
+    if(i == 0) {
+        playPreviousElements[0].classList.add("inactive");
+        playPreviousElements[0].setAttribute("disabled", "disabled");
+    } else {
+        playPreviousElements[0].classList.remove("inactive");
+        playPreviousElements[0].removeAttribute("disabled");
+    }
 }
 
 // switching source
 var jumpTo = function(index) {
-    video[0].source = {
+    video.source = {
         type: "video",
         sources: [{
             src: snippets[index].dataset.id,
@@ -265,11 +286,11 @@ var PlyrCustomButton = function(className, before, dataPlyr, fontawesome, labelt
     reference.parentNode.insertBefore(element, reference);
 }
 
-video[0].on("ready", function() {
+video.on("ready", function() {
 
-    // TODO: test whether video[0].pause() is still needed
+    // TODO: test whether video.pause() is still needed
     // omits playing video before setting offset time
-    video[0].pause();
+    video.pause();
 
     complete = false;
 
@@ -280,13 +301,6 @@ video[0].on("ready", function() {
     PlyrCustomButton("playComplete", "[data-plyr=fullscreen]", "complete", "fas fa-plus-square", i18n_videohandler_completesnippet);
     PlyrCustomButton("playMix", "[data-plyr=fullscreen]", "mix", "fas fa-random", i18n_videohandler_mix);
     PlyrCustomButton("searchLyrics", "[data-plyr=fullscreen]", "lyrics", "fas fa-file-alt", i18n_videohandler_lyrics);
-
-    // TODO: could be put into an array, then onclick bindings could be solved by foreach
-    playPreviousElements = document.getElementsByClassName("playPrevious");
-    playNextElements = document.getElementsByClassName("playNext");
-    playCompleteElements = document.getElementsByClassName("playComplete");
-    playMixElements = document.getElementsByClassName("playMix");
-    searchLyricsElements = document.getElementsByClassName("searchLyrics");
 
     for (var temp = 0; temp < 2; temp++) {
         playPreviousElements[temp].onclick = playPrevious;
@@ -312,15 +326,15 @@ video[0].on("ready", function() {
 
         // handle newsic's autoplay setting (affects first snippet only)
         if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
-            video[0].pause();
-        } else video[0].play();
+            video.pause();
+        } else video.play();
 
-        if (!muted) video[0].muted = false;
+        if (!muted) video.muted = false;
     }
 );
 
 
-video[0].on("playing", function() {
+video.on("playing", function() {
 
     while (elementPlayPause.firstChild) {
         elementPlayPause.removeChild(elementPlayPause.firstChild);
@@ -342,7 +356,7 @@ video[0].on("playing", function() {
 });
 
 
-video[0].on("pause", function() {
+video.on("pause", function() {
     while (elementPlayPause.firstChild) {
         elementPlayPause.removeChild(elementPlayPause.firstChild);
     }
@@ -352,7 +366,7 @@ video[0].on("pause", function() {
 });
 
 
-video[0].on("error", function(error) {
+video.on("error", function(error) {
 
     // TODO: update for Plyr 3
     // problems with Vimeo -> don't skip videos on error
@@ -373,7 +387,7 @@ video[0].on("error", function(error) {
 
 
 // runs multiple times in a second when plyr plays video
-video[0].on("timeupdate", function() {
+video.on("timeupdate", function() {
 
     // checks if this is the last video of the list
     if(i < snippets.length) {
@@ -389,7 +403,7 @@ video[0].on("timeupdate", function() {
         var countdowns = document.getElementsByClassName("countdown");
 
         // TODO: make it go to zero
-        var videoCurrentTime = video[0].currentTime;
+        var videoCurrentTime = video.currentTime;
 
         var countdownWidth = Math.floor(end - videoCurrentTime) / (end - start) * 100 +  "%";
         
@@ -398,13 +412,13 @@ video[0].on("timeupdate", function() {
         // check if player reached end of snippet
         if (Math.ceil(videoCurrentTime) >= end) {
 
-            //video[0].pause();
+            //video.pause();
 
             if(loop) {
-                video[0].currentTime = start;
+                video.currentTime = start;
             } else {
                 if(i == (snippets.length - 1)) {
-                    video[0].pause();
+                    video.pause();
                     debugMessage("This party is over, now get out of here. Seriously.");
                 } else {
                     debugMessage("End of snippet, let's go to the next one.");
@@ -429,7 +443,7 @@ document.addEventListener("keydown", function(e) {
         switch (e.key) {
             // "f": toggle fullscreen
             case "f":
-                video[0].fullscreen.toggle();
+                video.fullscreen.toggle();
                 break;
 
             // "l": search for lyrics
@@ -439,7 +453,7 @@ document.addEventListener("keydown", function(e) {
 
             // "m": toggle mute
             case "m":
-                video[0].muted = !video[0].muted;
+                video.muted = !video.muted;
                 muted = !muted;
                 break;
 

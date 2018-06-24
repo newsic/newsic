@@ -27,15 +27,15 @@
 
 // basic function for fonts
 @mixin font($font, $filename, $fontname, $fontname2, $style, $weight) {
-    src: url("../fonts/#{$font}/#{$filename}.eot");
+    src: url("/static/fonts/#{$font}/#{$filename}.eot");
     font-family: $font;
     src:
       local("#{$fontname}"), local("#{$fontname2}"),
-      url("../fonts/#{$font}/#{$filename}.eot?##{$font}") format("embedded-opentype"),
-      url("../fonts/#{$font}/#{$filename}.woff") format("woff"),
-      url("../fonts/#{$font}/#{$filename}.woff2") format("woff2"),
-      url("../fonts/#{$font}/#{$filename}.ttf") format("truetype"),
-      url("../fonts/#{$font}/#{$filename}.svg##{$font}") format("svg");
+      url("/static/fonts/#{$font}/#{$filename}.eot?##{$font}") format("embedded-opentype"),
+      url("/static/fonts/#{$font}/#{$filename}.woff") format("woff"),
+      url("/static/fonts/#{$font}/#{$filename}.woff2") format("woff2"),
+      url("/static/fonts/#{$font}/#{$filename}.ttf") format("truetype"),
+      url("/static/fonts/#{$font}/#{$filename}.svg##{$font}") format("svg");
     font-style: $style;
     font-weight: $weight;
 }
@@ -70,6 +70,7 @@ $transition_speed: 0.5s;
 $warning: #d3645f;
 
 $button_color: #BCD35F;
+$button_color_inactive: grey;
 
 $shadow_input: #e6e6e6 1px 1px,
 #e6e6e6 2px 2px,
@@ -389,6 +390,16 @@ a, a:visited {
         &:hover {
             opacity: $opacity_end;
             transition: opacity $transition_speed ease;
+        }
+
+        &.inactive {
+            background: $button_color_inactive;
+            color: darken($button_color_inactive, 35%);
+            border-bottom: 4px solid darken($button_color_inactive, 20%);
+            cursor: default;
+            &:hover {
+                opacity: $opacity_start;
+            }
         }
     }
 }

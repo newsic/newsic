@@ -9,7 +9,7 @@ def create_app():
 
     with app.app_context():
         from . import index, youtube, vimeo, custom, autocomplete
-
+        
         app.register_blueprint(index.bp)
         app.register_blueprint(index.bp, url_prefix='/<lang_code>')
         app.register_blueprint(youtube.bp)

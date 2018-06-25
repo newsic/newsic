@@ -30,11 +30,10 @@ def read_config(value):
 
     """
     Import config from config.py
-    NOTE: .env support will be removed
+    NOTE: .env support might be removed
     """
 
     app.config.from_object('newsic.config.Local')
-
     return app.config[value]
 
 @app.errorhandler(404)
@@ -50,17 +49,6 @@ def four0four(_):
         error=gettext(u"URL not found"),
         bodyClass="home",
         title=gettext(u"URL not found")), 404
-
-@app.before_request
-def before_request():
-
-    """
-    Calculates runtime
-    """
-
-    g.starttime = perf_counter()
-    g.runtime = lambda: "%.5fs" % (perf_counter() - g.starttime)
-
 
 def snippet_start_at(length):
 
@@ -99,7 +87,7 @@ Flask-Caching
 
 if read_config("CACHE"):
     CACHE = Cache(app, config={'CACHE_TYPE': read_config("CACHE_TYPE"),
-                        'CACHE_DIR': ("{}").format(read_config("CACHE_DIR"))})
+                        'CACHE_DIR': read_config("CACHE_DIR")})
 
 def cache():
 
@@ -167,10 +155,7 @@ babel = Babel(app)
 
 @app.url_defaults
 def add_language_code(endpoint, values):
-    try:
-        values.setdefault('lang_code', g.lang_code)
-    except:
-        pass
+    values.setdefault('lang_code', None)
 
 @app.url_value_preprocessor
 def pull_lang_code(endpoint, values):
@@ -179,11 +164,16 @@ def pull_lang_code(endpoint, values):
 
 @app.before_request
 def ensure_lang_support():
+
+    """
+    Checks if requested language is supported 
+    """
+    
     lang_code = g.get('lang_code', None)
     if lang_code and lang_code not in read_config("LANGUAGES"):
         return render_template(
             "index.html",
-            getlocale=read_config("BABEL_DEFAULT_LOCALE"),
+            getlocale=request.accept_languages.best_match(read_config("LANGUAGES")),
             error=gettext(u"URL not found"),
             bodyClass="home",
             title=gettext(u"URL not found")), 404
@@ -200,3 +190,14 @@ def get_locale():
 
     # best match (based on user request)
     return request.accept_languages.best_match(read_config("LANGUAGES"))
+
+
+@app.before_request
+def runtime():
+
+    """
+    Calculation of runtime
+    """
+    
+    g.starttime = perf_counter()
+    g.runtime = lambda: "%.5fs" % (perf_counter() - g.starttime)

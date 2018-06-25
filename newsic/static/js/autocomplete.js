@@ -58,6 +58,11 @@ var checkRegex = function() {
     else return false;
 };
 
+var i18nLang = function() {
+    if (i18n_lang != "") return i18n_lang;
+    else return "";
+}
+
 // what was that for?
 
 /*
@@ -178,6 +183,8 @@ input.oninput = function() {
             loadingIndicator.style.visibility = "hidden";
             var json = JSON.parse(request.responseText);
 
+            // TODO: replace ul and li elements with simple links
+
             if(json.length < 1) {
                 resultDiv.innerHTML = '<li>' + i18n_autocomplete_noresults + '</li>';
 
@@ -215,7 +222,7 @@ input.oninput = function() {
                     resultDiv.appendChild(node);
 
                     node.onclick = function() {
-                        window.open("youtube/" + this.classList[0], "_self");
+                        window.open("/" + i18nLang() + "/youtube/" + this.classList[0], "_self");
                     };
                 }
             }
@@ -236,9 +243,9 @@ input.oninput = function() {
 document.getElementsByTagName("form")[0].onsubmit = function(event) {
     event.preventDefault();
 
-    if (checkRegex()) window.open("youtube/" + playlist, "_self");
+    if (checkRegex()) window.open("/" + i18nLang() + "/youtube/" + playlist, "_self");
     else {
-        if (autocomplete) window.open("youtube/" + autocomplete, "_self");
+        if (autocomplete) window.open("/" + i18nLang() + "/youtube/" + autocomplete, "_self");
         else document.getElementsByTagName("form")[0].submit();
     }
 }

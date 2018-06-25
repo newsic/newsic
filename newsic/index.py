@@ -15,7 +15,7 @@ import re
 bp = Blueprint('index', __name__)
 
 @bp.route("/")
-#@cache()
+@cache()
 def index():
 
     """

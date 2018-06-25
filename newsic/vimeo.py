@@ -26,7 +26,7 @@ VIMEO = VimeoClient(
 
 # TODO: check url earlier (vimeo_type can only be either "channel" or "album")
 @bp.route("/vimeo/<string:vimeo_type>/<int:vimeo_id>")
-#@cache()
+@cache()
 def play_vimeo(vimeo_type, vimeo_id):
 
     """

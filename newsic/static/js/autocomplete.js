@@ -152,7 +152,7 @@ input.onkeydown = function(e) {
 input.oninput = function() {
 
     loadingIndicator.style.visibility = "visible";
-    console.log("loading");
+    //console.log("loading");
     resultDiv.style.visibility = "visible";
     var element = resultDiv.getElementsByClassName("selected")[0];
 
@@ -173,7 +173,7 @@ input.oninput = function() {
         resultDiv.style.visibility = "hidden";
         if (request.readyState === 4 && request.status === 200) {
 
-            console.log("finished loading");
+            //console.log("finished loading");
             resultDiv.style.visibility = "visible";
             loadingIndicator.style.visibility = "hidden";
             var json = JSON.parse(request.responseText);
@@ -215,7 +215,7 @@ input.oninput = function() {
                     resultDiv.appendChild(node);
 
                     node.onclick = function() {
-                        window.open("/youtube/" + this.classList[0], "_self");
+                        window.open("youtube/" + this.classList[0], "_self");
                     };
                 }
             }
@@ -236,9 +236,9 @@ input.oninput = function() {
 document.getElementsByTagName("form")[0].onsubmit = function(event) {
     event.preventDefault();
 
-    if (checkRegex()) window.open("/youtube/" + playlist, "_self");
+    if (checkRegex()) window.open("youtube/" + playlist, "_self");
     else {
-        if (autocomplete) window.open("/youtube/" + autocomplete, "_self");
+        if (autocomplete) window.open("youtube/" + autocomplete, "_self");
         else document.getElementsByTagName("form")[0].submit();
     }
 }

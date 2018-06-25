@@ -3,7 +3,7 @@ Handling of index page and POST requests to /
 """
 
 from flask import (
-    Blueprint, redirect, render_template, request, url_for
+    Blueprint, redirect, render_template, request, url_for, g
 )
 
 from newsic.functions import (
@@ -15,7 +15,7 @@ import re
 bp = Blueprint('index', __name__)
 
 @bp.route("/")
-@cache()
+#@cache()
 def index():
 
     """
@@ -26,7 +26,8 @@ def index():
         "index.html",
         getlocale=get_locale(),
         bodyClass="home",
-        title=gettext(u"Home")
+        title=gettext(u"Home"),
+        runtime=g.runtime()
     )
 
 @bp.route("/", methods=["POST"])

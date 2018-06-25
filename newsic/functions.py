@@ -3,7 +3,7 @@ Functions (environment, general, debug, plugin-related) and loading dependencies
 """
 
 from flask import (
-    current_app as app, g, request, render_template
+    current_app as app, g, request, render_template, url_for
 )
 from time import perf_counter
 from click import echo as click_echo
@@ -18,35 +18,24 @@ try:
     from flask_caching import Cache
     from flask_compress import Compress
     from flask_htmlmin import HTMLMIN
-    from dotenv import load_dotenv
+    #from dotenv import load_dotenv, find_dotenv
 except ImportError:
     pass
 
 # for python-dotenv
-from os.path import join, dirname
-from os import getenv
+#from os.path import join, dirname
+#from os import getenv
 
 def read_config(value):
 
     """
     Import config from config.py
-    Settings can be overwritten by .env file (see config.py.example)
+    NOTE: .env support will be removed
     """
 
     app.config.from_object('newsic.config.Local')
 
-    # python-dotenv
-    if app.config["CONFIG_DOTENV"]:
-
-        dotenv_path = join(dirname(__file__), '.env')
-        load_dotenv(dotenv_path)
-
-    # look if setting is set in .env, else use config.py
-    if app.config["CONFIG_DOTENV"] and getenv(value):
-        return getenv(value)
-
-    else:
-        return app.config[value]
+    return app.config[value]
 
 @app.errorhandler(404)
 def four0four(_):
@@ -110,7 +99,7 @@ Flask-Caching
 
 if read_config("CACHE"):
     CACHE = Cache(app, config={'CACHE_TYPE': read_config("CACHE_TYPE"),
-                               'CACHE_DIR': ("{}").format(read_config("CACHE_DIR"))})
+                        'CACHE_DIR': ("{}").format(read_config("CACHE_DIR"))})
 
 def cache():
 
@@ -120,7 +109,8 @@ def cache():
 
     if read_config("CACHE"):
         return CACHE.cached(timeout=read_config("CACHE_TIMEOUT"))
-    return lambda x: x
+    else:
+        return lambda x: x
 
 @app.cli.command()
 def flushcache():
@@ -173,17 +163,40 @@ if read_config("CACHE_MAX_AGE"):
 Flask-Babel
 """
 
-babel = Babel(app, default_locale='en')
+babel = Babel(app)
+
+@app.url_defaults
+def add_language_code(endpoint, values):
+    try:
+        values.setdefault('lang_code', g.lang_code)
+    except:
+        pass
+
+@app.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    if endpoint:
+        g.lang_code = values.pop('lang_code', None)
+
+@app.before_request
+def ensure_lang_support():
+    lang_code = g.get('lang_code', None)
+    if lang_code and lang_code not in read_config("LANGUAGES"):
+        return render_template(
+            "index.html",
+            getlocale=read_config("BABEL_DEFAULT_LOCALE"),
+            error=gettext(u"URL not found"),
+            bodyClass="home",
+            title=gettext(u"URL not found")), 404
 
 @babel.localeselector
 def get_locale():
-
-    """
-    Supported languages for flask-babel (based on config value)
-    """
+    # use standard language as set in config.py
+    if g.get('lang_code') in read_config("LANGUAGES"):
+        return g.get('lang_code', read_config("BABEL_DEFAULT_LOCALE"))
 
     # Open Graph/Facebook support
     if request.args.get("fb_locale") and request.args.get("fb_locale").partition("_")[0] in read_config("LANGUAGES"):
         return request.args.get("fb_locale").partition("_")[0]
 
+    # best match (based on user request)
     return request.accept_languages.best_match(read_config("LANGUAGES"))

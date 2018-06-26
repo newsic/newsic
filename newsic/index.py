@@ -45,19 +45,22 @@ def index_post():
         route = redirect(
             url_for(
                 "youtube.play_youtube",
-                youtube_playlist="PLdduFHK2eLvf6RE6a7l0jLNYFsYU_ALK7"))
+                youtube_playlist="PLdduFHK2eLvf6RE6a7l0jLNYFsYU_ALK7",
+                lang_code=get_locale()))
 
     if request.form["url"] == "schwifty":
         route = redirect(
             url_for(
                 "youtube.play_youtube",
-                youtube_playlist="PLdduFHK2eLvdwarNDUhOyUO2dGW5sCguk"))
+                youtube_playlist="PLdduFHK2eLvdwarNDUhOyUO2dGW5sCguk",
+                lang_code=get_locale()))
 
     if request.form["url"] == "versions":
         route = redirect(
             url_for(
                 "youtube.play_youtube",
-                youtube_playlist="PLdduFHK2eLve4U1BJmhU1PSKRp6WvgyRA"))
+                youtube_playlist="PLdduFHK2eLve4U1BJmhU1PSKRp6WvgyRA",
+                lang_code=get_locale()))
 
     youtube_video_regex = re.compile(
         r"(?:https?:\/\/)*(?:[a-z].*).?youtube.com\/watch\?v=([a-zA-Z0-9-_]*)?")
@@ -84,7 +87,8 @@ def index_post():
         route = redirect(
             url_for(
                 "youtube.play_youtube",
-                youtube_playlist=youtube_playlist.group(1)))
+                youtube_playlist=youtube_playlist.group(1),
+                lang_code=get_locale()))
 
     if vimeo:
         debug(("Received a Vimeo {}: {}").format(vimeo.group(1), vimeo.group(2)))

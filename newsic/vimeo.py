@@ -25,7 +25,7 @@ VIMEO = VimeoClient(
     secret=read_config("VIMEO_SECRET"))
 
 # TODO: check url earlier (vimeo_type can only be either "channel" or "album")
-@bp.route("/vimeo/<string:vimeo_type>/<int:vimeo_id>")
+@bp.route("/vimeo/<string:vimeo_type>/<int:vimeo_id>/")
 @cache()
 def play_vimeo(vimeo_type, vimeo_id):
 
@@ -94,7 +94,7 @@ def play_vimeo(vimeo_type, vimeo_id):
         message="vimeo-beta",
         runtime=g.runtime())
 
-@bp.route("/vimeo/mix/<int:vimeo_id>")
+@bp.route("/vimeo/mix/<int:vimeo_id>/")
 @cache()
 def mix_vimeo(vimeo_id):
 

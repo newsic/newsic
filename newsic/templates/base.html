@@ -55,12 +55,12 @@
 
   {%- block header %}
   <header>
-    <a href="{{ url_for('index.index') }}" class="logo_short" title="{{ _('Go to start page') }}">
+    <a href="{{ url_for('index.index', lang_code=getlocale) }}" class="logo_short" title="{{ _('Go to start page') }}">
       <img src="{{ url_for('static', filename='img/logo_short.svg') }}" alt="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}"
         title="{{ _('Suddenly a wild newsic logo appears. Hey look, it\'s a SVG!') }}" />
     </a>
 
-    <form method="post" action="{{ url_for('index.index') }}">
+    <form method="post" action="{{ url_for('index.index', lang_code=getlocale) }}">
       <div id="autocomplete">
         <input type="text" name="url" autocomplete="off" placeholder="{{ _('Start typing or paste a playlist URL') }}" />
         <span class="flash"><i class="fas fa-sync-alt"></i></span>

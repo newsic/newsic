@@ -222,7 +222,7 @@ input.oninput = function() {
                     resultDiv.appendChild(node);
 
                     node.onclick = function() {
-                        window.open("/" + i18nLang() + "/youtube/" + this.classList[0], "_self");
+                        window.open("/" + i18nLang() + "/youtube/" + this.classList[0] + "/", "_self");
                     };
                 }
             }
@@ -243,9 +243,9 @@ input.oninput = function() {
 document.getElementsByTagName("form")[0].onsubmit = function(event) {
     event.preventDefault();
 
-    if (checkRegex()) window.open("/" + i18nLang() + "/youtube/" + playlist, "_self");
+    if (checkRegex()) window.open("/" + i18nLang() + "/youtube/" + playlist + "/", "_self");
     else {
-        if (autocomplete) window.open("/" + i18nLang() + "/youtube/" + autocomplete, "_self");
+        if (autocomplete) window.open("/" + i18nLang() + "/youtube/" + autocomplete + "/", "_self");
         else document.getElementsByTagName("form")[0].submit();
     }
 }

@@ -190,7 +190,7 @@ def yt_general_playlist_info(playlist_id):
     return False
 
 
-@bp.route("/youtube/mix/<video_id>")
+@bp.route("/youtube/mix/<video_id>/")
 @cache()
 def mix_youtube(video_id):
 
@@ -242,6 +242,7 @@ def mix_youtube(video_id):
         return redirect(
             url_for(
                 "youtube.play_youtube",
+                lang_code=get_locale(),
                 youtube_playlist=data_search["items"][randnum]["id"]["playlistId"]))
 
     return render_template(
@@ -251,7 +252,7 @@ def mix_youtube(video_id):
         bodyClass="home",
         title=gettext(u"No mix available"))
 
-@bp.route("/youtube/<youtube_playlist>")
+@bp.route("/youtube/<youtube_playlist>/")
 @cache()
 def play_youtube(youtube_playlist):
 
@@ -285,3 +286,43 @@ def play_youtube(youtube_playlist):
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
         title=video_list[0][2] + " - " + general_info["title"],
         runtime=g.runtime())
+
+
+@bp.route("/watch/")
+def import_youtube_url():
+
+    """
+    Receive https://trynewsic.tocsin.de/watch?v=<video_id>&list=<playlist_id>&index=<index>
+    links (same scheme as youtube URLs),
+    extract values and redirect to playlist view or mix
+    """
+
+    video = request.args.get("v")
+    playlist = request.args.get("list")
+    index = request.args.get("index")
+
+    def append_index():
+        if int(index) - 1 > 0:
+            return ("#{}").format(int(index) - 1)
+        return ""
+
+    if(playlist or video and playlist):
+        debug("Found playlist id, redirect to playlist view")
+        return redirect(("{}{}").format(url_for(
+            "youtube.play_youtube",
+            lang_code=get_locale(),
+            youtube_playlist=playlist), append_index()))
+
+    if(video and not playlist):
+        debug("Found video id, redirect to mix")
+        return redirect(url_for(
+            "youtube.mix_youtube",
+            video_id=video))
+
+    debug("No music found")
+    return render_template(
+        "index.html",
+        getlocale=get_locale(),
+        error=gettext(u"No music found"),
+        bodyClass="home",
+        title=gettext(u"No music found"))

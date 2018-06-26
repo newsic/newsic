@@ -219,7 +219,7 @@ var updateElements = function() {
 
     // TODO: these elements have already been referenced (lines 110 and 111)
     document.getElementsByClassName("searchLyrics")[index].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
-    document.getElementsByClassName("playMix")[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id;
+    document.getElementsByClassName("playMix")[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id + "/";
 
     if(i == (snippets.length - 1)) {
         playNextElements[0].classList.add("inactive");

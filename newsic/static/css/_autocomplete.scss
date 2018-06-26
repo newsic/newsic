@@ -40,14 +40,12 @@
     box-shadow: 0px 20px 61px -3px rgba(#000, 0.6);
     padding: 0;
     z-index: 1000;
-    list-style: none;
 
-    li {
-        margin-left: 0;
+    a {
         padding: 2% 3% 2% 3%;
         display: flex;
         align-items: center;
-        color:#7a7a7a;
+        color: #7a7a7a;
         background: #fff;
         transition: opacity $transition_speed ease;
         opacity: $opacity_start;
@@ -56,6 +54,7 @@
         &:hover, &:focus, &.selected {
             cursor: pointer;
             opacity: $opacity_end;
+            text-decoration: none;
         }
 
         .sub {
@@ -66,6 +65,13 @@
         img {
             max-width: 15%;
         }
+    }
+
+    span.noresults {
+        padding: 2% 3% 2% 3%;
+        color: #7a7a7a;
+        background: #fff;
+        display: flex;
     }
 }
 

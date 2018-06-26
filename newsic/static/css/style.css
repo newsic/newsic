@@ -537,11 +537,9 @@ form button[type=submit]:hover {
   box-shadow: 0px 20px 61px -3px rgba(0, 0, 0, 0.6);
   padding: 0;
   z-index: 1000;
-  list-style: none;
 }
 
-#autocomplete-result li {
-  margin-left: 0;
+#autocomplete-result a {
   padding: 2% 3% 2% 3%;
   display: flex;
   align-items: center;
@@ -552,18 +550,26 @@ form button[type=submit]:hover {
   justify-content: space-between;
 }
 
-#autocomplete-result li:hover, #autocomplete-result li:focus, #autocomplete-result li.selected {
+#autocomplete-result a:hover, #autocomplete-result a:focus, #autocomplete-result a.selected {
   cursor: pointer;
   opacity: 1;
+  text-decoration: none;
 }
 
-#autocomplete-result li .sub {
+#autocomplete-result a .sub {
   font-weight: 400;
   font-size: 0.9em;
 }
 
-#autocomplete-result li img {
+#autocomplete-result a img {
   max-width: 15%;
+}
+
+#autocomplete-result span.noresults {
+  padding: 2% 3% 2% 3%;
+  color: #7a7a7a;
+  background: #fff;
+  display: flex;
 }
 
 /* Animations */

@@ -38,7 +38,7 @@ var resetSelection = function() {
     });
 }
 
-// dynamic ans responsive offset for correct positioning
+// dynamic and responsive offset for correct positioning
 var resultDivMeasures = function() {
     resultDiv.style.marginTop = container.offsetHeight +2 + "px";
     resultDiv.style.width = container.offsetWidth + "px";
@@ -183,16 +183,14 @@ input.oninput = function() {
             loadingIndicator.style.visibility = "hidden";
             var json = JSON.parse(request.responseText);
 
-            // TODO: replace ul and li elements with simple links
-
             if(json.length < 1) {
-                resultDiv.innerHTML = '<li>' + i18n_autocomplete_noresults + '</li>';
+                resultDiv.innerHTML = '<span class="noresults">' + i18n_autocomplete_noresults + '</span>';
 
             } else {
 
                 // TODO: use foreach
                 for (var i = 0; i < json.length; i++) {
-                    node = document.createElement("li");
+                    node = document.createElement("a");
                     text = document.createElement("span");
                     sub = document.createElement("span");
                     br = document.createElement("br");
@@ -210,6 +208,7 @@ input.oninput = function() {
                     text.appendChild(sub);
 
                     node.classList.add(json[i]["id"]);
+                    node.href = "/" + i18nLang() + "/youtube/" + node.classList[0] + "/"
 
                     node.appendChild(text);
 
@@ -220,10 +219,6 @@ input.oninput = function() {
                     }
 
                     resultDiv.appendChild(node);
-
-                    node.onclick = function() {
-                        window.open("/" + i18nLang() + "/youtube/" + this.classList[0] + "/", "_self");
-                    };
                 }
             }
         }

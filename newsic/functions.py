@@ -25,7 +25,10 @@ except ImportError:
 from os import getenv
 
 app.config.from_object('newsic.config.Local')
-load_dotenv(find_dotenv(), override=True)
+try:
+    load_dotenv(find_dotenv(), override=True)
+except:    
+    pass
 
 def read_config(value):
 

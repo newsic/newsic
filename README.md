@@ -23,7 +23,7 @@ newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets
 1. Clone this repository: `git clone https://github.com/newsic/newsic.git`
 2. Create a config.py from config.py.example
 3. Add your API keys ([YouTube](https://developers.google.com/youtube/v3/getting-started), [Vimeo](https://developer.vimeo.com/api)) to config.py
-4. Install the minimal requirements with `pip install -r requirements.txt`; you might wanna use a virtual environment for that
+4. Install the minimal requirements with `pip install -r requirements.txt`; you might want to use a virtual environment
 5. Start newsic with `python3 newsic.py`, which is now available at [127.0.0.1:5000](http://127.0.0.1:5000)
 
 ### Performance and caching
@@ -58,7 +58,7 @@ MIT License, Copyright (c) 2015-2018 Stephan Fischer (@tocsinDE, [stephan-fische
 
 For more details see [LICENSE](/LICENSE).
 
-## Dependencies
+## Dependencies and credits
 
 ### Core
 * [Flask](https://github.com/pallets/flask): Armin Ronacher (@mitsuhiko) and contributors, BSD License (3-clause)
@@ -69,7 +69,7 @@ For more details see [LICENSE](/LICENSE).
 ### Optional
 * [Flask Caching](https://github.com/sh4nks/flask-caching): Peter Justin (@sh4nks), BSD License (3-clause)
 * [Flask-Compress](https://github.com/libwilliam/flask-compress): William Fagan (@libwilliam), MIT License
-* [Flask-HTMLmin](https://github.com/hamidfzm/Flask-HTMLmin): Hamid FzM (@hamidfzm), BSD License (3-clause)
+* [htmlmin](https://github.com/mankyd/htmlmin): Dave Mankoff (@mankyd)
 * [python-dotenv](https://github.com/theskumar/python-dotenv): Saurabh Kumar (@theskumar), BSD License (3-clause)
 
 ## Donate

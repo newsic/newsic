@@ -89,6 +89,8 @@ class General(object):
 
     REMOVE_COMMENTS = True
     REDUCE_EMPTY_ATTRIBUTES = True
+    REMOVE_EMPTY_SPACE = True
+    REMOVE_ALL_EMPTY_SPACE = True
     REMOVE_OPTIONAL_ATTRIBUTE_QUOTES = False
 
     '''

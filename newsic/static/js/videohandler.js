@@ -22,7 +22,6 @@
 
 var ready = false;
 var complete = false;
-var muted = false;
 var loop = false;
 var prevOrNext = "next";
 var i;
@@ -102,6 +101,8 @@ var optionsPlyr = {
 };
 
 var video = new Plyr('.plyr', optionsPlyr);
+
+var muted = video.muted;
 
 // TODO: could be put into an array, then onclick bindings could be solved by foreach
 var playPreviousElements = document.getElementsByClassName("playPrevious");

@@ -7,7 +7,6 @@ from flask import (
 )
 from time import perf_counter
 from click import echo as click_echo
-
 from flask_babel import Babel, gettext
 
 """
@@ -17,23 +16,30 @@ Optional dependencies
 try:
     from flask_caching import Cache
     from flask_compress import Compress
-    from flask_htmlmin import HTMLMIN
-    #from dotenv import load_dotenv, find_dotenv
+    from htmlmin import Minifier
+    from dotenv import load_dotenv, find_dotenv
 except ImportError:
     pass
 
 # for python-dotenv
-#from os.path import join, dirname
-#from os import getenv
+from os import getenv
+
+app.config.from_object('newsic.config.Local')
+load_dotenv(find_dotenv(), override=True)
 
 def read_config(value):
 
     """
     Import config from config.py
-    NOTE: .env support might be removed
+    Settings can be overwritten by .env file
     """
 
-    app.config.from_object('newsic.config.Local')
+    if getenv(value):
+        if getenv(value) == "True":
+            return True
+        if getenv(value) == "False":
+            return False
+        return getenv(value)
     return app.config[value]
 
 @app.errorhandler(404)
@@ -97,8 +103,7 @@ def cache():
 
     if read_config("CACHE"):
         return CACHE.cached(timeout=read_config("CACHE_TIMEOUT"))
-    else:
-        return lambda x: x
+    return lambda x: x
 
 @app.cli.command()
 def flushcache():
@@ -126,15 +131,25 @@ if read_config("COMPRESS"):
 
 
 """
-Flask-HTMLmin
+htmlmin
 """
 
 if read_config("MINIFY_PAGE"):
     debug("Minify activated")
-    HTMLMIN(app, remove_comments=read_config("REMOVE_COMMENTS"),
-            reduce_empty_attributes=read_config("REDUCE_EMPTY_ATTRIBUTES"),
-            remove_optional_attribute_quotes=read_config("REMOVE_OPTIONAL_ATTRIBUTE_QUOTES")
-           )
+    minify = Minifier(remove_comments=read_config("REMOVE_COMMENTS"),
+                reduce_empty_attributes=read_config("REDUCE_EMPTY_ATTRIBUTES"),
+                remove_empty_space=read_config("REMOVE_EMPTY_SPACE"),
+                remove_all_empty_space=read_config("REMOVE_ALL_EMPTY_SPACE"),
+                remove_optional_attribute_quotes=read_config("REMOVE_OPTIONAL_ATTRIBUTE_QUOTES"))
+
+    @app.after_request
+    def minify_the_page(response):
+        if response.content_type == u'text/html; charset=utf-8':
+            response.direct_passthrough = False
+            response.set_data(
+                minify.minify(response.get_data(as_text=True)))
+            return response
+        return response
 
 if read_config("CACHE_MAX_AGE"):
     @app.after_request

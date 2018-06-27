@@ -5,15 +5,9 @@ Both "Local" and "Server" classes are based upon this
 TODO: add link to deployment repo and a short explanation on how to use env variables instead of this file
 """
 
+# This file can be overwritten by installing python-dotenv and using an .env file
+
 class General(object):
-
-    '''
-    Usage of python-dotenv
-
-    python-dotenv is optional and it uses the .env file to overwrite specific settings of this config file
-    '''
-
-    CONFIG_DOTENV = False
 
     '''
     YouTube API configuration
@@ -38,7 +32,7 @@ class General(object):
     SNIPPETLENGTH = 30
 
     '''
-    Performance/caching (with Flask Caching, Flask Compress and Flask-HTMLmin)
+    Performance/caching (with Flask Caching, Flask Compress and htmlmin)
 
     Installable with pip install -r requirements-performance.txt
     '''

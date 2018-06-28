@@ -25,7 +25,8 @@ VIMEO = VimeoClient(
     secret=read_config("VIMEO_SECRET"))
 
 # TODO: check url earlier (vimeo_type can only be either "channel" or "album")
-@bp.route("/vimeo/<string:vimeo_type>/<int:vimeo_id>/")
+# TODO: fetch more than 25 videos from channel/album
+@bp.route("/vimeo/<string:vimeo_type>/<vimeo_id>/")
 @cache()
 def play_vimeo(vimeo_type, vimeo_id):
 
@@ -43,10 +44,9 @@ def play_vimeo(vimeo_type, vimeo_id):
             bodyClass="home",
             title=gettext(u"URL not found")), 404
 
-    vimeo_type = vimeo_type + "s"
-    vids = VIMEO.get(('/{}/{}/videos?filter=embeddable&filter_embeddable=true').format(
+    vids = VIMEO.get(("/{}s/{}/videos?filter=embeddable&filter_embeddable=true").format(
         vimeo_type, vimeo_id), params={"fields": "name, pictures.uri, duration"})
-    general = VIMEO.get(('/{}/{}').format(vimeo_type, vimeo_id),
+    general = VIMEO.get(("/{}s/{}").format(vimeo_type, vimeo_id),
                         params={"fields": "name, user.name"})
 
     if not vids:
@@ -82,6 +82,7 @@ def play_vimeo(vimeo_type, vimeo_id):
                 ids.group(2)])
 
     debug(("\nRuntime: {}").format(g.runtime()))
+
     return render_template(
         "play.html",
         getlocale=get_locale(),
@@ -106,7 +107,7 @@ def mix_vimeo(vimeo_id):
 
     video_list = []
 
-    vids = VIMEO.get(('/videos/{}/videos?filter=related&per_page=20').format(
+    vids = VIMEO.get(("/videos/{}/videos?filter=related&per_page=20").format(
         vimeo_id), params={"fields": "name, pictures.uri, duration"})
 
     regex_ids = re.compile(r"\/videos\/(\d+)\/pictures\/(\d+)")

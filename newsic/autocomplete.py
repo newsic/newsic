@@ -2,6 +2,13 @@
 API requests for autocomplete results
 """
 
+"""
+Ideas
+
+* prefix support (to search only on YouTube or Vimeo) -> :vi or :yt
+
+"""
+
 from flask import (
     Blueprint, request
 )
@@ -14,6 +21,11 @@ from urllib.parse import quote
 from urllib import request as urllib_request
 from json import loads, dumps
 
+try:
+    from vimeo import VimeoClient
+except ImportError:
+    print("Warning: Vimeo libary is missing")
+
 bp = Blueprint('autocomplete', __name__)
 
 @bp.route("/search", methods=["POST"])
@@ -24,20 +36,31 @@ def search():
     """
 
     if request.method == "POST":
+
+        max_results = 3
+        result = []
+
         debug(("Incoming POST request: {}").format(request.json["search"]))
 
-        max_results = 5
         #TODO: use fields for filtering the results
-        api_search_with_title = (
+        yt_search_request = (
             "{}/search?q={}&type=playlist&part=id,snippet"
             + "&maxResults={}&key={}").format(
                 read_config("YOUTUBE_API_URL"), quote(request.json["search"]),
                 max_results, read_config("YOUTUBE_API_KEY"))
-        response_search = urllib_request.urlopen(api_search_with_title)
-        data_search = loads(response_search.read().decode())
+        yt_search_response = urllib_request.urlopen(yt_search_request)
+        youtube = loads(yt_search_response.read().decode())
 
-        result = []
-        for playlist in data_search["items"]:
+        VIMEO = VimeoClient(
+            token=read_config("VIMEO_TOKEN"),
+            key=read_config("VIMEO_KEY"),
+            secret=read_config("VIMEO_SECRET"))
+
+        vim_search_request = VIMEO.get(("/channels?query={}&per_page={}").format(quote(request.json["search"]), max_results), params={"fields": "name, uri, pictures.uri, metadata.connections.videos.total"})
+
+        vimeo = vim_search_request.json()
+
+        for playlist in youtube["items"]:
 
             #TODO: use fields for filtering the results
 
@@ -57,8 +80,20 @@ def search():
                 thumbnail_url = ""
 
             result.append({
+                "source": "youtube",
                 "id": playlist["id"]["playlistId"],
                 "title": playlist["snippet"]["title"],
                 "thumb": thumbnail_url,
                 "amount": videos_in_playlist["pageInfo"]["totalResults"]})
+
+        for video in vimeo["data"]:
+            result.append({
+                "source": "vimeo",
+                "id": video["uri"].split("/")[2],
+                "title": video["name"],
+                "thumb": ("https://i.vimeocdn.com/video/{}_100x75.jpg").format(video["pictures"]["uri"].split("/")[4]),
+                "amount": video["metadata"]["connections"]["videos"]["total"]
+            })
+
+
         return dumps(result)

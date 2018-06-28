@@ -23,7 +23,7 @@
 var list = [];
 var timeout = null;
 var playlist;
-var autocomplete = false;
+//var autocomplete = false;
 
 var container = document.getElementById("autocomplete");
 var input = container.getElementsByTagName("input")[0];
@@ -47,16 +47,6 @@ var resultDivMeasures = function() {
 resultDiv.onmouseover = resetSelection;
 window.addEventListener('load', resultDivMeasures, false);
 window.addEventListener('resize', resultDivMeasures, false);
-
-var checkRegex = function() {
-    const regex = /(?:https?:\/\/)*(?:[a-z].*).?youtube.com\/.*list=([a-zA-Z0-9-_]*)(?:.*index=(\d*))?/;
-    var match = regex.exec(input.value);
-    if (match) {
-        playlist = match[1];
-        return true;
-    }
-    else return false;
-};
 
 var i18nLang = function() {
     if (i18n_lang != "") return i18n_lang;
@@ -122,7 +112,6 @@ input.onkeydown = function(e) {
             if (element == null) {
                 var firstOne = resultDiv.firstElementChild;
                 firstOne.classList.toggle("selected");
-                autocomplete = firstOne.classList[0];
             }
 
             if (element != null) {
@@ -130,7 +119,6 @@ input.onkeydown = function(e) {
 
                 if (element.nextElementSibling != null) {
                     element.nextElementSibling.classList.toggle("selected");
-                    autocomplete = resultDiv.getElementsByClassName("selected")[0].classList[0];
                 }
             }
             break;
@@ -139,7 +127,6 @@ input.onkeydown = function(e) {
             if (element == null) {
                 var lastOne = resultDiv.lastElementChild;
                 lastOne.classList.toggle("selected");
-                autocomplete = lastOne.classList[0];
             }
 
             if (element != null) {
@@ -147,7 +134,6 @@ input.onkeydown = function(e) {
 
                 if (element.previousElementSibling != null) {
                     element.previousElementSibling.classList.toggle("selected");
-                    autocomplete = resultDiv.getElementsByClassName("selected")[0].classList[0];
                 }
             }
             break;
@@ -197,7 +183,7 @@ input.oninput = function() {
                     icon = document.createElement("i");
 
                     icon.classList.add("fab");
-                    icon.classList.add("fa-youtube");
+                    icon.classList.add("fa-" + json[i]["source"]);
 
                     sub.textContent = " " + json[i]["amount"] + " " + i18n_autocomplete_videos;
                     sub.classList.add("sub");
@@ -207,8 +193,13 @@ input.oninput = function() {
                     text.appendChild(icon);
                     text.appendChild(sub);
 
-                    node.classList.add(json[i]["id"]);
-                    node.href = "/" + i18nLang() + "/youtube/" + node.classList[0] + "/"
+                    if(json[i]["source"] === "youtube") {
+                        node.href = "/" + i18nLang() + "/youtube/" + json[i]["id"] + "/";
+                    }
+
+                    if(json[i]["source"] === "vimeo") {
+                        node.href = "/" + i18nLang() + "/vimeo/channel/" + json[i]["id"] + "/"
+                    }
 
                     node.appendChild(text);
 
@@ -238,9 +229,9 @@ input.oninput = function() {
 document.getElementsByTagName("form")[0].onsubmit = function(event) {
     event.preventDefault();
 
-    if (checkRegex()) window.open("/" + i18nLang() + "/youtube/" + playlist + "/", "_self");
-    else {
-        if (autocomplete) window.open("/" + i18nLang() + "/youtube/" + autocomplete + "/", "_self");
-        else document.getElementsByTagName("form")[0].submit();
+    if (resultDiv.getElementsByClassName("selected").length == 0) {
+        document.getElementsByTagName("form")[0].submit();
+    } else {
+        window.open(resultDiv.getElementsByClassName("selected")[0].href, "_self");
     }
 }

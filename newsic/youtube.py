@@ -48,10 +48,9 @@ def yt_grab(video_ids=[], playlist_id=None):
 
         # fetch video ids from playlist
         while True:
-            #TODO: use fields for filtering the results
             request_video_ids = (
                 "{}/playlistItems?part=contentDetails&playlistId={}"
-                + "&fields=items%2FcontentDetails%2CnextPageToken%2CpageInfo"
+                + "&fields=items/contentDetails/videoId,nextPageToken"
                 + "&key={}&maxResults={}&pageToken={}").format(
                     read_config("YOUTUBE_API_URL"), playlist_id, read_config("YOUTUBE_API_KEY"),
                     max_results, next_page_token)
@@ -80,8 +79,10 @@ def yt_grab(video_ids=[], playlist_id=None):
     
     while request_iteration > 0:
         video_ids_part = ','.join(video_ids[range_start:range_end])
-        #TODO: use fields for filtering the results
-        url = ("{}/videos?part=contentDetails,snippet,status&id={}&key={}").format(
+        url = (
+            "{}/videos?part=contentDetails,snippet,status"
+            + "&fields=items(contentDetails(countryRestriction,duration,regionRestriction),id,snippet/title,status(embeddable,privacyStatus,uploadStatus))"
+            + "&id={}&key={}").format(
             read_config("YOUTUBE_API_URL"), video_ids_part, read_config("YOUTUBE_API_KEY"))
         response = urllib_request.urlopen(url)
         data = loads(response.read().decode())
@@ -173,13 +174,12 @@ def yt_grab(video_ids=[], playlist_id=None):
 def yt_general_playlist_info(playlist_id):
 
     """
-    Fetch general information about the playlist (defined by given playlist_id)
+    Fetch general information about a playlist (defined by given playlist_id)
     """
 
     request_data = (
-        #TODO: use fields for filtering the results
-        "{}/playlists?part=snippet,status&id={}"
-        + "&fields=items&key={}").format(
+        "{}/playlists?part=snippet&id={}"
+        + "&fields=items(snippet(channelTitle,title))&key={}").format(
             read_config("YOUTUBE_API_URL"), playlist_id, read_config("YOUTUBE_API_KEY"))
     data_response = loads(urllib_request.urlopen(request_data).read().decode())
 
@@ -199,12 +199,9 @@ def mix_youtube(video_id):
     TODO: improve performance
     """
 
-    #TODO: use fields for filtering the results
-    # needed: snippet title
-
     api_get_video_title = (
         "{}/videos?id={}&part=snippet"
-        + "&key={}").format(
+        + "&fields=items/snippet/title&key={}").format(
             read_config("YOUTUBE_API_URL"), video_id, read_config("YOUTUBE_API_KEY"))
     response_title = urllib_request.urlopen(api_get_video_title)
     data_title = loads(response_title.read().decode())
@@ -216,10 +213,9 @@ def mix_youtube(video_id):
 
         max_results = 15
 
-        #TODO: use fields for filtering the results
-        # needed: ["pageInfo"]["totalResults"], playlistID (random one from "items")
         api_search_with_title = (
             "{}/search?q={}&type=playlist&part=id"
+            + "&fields=items/id/playlistId,pageInfo/totalResults"
             + "&maxResults={}&key={}").format(
                 read_config("YOUTUBE_API_URL"), quote(video_title_nospaces),
                 max_results, read_config("YOUTUBE_API_KEY"))

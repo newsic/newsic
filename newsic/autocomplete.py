@@ -42,9 +42,9 @@ def search():
 
         debug(("Incoming POST request: {}").format(request.json["search"]))
 
-        #TODO: use fields for filtering the results
         yt_search_request = (
             "{}/search?q={}&type=playlist&part=id,snippet"
+            + "&fields=items(id/playlistId,snippet(thumbnails/medium/url,title))"
             + "&maxResults={}&key={}").format(
                 read_config("YOUTUBE_API_URL"), quote(request.json["search"]),
                 max_results, read_config("YOUTUBE_API_KEY"))
@@ -62,22 +62,20 @@ def search():
 
         for playlist in youtube["items"]:
 
-            #TODO: use fields for filtering the results
-
             req = (
                 "{}/playlistItems?playlistId={}"
-                + "&part=id&fields=pageInfo(totalResults)"
+                + "&part=id&fields=pageInfo/totalResults"
                 + "&maxresults=1&key={}").format(
                     read_config("YOUTUBE_API_URL"), playlist["id"]["playlistId"], read_config("YOUTUBE_API_KEY"))
             request_send = urllib_request.urlopen(req)
             videos_in_playlist = loads(request_send.read().decode())
 
-            if "thumbnails" in playlist["snippet"]:
-                thumbnail_url = playlist["snippet"]["thumbnails"]["medium"]["url"]
-
             #TODO: decide what to return in case of missing thumbnail
-            else:
-                thumbnail_url = ""
+            thumbnail_url = ""
+
+            if "thumbnails" in playlist["snippet"]:
+                # api call needed as playlist thumbnail != thumbnail of first video (or not inevitable)
+                thumbnail_url = playlist["snippet"]["thumbnails"]["medium"]["url"]
 
             result.append({
                 "source": "youtube",
@@ -91,9 +89,9 @@ def search():
                 "source": "vimeo",
                 "id": video["uri"].split("/")[2],
                 "title": video["name"],
+                #TODO: check if thumbnail of first video is always thumbnail of channel (or customizable as on YouTube)
                 "thumb": ("https://i.vimeocdn.com/video/{}_100x75.jpg").format(video["pictures"]["uri"].split("/")[4]),
                 "amount": video["metadata"]["connections"]["videos"]["total"]
             })
-
 
         return dumps(result)

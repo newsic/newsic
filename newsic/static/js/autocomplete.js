@@ -22,8 +22,6 @@
 
 var list = [];
 var timeout = null;
-var playlist;
-//var autocomplete = false;
 
 var container = document.getElementById("autocomplete");
 var input = container.getElementsByTagName("input")[0];

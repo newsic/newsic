@@ -43,10 +43,10 @@ def read_config(value):
         if getenv(value) == "False":
             return False
         return getenv(value)
-    return app.config[value]
+    if value in app.config:
+        return app.config[value]
 
-@app.errorhandler(404)
-def four0four(_):
+def not_found(_):
 
     """
     Handling of non-available routes
@@ -196,26 +196,22 @@ def ensure_lang_support():
             bodyClass="home",
             title=gettext(u"URL not found")), 404
 
+
 @babel.localeselector
 def get_locale():
     # use standard language as set in config.py
     if g.get('lang_code') in read_config("LANGUAGES"):
-        return g.get('lang_code', read_config("BABEL_DEFAULT_LOCALE"))
+        return g.get('lang_code')
 
     # Open Graph/Facebook support
     if request.args.get("fb_locale") and request.args.get("fb_locale").partition("_")[0] in read_config("LANGUAGES"):
         return request.args.get("fb_locale").partition("_")[0]
 
     # best match (based on user request)
-    return request.accept_languages.best_match(read_config("LANGUAGES"))
+    bestmatch = request.accept_languages.best_match(read_config("LANGUAGES"))
 
+    if bestmatch:
+        return bestmatch
 
-@app.before_request
-def runtime():
-
-    """
-    Calculation of runtime
-    """
-    
-    g.starttime = perf_counter()
-    g.runtime = lambda: "%.5fs" % (perf_counter() - g.starttime)
+    # fall back to default language
+    return read_config("BABEL_DEFAULT_LOCALE")

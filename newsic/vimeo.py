@@ -81,8 +81,6 @@ def play_vimeo(vimeo_type, vimeo_id):
                 data["duration"],
                 ids.group(2)])
 
-    debug(("\nRuntime: {}").format(g.runtime()))
-
     return render_template(
         "play.html",
         getlocale=get_locale(),
@@ -92,8 +90,7 @@ def play_vimeo(vimeo_type, vimeo_id):
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
         title=video_list[0][2] + " - " + general_data["name"],
-        message="vimeo-beta",
-        runtime=g.runtime())
+        message="vimeo-beta")
 
 @bp.route("/vimeo/mix/<int:vimeo_id>/")
 @cache()
@@ -131,8 +128,6 @@ def mix_vimeo(vimeo_id):
                 data["duration"],
                 ids.group(2)])
 
-    debug(("\nRuntime: {}").format(g.runtime()))
-
     return render_template(
         "play.html",
         getlocale=get_locale(),
@@ -141,5 +136,4 @@ def mix_vimeo(vimeo_id):
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
         title=video_list[0][2] + " - " + gettext(u"Vimeo mix"),
-        message="vimeo-beta",
-        runtime=g.runtime())
+        message="vimeo-beta")

@@ -7,7 +7,7 @@ from flask import (
 )
 
 from newsic.functions import (
-    cache, get_locale, gettext, debug
+    cache, get_locale, gettext, debug, read_config
 )
 
 import re
@@ -26,9 +26,7 @@ def index():
         "index.html",
         getlocale=get_locale(),
         bodyClass="home",
-        title=gettext(u"Home"),
-        runtime=g.runtime()
-    )
+        title=gettext(u"Home"))
 
 @bp.route("/", methods=["POST"])
 def index_post():

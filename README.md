@@ -18,17 +18,19 @@ Got YouTube or Vimeo playlists with way too many songs and a thirst for explorin
 
 newsic's backend is based on Python 3 and the [Flask](https://github.com/pallets/flask) framework, while the frontend uses [Plyr](https://github.com/sampotts/plyr) (which comes bundled with this repository). Required Python packages are listed in the [requirements.txt](/requirements.txt).
 
-## Usage
+### Optional dependencies
+
+Starting with version 0.3 newsic offers support for caching, compressing and minifying - based on [Flask Caching](https://github.com/sh4nks/flask-caching), [Flask-Compress](https://github.com/libwilliam/flask-compress) and [htmlmin](https://github.com/mankyd/htmlmin). The packages are installable with `pip install -r requirements-performance.txt`. See [config.py.example](/config.py.example) for all available options and module documentation.
+
+For using `.env` and `.flaskenv` newsic supports python-dotenv. Installable with `pip install -r requirements-env.txt` or, more directly: `pip install python-dotenv`.
+
+## Run
 
 1. Clone this repository: `git clone https://github.com/newsic/newsic.git`
-2. Create a config.py from config.py.example
+2. Go to newsic/newsic and create a config.py from config.py.example
 3. Add your API keys ([YouTube](https://developers.google.com/youtube/v3/getting-started), [Vimeo](https://developer.vimeo.com/api)) to config.py
 4. Install the minimal requirements with `pip install -r requirements.txt`; you might want to use a virtual environment
-5. Start newsic with `python3 newsic.py`, which is now available at [127.0.0.1:5000](http://127.0.0.1:5000)
-
-### Performance and caching
-
-Starting with version 0.3 newsic offers optional support for caching, compressing and minifying - based on [Flask Caching](https://github.com/sh4nks/flask-caching), [Flask-Compress](https://github.com/libwilliam/flask-compress) and [Flask-HTMLmin](https://github.com/hamidfzm/Flask-HTMLmin). The packages are installable with `pip install -r requirements-performance.txt`. See [config.py.example](/config.py.example) for all available options and module documentation.
+5. Set newsic as Flask app with `export FLASK_APP=newsic` and start it with `flask run`. The script is now running at [127.0.0.1:5000](http://127.0.0.1:5000)
 
 ### Deployment
 

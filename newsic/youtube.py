@@ -271,7 +271,6 @@ def play_youtube(youtube_playlist):
     # TODO: rename yt_grab
     video_list = yt_grab(playlist_id=youtube_playlist)
 
-    debug(("\nRuntime: {}").format(g.runtime()))
     return render_template(
         "play.html",
         getlocale=get_locale(),
@@ -280,8 +279,7 @@ def play_youtube(youtube_playlist):
         playlistCreator=general_info["channelTitle"],
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
-        title=video_list[0][2] + " - " + general_info["title"],
-        runtime=g.runtime())
+        title=video_list[0][2] + " - " + general_info["title"])
 
 
 @bp.route("/watch/")

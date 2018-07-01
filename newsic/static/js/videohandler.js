@@ -178,7 +178,7 @@ var playPrevious = function() {
         prevOrNext = "prev";
         i--;
         jumpTo(i);
-        updateElements();
+        //updateElements();
     }
 }
 
@@ -187,7 +187,7 @@ var playNext = function() {
         prevOrNext = "next";
         i++;
         jumpTo(i);
-        updateElements();
+        //updateElements();
     }
 }
 
@@ -200,7 +200,7 @@ var searchLyrics = function() {
 }
 
 var updateElements = function() {
-    var index;
+    var index = 0;
 
     var firstCountdown = document.getElementsByClassName("countdown");
     if(firstCountdown.length > 1) firstCountdown[1].classList.toggle("countdown");
@@ -215,27 +215,32 @@ var updateElements = function() {
     document.getElementById("title").innerHTML = title;
     document.getElementsByTagName("title")[0].innerHTML = title + " - " + document.getElementById("snippets").dataset.playlisttitle + " - newsic";
 
-    index = 0;
+    if(playNextElements.item(1)) index = 1;
 
+    searchLyricsElements[index].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
+    playMixElements[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id + "/";
 
-    // TODO: these elements have already been referenced (lines 110 and 111)
-    document.getElementsByClassName("searchLyrics")[index].href = "https://genius.com/search?q=" + title.replace(/\s+/g, '+');
-    document.getElementsByClassName("playMix")[index].href = "/" + snippets[i].dataset.type + "/mix/" + snippets[i].dataset.id + "/";
+    switch(i) {
+        case snippets.length - 1:
+            playNextElements[index].classList.add("inactive");
+            playNextElements[index].setAttribute("disabled", "disabled");
+            playPreviousElements[index].classList.remove("inactive");
+            playPreviousElements[index].removeAttribute("disabled", "disabled");
+            break;
 
-    if(i == (snippets.length - 1)) {
-        playNextElements[0].classList.add("inactive");
-        playNextElements[0].setAttribute("disabled", "disabled");
-    } else {
-        playNextElements[0].classList.remove("inactive");
-        playNextElements[0].removeAttribute("disabled");
-    }
+        case 0:
+            playPreviousElements[index].classList.add("inactive");
+            playPreviousElements[index].setAttribute("disabled", "disabled");
+            playNextElements[index].classList.remove("inactive");
+            playNextElements[index].removeAttribute("disabled", "disabled");
+            break;
 
-    if(i == 0) {
-        playPreviousElements[0].classList.add("inactive");
-        playPreviousElements[0].setAttribute("disabled", "disabled");
-    } else {
-        playPreviousElements[0].classList.remove("inactive");
-        playPreviousElements[0].removeAttribute("disabled");
+        default:
+            playNextElements[index].classList.remove("inactive");
+            playNextElements[index].removeAttribute("disabled", "disabled");
+            playPreviousElements[index].classList.remove("inactive");
+            playPreviousElements[index].removeAttribute("disabled", "disabled");
+            break;
     }
 }
 
@@ -248,20 +253,20 @@ var jumpTo = function(index) {
             provider: snippets[index].dataset.type
         }]
     };
+    updateElements();
 }
 
 var mindTheHash = function() {
     // set index to first array element or - if hash in url is set - to requested item
     if (location.hash) {
         debugMessage("Hash is set");
-        var input = window.location.hash.replace("#","");
-		if(input < snippets.length) i = input; 
-		else  i = window.location.hash = snippets.length-1;  // if hash > no. of videos
+        var input = Number(window.location.hash.replace("#",""));
+		if(input < snippets.length) i = input;
+		else i = window.location.hash = snippets.length-1;  // if hash > no. of videos
     } else i = 0; // no hash
 
-    debugMessage("This is the beginning of a newsic session, the player is ready. Whoop whoop, fasten your seatbelts, etc.");
+    if (i == 0) debugMessage("This is the beginning of a newsic session, the player is ready. Whoop whoop, fasten your seatbelts, etc.");
     jumpTo(i);
-    updateElements();
 };
 
 var PlyrCustomButton = function(className, before, dataPlyr, fontawesome, labeltext) {
@@ -322,15 +327,17 @@ video.on("ready", function() {
         video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
     }
 
-        debugMessage("Jumped to start time.");
-        debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
+    updateElements();
 
-        // handle newsic's autoplay setting (affects first snippet only)
-        if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
-            video.pause();
-        } else video.play();
+    debugMessage("Jumped to start time.");
+    debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
 
-        if (!muted) video.muted = false;
+    // handle newsic's autoplay setting (affects first snippet only)
+    if(!autoplayFirstVideo && !location.hash && i === 0 && prevOrNext != "prev") {
+        video.pause();
+    } else video.play();
+
+    if (!muted) video.muted = false;
     }
 );
 
@@ -345,13 +352,7 @@ video.on("playing", function() {
     elementPlayPause.appendChild(newElement);
 
     if(snippets[i].dataset.type === "vimeo" && ready) {
-
-        console.log("playing event");
-
         video.currentTime = parseFloat(snippets[i].getAttribute("data-start"));
-
-        debugMessage("Jumped to start time.");
-        debugMessage(snippets[i].dataset.id + " " +  snippets[i].dataset.start + " " + snippets[i].dataset.end);
         ready = false;
     }
 });

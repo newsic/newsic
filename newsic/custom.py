@@ -121,5 +121,4 @@ def custom_playlist(path):
         playlistVideoAmount=len(video_list),
         playlistLength=int(float((len(video_list) * int(read_config("SNIPPETLENGTH"))) / 60)),
         title=video_list[0][2] + " - " + gettext(u"Custom playlist"),
-        message=message,
-        runtime=g.runtime())
+        message=message)

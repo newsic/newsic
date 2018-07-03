@@ -178,7 +178,6 @@ var playPrevious = function() {
         prevOrNext = "prev";
         i--;
         jumpTo(i);
-        //updateElements();
     }
 }
 
@@ -187,7 +186,6 @@ var playNext = function() {
         prevOrNext = "next";
         i++;
         jumpTo(i);
-        //updateElements();
     }
 }
 

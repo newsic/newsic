@@ -6,7 +6,7 @@ from flask import (
     current_app as app, g, request, render_template, url_for
 )
 from time import perf_counter
-from click import echo as click_echo
+from click import echo
 from flask_babel import Babel, gettext
 
 """
@@ -118,10 +118,10 @@ def flushcache():
     """
 
     if read_config("CACHE"):
-        click_echo("Cache successfully flushed")
+        echo("Cache successfully flushed")
         CACHE.clear()
     else:
-        click_echo("Cache inactive, unable to flush")
+        echo("Cache inactive, unable to flush")
 
 
 """

@@ -98,16 +98,15 @@
 
     <div class="main">
       <h2>{{ playlistTitle }}</h2>
-      <!-- This playlist is curated by {{ playlistCreator }}. It contains {{ playlistVideoAmount }} snippets. -->
-
-      <ul>
-        <li>Playlist by {{ playlistCreator }}</li>
-        <li>{{ playlistVideoAmount }} snippets</li>
-      </ul>
+      {{ _('Playlist by %(creator)s', creator=playlistCreator) }}
+      
+      <p>
+        <span>{{ _('%(amount)s snippets', amount=playlistVideoAmount) }}</span> <span>{{ _('%(min)s min', min=playlistLength) }}</span>
+      </p>
     </div>
 
     {%- for key in videolist %}
-    <a href="#{{ loop.index0 }}" data-type="{{ key[1] }}" data-id="{{ key[0] }}" data-length="{{ key[5] }}" data-start="{{ key[3] }}" data-end="{{ key[4] }}" title="{{ gettext('Go directly to %(link)s', link=key[2]) }}" itemscope itemtype="http://schema.org/VideoObject">
+    <a href="#{{ loop.index0 }}" data-type="{{ key[1] }}" data-id="{{ key[0] }}" data-length="{{ key[5] }}" data-start="{{ key[3] }}" data-end="{{ key[4] }}" title="{{ _('Go directly to %(link)s', link=key[2]) }}" itemscope itemtype="http://schema.org/VideoObject">
       
       <img class="lazy" src="{{ url_for('static', filename='img/loading.svg') }}"
 
@@ -168,5 +167,5 @@
   <script async src="{{ url_for('static', filename='js/videohandler.js') }}"></script>
   <script async src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
   <script defer src="{{ url_for('static', filename='js/lazyload.js') }}"></script>
-  <script defer src="{{ url_for('static', filename='js/miniplayer.js') }}"></script>
+  <!-- <script defer src="{{ url_for('static', filename='js/miniplayer.js') }}"></script> -->
 {% endblock %}

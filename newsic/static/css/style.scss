@@ -239,7 +239,7 @@ footer {
 }
 
 
-.snippetinfo span, .featured span {
+.featured span, #snippets .main span {
     border: 1px solid #7B7B7B;
     border-radius: 2px;
 
@@ -276,8 +276,12 @@ h1 {
 
     .main {
         background: #3d3d3d;
-        padding: 2vw 1vw;
-        text-align: justify;
+        padding: 2vw;
+
+        p {
+            margin-top: 1.5vw;
+            font-size: .9em;
+        }
     
         h2 {
             margin-top: 0;

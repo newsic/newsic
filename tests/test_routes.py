@@ -1,10 +1,25 @@
 import pytest
 
 @pytest.mark.parametrize("route, expected", [
-    ("/youtube/PLdduFHK2eLvfGM7ADIbCgWHFRvu1yBNj0/", "Now, Now - MJ"),
+    ("/youtube/PLdduFHK2eLvfGM7ADIbCgWHFRvu1yBNj0/", "Now, Now - MJ")
+])
+def test_youtube(client, route, expected):
+    response = client.get(route)
+    assert expected.encode('ascii') in response.data
+
+
+@pytest.mark.parametrize("route, expected", [
     ("/vimeo/album/3951181/", "Rollercoaster Girl")
 ])
-def test_routes(client, route, expected):
+def test_vimeo(client, route, expected):
+    response = client.get(route)
+    assert expected.encode('ascii') in response.data
+
+
+@pytest.mark.parametrize("route, expected", [
+    ("/custom/youtube:1nvNKi-QT2Q/youtube:YpYSUWrF59A/", "PEN AND PAPER THEME SONG")
+])
+def test_custom_playlist(client, route, expected):
     response = client.get(route)
     assert expected.encode('ascii') in response.data
 

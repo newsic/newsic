@@ -7,124 +7,129 @@ msgid ""
 msgstr ""
 "Project-Id-Version: newsic 0.3\n"
 "Report-Msgid-Bugs-To: hallo@tocsin.de\n"
-"POT-Creation-Date: 2018-01-10 14:03+0100\n"
+"POT-Creation-Date: 2018-07-03 14:58+0200\n"
 "PO-Revision-Date: 2018-01-12 19:39+0100\n"
 "Last-Translator: Stephan Fischer <hallo@tocsin.de>\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.1\n"
-"X-Generator: Poedit 2.0.5\n"
+"Generated-By: Babel 2.5.3\n"
 
-#: newsic.py:355
-msgid "Home"
-msgstr "Page d'accueil"
-
-#: newsic.py:449 newsic.py:451 newsic.py:519 newsic.py:521
+#: custom.py:48 custom.py:50 index.py:116 index.py:118 youtube.py:320
+#: youtube.py:322
 msgid "No music found"
 msgstr "Aucune musique trouvée"
 
-#: newsic.py:589 newsic.py:593
+#: custom.py:119 custom.py:123
 msgid "Custom playlist"
 msgstr "Playlist personnalisée"
 
-#: newsic.py:590
+#: custom.py:120
 msgid "Anonymous"
 msgstr "Anonyme"
 
-#: newsic.py:634 newsic.py:650
-msgid "No mix available for this video"
-msgstr "Pas de mélange disponible pour cette vidéo"
-
-#: newsic.py:636 newsic.py:652
-msgid "No mix available"
-msgstr "Pas de mélange disponible"
-
-#: newsic.py:669
-msgid "This playlist is either empty, private or non-existing"
-msgstr "Cette playlist est vide, privée ou n'existe pas"
-
-#: newsic.py:671
-msgid "Invalid playlist"
-msgstr "Pas valide playlist"
-
-#: newsic.py:701 newsic.py:703 newsic.py:813 newsic.py:815
+#: functions.py:58 functions.py:60 functions.py:195 functions.py:197
+#: vimeo.py:43 vimeo.py:45
 msgid "URL not found"
 msgstr "URL introuvable"
 
-#: newsic.py:714
+#: index.py:29
+msgid "Home"
+msgstr "Page d'accueil"
+
+#: vimeo.py:56
 msgid "This album/channel is either empty, private or non-existing"
 msgstr "Cet album/canal est vide, privé ou n'existe pas"
 
-#: newsic.py:716
+#: vimeo.py:58
 msgid "Can't handle album/channel"
 msgstr "Ne peut pas gérer album/canal"
 
-#: newsic.py:795 newsic.py:798
+#: vimeo.py:135 vimeo.py:138
 msgid "Vimeo mix"
 msgstr "Vimeo mélange"
 
-#: templates/base.html:45 templates/base.html:46 templates/index.html:12
+#: youtube.py:229 youtube.py:247
+msgid "No mix available for this video"
+msgstr "Pas de mélange disponible pour cette vidéo"
+
+#: youtube.py:231 youtube.py:249
+msgid "No mix available"
+msgstr "Pas de mélange disponible"
+
+#: youtube.py:267
+msgid "This playlist is either empty, private or non-existing"
+msgstr "Cette playlist est vide, privée ou n'existe pas"
+
+#: youtube.py:269
+msgid "Invalid playlist"
+msgstr "Pas valide playlist"
+
+#: templates/base.html:47 templates/base.html:48 templates/index.html:12
 msgid "Explore music from YouTube and Vimeo snippet by snippet"
 msgstr "Découvres la musique de YouTube et de Vimeo extrait par extrait"
 
-#: templates/base.html:56
+#: templates/base.html:58
 msgid "Go to start page"
 msgstr "Aller à la page d'accueil"
 
-#: templates/base.html:57 templates/base.html:58 templates/index.html:9
+#: templates/base.html:59 templates/base.html:60 templates/index.html:9
 msgid "Suddenly a wild newsic logo appears. Hey look, it's a SVG!"
 msgstr "Logo magnifique de newsic"
 
-#: templates/base.html:63 templates/index.html:23
+#: templates/base.html:65 templates/index.html:23
 msgid "Start typing or paste a playlist URL"
 msgstr "Commence à tape ou colle une URL"
 
-#: templates/base.html:68 templates/index.html:29
+#: templates/base.html:70 templates/index.html:29
 msgid "start"
 msgstr "commencer"
 
-#: templates/base.html:77
-msgid "Visit tocsin.de, the portfolio of the newsic creator"
-msgstr "Visite tocsin.de, le portfolio du créateur de newsic"
+#: templates/base.html:83
+msgid "Go to newsic's project page"
+msgstr "Aller à la page du projet de newsic"
 
-#: templates/base.html:78
-msgid "Made with <i class=\"fas fa-heart\"></i> by tocsin"
-msgstr "Produit avec <i class=\"fas fa-heart\"></i> par tocsin"
+#: templates/base.html:84
+msgid "About newsic"
+msgstr "À propos de newsic"
 
-#: templates/base.html:80
+#: templates/base.html:87
 msgid "Feel free to fork or review the Code on GitHub"
 msgstr "N'héstite pas à fork ou revoire le code sur GitHub"
 
-#: templates/base.html:81
+#: templates/base.html:88
 msgid "Source code on GitHub"
 msgstr "Code source sur GitHub"
 
-#: templates/base.html:90
-msgid "runtime"
-msgstr "temps d'exécution"
+#: templates/base.html:92
+msgid "Visit tocsin.de, the portfolio of the newsic creator"
+msgstr "Visite tocsin.de, le portfolio du créateur de newsic"
+
+#: templates/base.html:92
+msgid "Made with <i class=\"fas fa-heart\"></i> by tocsin"
+msgstr "Produit avec <i class=\"fas fa-heart\"></i> par tocsin"
 
 #: templates/index.html:35
 msgid ""
 "Try newsic and discover new music with these hand-selected sample "
 "playlists."
-msgstr ""
-"Essaye newsic et découvre de musique avec cettes playlists sélectionnés."
+msgstr "Essaye newsic et découvre de musique avec cettes playlists sélectionnés."
 
 #: templates/index.html:37
 #, python-format
 msgid ""
-"Find more newsic playlists on <a href=\"%(link_youtube)s\" target="
-"\"_blank\" title=\"newsic on YouTube\">%(icon_youtube)s YouTube</a> and "
-"on <a href=\"%(link_vimeo)s\" target=\"_blank\" title=\"newsic on Vimeo"
-"\">%(icon_vimeo)s Vimeo</a>."
+"Find more newsic playlists on <a href=\"%(link_youtube)s\" "
+"target=\"_blank\" title=\"newsic on YouTube\">%(icon_youtube)s "
+"YouTube</a> and on <a href=\"%(link_vimeo)s\" target=\"_blank\" "
+"title=\"newsic on Vimeo\">%(icon_vimeo)s Vimeo</a>."
 msgstr ""
-"Trouve plus playlists de newsic sur  <a href=\"%(link_youtube)s\" target="
-"\"_blank\" title=\"newsic sur YouTube\">%(icon_youtube)s YouTube</a> et "
-"sur <a href=\"%(link_vimeo)s\" target=\"_blank\" title=\"newsic sur Vimeo"
-"\">%(icon_vimeo)s Vimeo</a>."
+"Trouve plus playlists de newsic sur  <a href=\"%(link_youtube)s\" "
+"target=\"_blank\" title=\"newsic sur YouTube\">%(icon_youtube)s "
+"YouTube</a> et sur <a href=\"%(link_vimeo)s\" target=\"_blank\" "
+"title=\"newsic sur Vimeo\">%(icon_vimeo)s Vimeo</a>."
 
 #: templates/index.html:40
 msgid "Go to San Fermin playlist"
@@ -156,128 +161,149 @@ msgstr "Aller à Campusradio Dresden album"
 
 #: templates/index.html:72
 msgid "Attention: The support for Vimeo playlists is still in beta status"
-msgstr ""
-"Attention: Le support des playlists Vimeo est toujours en version bêta"
+msgstr "Attention: Le support des playlists Vimeo est toujours en version bêta"
 
-#: templates/index.html:78 templates/play.html:143
+#: templates/index.html:79 templates/play.html:158
 msgid "No results :("
 msgstr "Pas des résultates :("
 
-#: templates/index.html:79 templates/play.html:144
+#: templates/index.html:80 templates/play.html:159
 msgid "videos"
 msgstr "vidéos"
 
-#: templates/play.html:39
+#: templates/play.html:36
 msgid ""
-"Vimeo support is still beta, sorry. <!-- <br/>Please <a href=\"https://"
-"github.com/newsic/newsic/issues\" target=\"_blank\" title=\"Report bugs "
-"about the Vimeo support via GitHub\">feel free to take a look at the "
-"bug</a> :) -->"
+"Vimeo support is still beta, sorry. <!-- <br/>Please <a "
+"href=\"https://github.com/newsic/newsic/issues\" target=\"_blank\" "
+"title=\"Report bugs about the Vimeo support via GitHub\">feel free to "
+"take a look at the bug</a> :) -->"
 msgstr "Pardon, Vimeo support est toujours en version bêta."
 
-#: templates/play.html:46
+#: templates/play.html:43
 msgid ""
 "Vimeo support is still beta, sorry. The order of videos isn't correct "
 "yet, this is caused by the Vimeo API."
 msgstr "Pardon, Vimeo support est toujours en version bêta."
 
-#: templates/play.html:54
+#: templates/play.html:52
 msgid ""
 "Either your browser is a disastrous piece of old crap or you should stop "
 "blocking JavaScript.\n"
-"\t\t\tWe kindly ask you to make a decision: Either activate JavaScript "
+"        We kindly ask you to make a decision: Either activate JavaScript "
 "(or whitelist newsic on your content blocker) or install/use a fresh "
 "version of Firefox, Chromium/Chrome, Safari, Vivaldi, Opera or something "
 "else instead.\n"
-"\t\t\tPSA: Using Edge isn't as cutting-edge as it sounds; but hey, "
+"        PSA: Using Edge isn't as cutting-edge as it sounds; but hey, "
 "that's entirely up to you :)"
-msgstr "Active JavaScript, s'il te plait."
+msgstr ""
+"Active Javascript s'il te plait. Ou ajoute newsic au whitelist de ton "
+"adblocker."
 
-#: templates/play.html:71
+#: templates/play.html:70
 msgid "Previous snippet (shortcuts: A or left arrow key)"
 msgstr "Extrait précédent (raccourci: A ou touche fléchée gauche)"
 
-#: templates/play.html:74
+#: templates/play.html:73
 msgid "Play/pause (shortcuts: S, K or space bar)"
 msgstr "Jouer/pause (raccourci: S, K ou barre d'espace)"
 
-#: templates/play.html:77
+#: templates/play.html:76
 msgid "Next snippet (shortcuts: D or right arrow key)"
 msgstr "Extrait suivant (raccourci: D ou touche fléchée droite)"
 
-#: templates/play.html:82
+#: templates/play.html:81
 msgid "Play complete song (shortcut: C)"
 msgstr "Jouer chanson complète (raccourci: C)"
 
-#: templates/play.html:83
+#: templates/play.html:82
 msgid "Complete"
 msgstr "Chanson complète"
 
-#: templates/play.html:85
+#: templates/play.html:84
 msgid "Play mix based on current video (shortcut: X)"
 msgstr "Jouer mix basé sur vidéo actuelle (raccourci: X)"
 
-#: templates/play.html:86 templates/play.html:136
+#: templates/play.html:85 templates/play.html:149
 msgid "Mix"
 msgstr "Mix"
 
-#: templates/play.html:88
+#: templates/play.html:87
 msgid "Search lyrics on Genius.com (shortcut: L)"
 msgstr "Rechercher les paroles sur Genius.com (raccourci: L)"
 
-#: templates/play.html:89 templates/play.html:137
+#: templates/play.html:88 templates/play.html:150
 msgid "Lyrics"
 msgstr "Paroles"
 
-#: templates/play.html:100
+#: templates/play.html:101
+#, python-format
+msgid "Playlist by %(creator)s"
+msgstr "Playlist par %(creator)s"
+
+#: templates/play.html:104
+#, python-format
+msgid "%(amount)s snippets"
+msgstr "%(amount)s fragments"
+
+#: templates/play.html:104
+#, python-format
+msgid "%(min)s min"
+msgstr "%(min)s min"
+
+#: templates/play.html:109
 #, python-format
 msgid "Go directly to %(link)s"
 msgstr "Aller directement à %(link)s"
 
-#: templates/play.html:128
+#: templates/play.html:138
 msgid "Next snippet"
 msgstr "Extrait suivant"
 
-#: templates/play.html:129
+#: templates/play.html:139
 msgid "Play"
 msgstr "Jouer"
 
-#: templates/play.html:130
+#: templates/play.html:140
 msgid "Pause"
 msgstr "Pause"
 
-#: templates/play.html:131
+#: templates/play.html:141
 msgid "Previous snippet"
 msgstr "Extrait précédent"
 
-#: templates/play.html:132
+#: templates/play.html:144
 msgid "Toggle mute"
 msgstr "Bascule muet"
 
-#: templates/play.html:133
+#: templates/play.html:145
 msgid "Volume"
 msgstr "Volume"
 
-#: templates/play.html:134
+#: templates/play.html:146
 msgid "buffered"
 msgstr "tamponné"
 
-#: templates/play.html:135
+#: templates/play.html:147
+msgid "Seek"
+msgstr "chercher"
+
+#: templates/play.html:148
 msgid "Complete snippet"
 msgstr "Extrait complet"
 
-#: templates/play.html:138
+#: templates/play.html:153
 msgid "Toggle fullscreen"
 msgstr "Bascule plein écran"
 
-#: templates/play.html:139
+#: templates/play.html:154
 msgid "Embedding forbidden or blocked in your country"
 msgstr "Intégration interdite ou bloquée dans ton pays"
 
-#: templates/play.html:140
+#: templates/play.html:155
 msgid "Sorry, not available in your country"
 msgstr "Padon, pas disponible dans ton pays"
 
-#: templates/play.html:141
+#: templates/play.html:156
 msgid "Video skipped"
 msgstr "Vidéo sautée"
+

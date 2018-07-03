@@ -193,7 +193,7 @@ footer a:hover .fa-heart, footer a:visited:hover .fa-heart {
   border: 1px solid #616161;
 }
 
-.snippetinfo span, .featured span {
+.featured span, #snippets .main span {
   border: 1px solid #7B7B7B;
   border-radius: 2px;
   padding: 5px 10px 5px 10px;
@@ -227,8 +227,12 @@ h1 {
 
 #snippets .main {
   background: #3d3d3d;
-  padding: 2vw 1vw;
-  text-align: justify;
+  padding: 2vw;
+}
+
+#snippets .main p {
+  margin-top: 1.5vw;
+  font-size: .9em;
 }
 
 #snippets .main h2 {

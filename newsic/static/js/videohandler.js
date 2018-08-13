@@ -90,7 +90,7 @@ var optionsPlyr = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: false,
-    iconUrl: '/static/img/plyr/plyr-3.3.23.svg',
+    iconUrl: '/static/img/plyr/plyr-3.4.0.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },

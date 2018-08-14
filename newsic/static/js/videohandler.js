@@ -75,29 +75,21 @@ var i18nPlyr =  {
     mute: i18n_videohandler_togglemute,
     unmute: i18n_videohandler_togglemute,
 
-    // TODO: play.html needs sepeate versions for enter and exit
+    // TODO: play.html needs seperate versions for enter and exit
     enterFullscreen: i18n_videohandler_togglefullscreen,
     exitFullscreen: i18n_videohandler_togglefullscreen,
-    
-    // TODO:  translate
-    //settings: 'Settings',
-    //speed: 'Speed',
-    //normal: 'Normal',
-    //quality: 'Quality',
 };
 
 var optionsPlyr = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: false,
-    iconUrl: '/static/img/plyr/plyr-3.4.0.svg',
+    iconUrl: '/static/img/plyr/plyr-3.4.3.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },
     controls: controlsPlyr,
     i18n: i18nPlyr,
-    // Unsupported value of 'large' for quality
-    //quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }
 };
 
 var video = new Plyr('.plyr', optionsPlyr);

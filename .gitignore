@@ -7,6 +7,10 @@ __pycache__/
 newsic/__pycache__/
 newsic/config.py
 newsic/.env
-.vscode
 cache
 newsic/cache
+
+.vscode
+
+node_modules
+package-lock.json

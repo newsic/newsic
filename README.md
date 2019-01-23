@@ -56,7 +56,7 @@ Shortcut | What it does
 
 ## License
 
-MIT License, Copyright (c) 2015-2018 Stephan Fischer (@tocsinDE, [stephan-fischer.de](https://stephan-fischer.de), [tocsin.de](https://tocsin.de))
+MIT License, Copyright (c) 2015-2019 Stephan Fischer (@tocsinDE, [stephan-fischer.de](https://stephan-fischer.de), [tocsin.de](https://tocsin.de))
 
 For more details see [LICENSE](/LICENSE).
 

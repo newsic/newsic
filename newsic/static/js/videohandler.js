@@ -51,10 +51,10 @@ Default: true
 var autoplayPlyr = true;
 
 var controlsPlyr = [
-    'mute',
-    'volume',
     'play-large',
     'play',
+    'mute',
+    'volume',
     'progress',
     //'settings',
     'pip',
@@ -84,7 +84,7 @@ var optionsPlyr = {
     autoplay: autoplayPlyr,
     blankUrl: '/static/blank.mp4',
     debug: false,
-    iconUrl: '/static/img/plyr/plyr-3.5.0.svg',
+    iconUrl: '/static/img/plyr/plyr-3.5.4.svg',
     keyboard: { global: false, focused: false },
     tooltips: { controls: true },
     captions: { active: false },
@@ -291,7 +291,7 @@ video.on("ready", function() {
     complete = false;
 
     PlyrCustomButton("playPrevious", "[data-plyr=play]", "backward", "fas fa-backward", i18n_videohandler_previoussnippet);
-    PlyrCustomButton("playNext", "div.plyr__progress", "backward", "fas fa-forward", i18n_videohandler_nextsnippet);
+    PlyrCustomButton("playNext", "[data-plyr=mute]", "backward", "fas fa-forward", i18n_videohandler_nextsnippet);
 
     // these buttons were placed before settings menu ("[data-plyr=settings]")
     PlyrCustomButton("playComplete", "[data-plyr=fullscreen]", "complete", "fas fa-plus-square", i18n_videohandler_completesnippet);

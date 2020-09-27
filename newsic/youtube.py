@@ -181,7 +181,11 @@ def yt_general_playlist_info(playlist_id):
         "{}/playlists?part=snippet&id={}"
         + "&fields=items(snippet(channelTitle,title))&key={}").format(
             read_config("YOUTUBE_API_URL"), playlist_id, read_config("YOUTUBE_API_KEY"))
-    data_response = loads(urllib_request.urlopen(request_data).read().decode())
+
+    try:
+        data_response = loads(urllib_request.urlopen(request_data).read().decode())
+    except:
+        return False
 
     if data_response["items"]:
         return data_response["items"][0]["snippet"]

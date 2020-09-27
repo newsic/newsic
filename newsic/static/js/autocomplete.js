@@ -154,7 +154,7 @@ input.oninput = function() {
     request.open("POST", "/search", true);
 
     // needed?
-    request.setRequestHeader("Content-type", "application/json");
+    request.setRequestHeader("Content-Type", "application/json");
 
     request.onreadystatechange = function() {
 

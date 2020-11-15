@@ -17,17 +17,21 @@ try:
     from flask_caching import Cache
     from flask_compress import Compress
     from htmlmin import Minifier
-    from dotenv import load_dotenv, find_dotenv
 except ImportError:
+    pass
+
+try:
+    from dotenv import load_dotenv, find_dotenv
+    load_dotenv(find_dotenv())
+except:
     pass
 
 # for python-dotenv
 from os import getenv
 
-app.config.from_object('newsic.config.Local')
 try:
-    load_dotenv(find_dotenv(), override=True)
-except:    
+    app.config.from_object('newsic.config.Local')
+except:
     pass
 
 def read_config(value):
@@ -45,6 +49,8 @@ def read_config(value):
         return getenv(value)
     if value in app.config:
         return app.config[value]
+    else:
+        return False
 
 def not_found(_):
 
@@ -170,6 +176,7 @@ Flask-Babel
 """
 
 babel = Babel(app)
+languages = ["de", "fr", "en"]
 
 @app.url_defaults
 def add_language_code(endpoint, values):
@@ -188,10 +195,10 @@ def ensure_lang_support():
     """
     
     lang_code = g.get('lang_code', None)
-    if lang_code and lang_code not in read_config("LANGUAGES"):
+    if lang_code and lang_code not in languages:
         return render_template(
             "index.html",
-            getlocale=request.accept_languages.best_match(read_config("LANGUAGES")),
+            getlocale=request.accept_languages.best_match(languages),
             error=gettext(u"URL not found"),
             bodyClass="home",
             title=gettext(u"URL not found")), 404
@@ -199,16 +206,15 @@ def ensure_lang_support():
 
 @babel.localeselector
 def get_locale():
-    # use standard language as set in config.py
-    if g.get('lang_code') in read_config("LANGUAGES"):
+    if g.get('lang_code') in languages:
         return g.get('lang_code')
 
     # Open Graph/Facebook support
-    if request.args.get("fb_locale") and request.args.get("fb_locale").partition("_")[0] in read_config("LANGUAGES"):
+    if request.args.get("fb_locale") and request.args.get("fb_locale").partition("_")[0] in languages:
         return request.args.get("fb_locale").partition("_")[0]
 
     # best match (based on user request)
-    bestmatch = request.accept_languages.best_match(read_config("LANGUAGES"))
+    bestmatch = request.accept_languages.best_match(languages)
 
     if bestmatch:
         return bestmatch

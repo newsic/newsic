@@ -7,6 +7,7 @@ name = "pypi"
 Flask = "*"
 Flask-Babel = "*"
 pyvimeo = "*"
+python-dotenv = "*"
 
 [dev-packages]
 pylint = "*"
